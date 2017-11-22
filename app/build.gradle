@@ -5,16 +5,24 @@ android {
     buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.gs.gscartoon"
-        minSdkVersion 15
+        minSdkVersion 18
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 100
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // 不显示log
+            buildConfigField "boolean", "ENABLE_DEBUG", "false"
+        }
+
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "ENABLE_DEBUG", "true"
         }
     }
 }
@@ -24,7 +32,18 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile 'com.android.support:design:26.+'
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.facebook.fresco:fresco:0.12.0'
+    compile 'com.facebook.fresco:animated-gif:0.12.0'
     testCompile 'junit:junit:4.12'
 }
