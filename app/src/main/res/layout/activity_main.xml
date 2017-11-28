@@ -13,16 +13,29 @@
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/abl_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/tb_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                android:background="@drawable/bg_action_bar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:theme="@style/ThemeOverlay.AppCompat.Light">
+                <TextView
+                    android:id="@+id/tv_toolbar_main_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:layout_gravity="center"
+                    android:textColor="@color/WHITE"
+                    android:textSize="20sp"
+                    android:singleLine="true"/>
+            </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
         <FrameLayout
