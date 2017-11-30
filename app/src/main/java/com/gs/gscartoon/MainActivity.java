@@ -1,10 +1,13 @@
 package com.gs.gscartoon;
 
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.gs.gscartoon.kuaikan.model.KuaiKanModel;
 import com.gs.gscartoon.kuaikan.presenter.KuaiKanPresenter;
@@ -22,6 +25,8 @@ import butterknife.Unbinder;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
+    @BindView(R.id.dl_left_main)
+    DrawerLayout dlLeftMain;
     @BindView(R.id.tb_main)
     Toolbar tbToolbar;
 
@@ -40,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView(){
-        ToolbarUtil.InitToolbar(this, tbToolbar);
+        ToolbarUtil.initToolbar(this, tbToolbar);
+        ToolbarUtil.actionBarDrawerToggle(this, dlLeftMain, tbToolbar);
 
         KuaiKanFragment tasksFragment = (KuaiKanFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fl_content);

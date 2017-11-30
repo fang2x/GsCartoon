@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">GsCartoon</string>
 
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
     <string name="kuaikan">快看</string>
     <string name="zhijia">之家</string>
     <string name="manman">漫漫</string>
