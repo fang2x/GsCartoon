@@ -2,6 +2,8 @@
 .gradle
 /local.properties
 /.idea/workspace.xml
+/.idea/gradle.xml
+/.idea/modules.xml
 /.idea/libraries
 /.idea/inspectionProfiles
 .DS_Store
@@ -9,3 +11,4 @@
 /captures
 .externalNativeBuild
 .idea/misc.xml
+.idea/caches/
