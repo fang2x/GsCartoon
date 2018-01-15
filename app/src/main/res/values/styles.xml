@@ -12,6 +12,6 @@
     <style name="SplashAppTheme" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@drawable/ic_start_page</item>
+        <item name="android:windowBackground">@color/ToolbarDark</item>
     </style>
 </resources>

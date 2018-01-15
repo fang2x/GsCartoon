@@ -5,30 +5,41 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
-import android.widget.ImageView;
+
+import me.wangyuwei.particleview.ParticleView;
 
 public class SplashActivity extends AppCompatActivity {
     private static final String TAG = "SplashActivity";
 
     private Handler mHandler = new Handler();
 
-    private ImageView mImageView;
+    private ParticleView pvGs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        mImageView = (ImageView)findViewById(R.id.iv_start_page);
+        pvGs = (ParticleView)findViewById(R.id.pv_gs);
+        pvGs.startAnim();
 
-        mHandler.postDelayed(new Runnable() {
+        pvGs.setOnParticleAnimListener(new ParticleView.ParticleAnimListener() {
+            @Override
+            public void onAnimationEnd() {
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        /*mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
-        }, 1000);
+        }, 1000);*/
     }
 
     @Override
