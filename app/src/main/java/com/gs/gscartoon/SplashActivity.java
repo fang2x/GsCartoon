@@ -3,6 +3,7 @@ package com.gs.gscartoon;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
@@ -27,7 +28,8 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd() {
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intent);
+                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashActivity.this).toBundle();
+                startActivity(intent, bundle);
                 finish();
             }
         });

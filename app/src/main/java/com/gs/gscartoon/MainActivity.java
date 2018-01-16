@@ -1,10 +1,13 @@
 package com.gs.gscartoon;
 
+import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,8 +40,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setupWindowAnimations();
         StatusBarUtil.enableTranslucentStatusBar(this);
-        LightStatusBarUtil.setLightStatusBar(this, true);
+        //LightStatusBarUtil.setLightStatusBar(this, true);
         unbinder = ButterKnife.bind(this);
 
         initView();
@@ -76,6 +81,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    private void setupWindowAnimations() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Transition transition = TransitionInflater.from(this)
+                    .inflateTransition(R.transition.activity_explode);
+            getWindow().setEnterTransition(transition);
+        }
     }
 
     @Override

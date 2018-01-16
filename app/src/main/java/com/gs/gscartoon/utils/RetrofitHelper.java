@@ -1,7 +1,6 @@
 package com.gs.gscartoon.utils;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.gs.gscartoon.BuildConfig;
 import com.gs.gscartoon.RetrofitService;
@@ -15,7 +14,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -77,7 +76,7 @@ public class RetrofitHelper {
                 .baseUrl(url)
                 .client(builder.build())
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
