@@ -14,4 +14,9 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@color/ToolbarDark</item>
     </style>
+
+    <!-- windowBackground影响揭露动画Circular Reveal以及Transition 的效果 -->
+    <style name="HomeTheme" parent="AppTheme">
+        <!--<item name="android:windowBackground">@color/ToolbarDark</item>-->
+    </style>
 </resources>

@@ -54,7 +54,8 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/ic_gs_icon"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_launcher"
                 android:scaleType="centerCrop" />
             <View
                 android:layout_width="match_parent"
@@ -81,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/kuaikan"
-                    android:textColor="@color/BLACK"
+                    android:textColor="@color/KuaiKanColor"
                     android:textSize="15sp" />
             </LinearLayout>
             <LinearLayout
@@ -103,7 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/zhijia"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/ZhiJiaColor"
                     android:textSize="15sp" />
             </LinearLayout>
             <LinearLayout
@@ -125,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/manman"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/ManManColor"
                     android:textSize="15sp" />
             </LinearLayout>
 

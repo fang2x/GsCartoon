@@ -6,6 +6,13 @@
 
     <color name="ToolbarDark">#1D8CE0</color>
     <color name="ToolbarLight">#58B7FF</color>
+    <color name="tab_text_color">#727272</color>
+    <color name="tab_indicator_color">#ffb5a1</color>
+    <color name="tab_selected_text_color">#ffb5a1</color>
+    <color name="tab_background">#ccffff</color>
+    <color name="KuaiKanColor">#FFD705</color>
+    <color name="ManManColor">#FC6454</color>
+    <color name="ZhiJiaColor">#00BEFF</color>
 
     <color name="transparent">#00000000</color>
     <color name="translucent">#77000000</color>

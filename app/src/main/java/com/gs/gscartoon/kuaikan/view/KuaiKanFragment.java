@@ -2,20 +2,38 @@ package com.gs.gscartoon.kuaikan.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.gs.gscartoon.R;
 import com.gs.gscartoon.kuaikan.KuaiKanContract;
+import com.gs.gscartoon.kuaikan.model.KuaiKanListModel;
+import com.gs.gscartoon.kuaikan.presenter.KuaiKanListPresenter;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class KuaiKanFragment extends Fragment implements KuaiKanContract.View{
     private final static String TAG = "KuaiKanFragment";
 
+    @BindView(R.id.vp_viewpager)
+    ViewPager vpViewPager;
+    @BindView(R.id.tl_tabs)
+    TabLayout tlTabLayout;
+
+    private ViewPagerAdapter mViewPagerAdapter;
+    private ArrayList<String> mWeek = null;
     private KuaiKanContract.Presenter mPresenter;
 
     public KuaiKanFragment() {
@@ -56,7 +74,68 @@ public class KuaiKanFragment extends Fragment implements KuaiKanContract.View{
     }
 
     public void initView(){
+        mWeek = new ArrayList<String>();
+        Calendar calendar = Calendar.getInstance();
+        for (int i = 0; i < 7; i++) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EE");
+            mWeek.add(dateFormat.format(calendar.getTime()));
+            calendar.add(Calendar.DATE, -1);
+        }
 
+        mViewPagerAdapter = new ViewPagerAdapter(this.getActivity().getSupportFragmentManager());
+        vpViewPager.setAdapter(mViewPagerAdapter);
+        vpViewPager.setCurrentItem(mViewPagerAdapter.getCount()-1);
+        //Viewpager和Tablayout进行关联
+        tlTabLayout.setupWithViewPager(vpViewPager);
+        //用于多TAB，Tablayout可以滚动
+        //tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        //Tablayout不可以滚动
+        tlTabLayout.setTabMode(TabLayout.MODE_FIXED);
+    }
+
+    class ViewPagerAdapter extends FragmentStatePagerAdapter {
+        int pageCount = 0;
+
+        public ViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+            if(mWeek != null){
+                pageCount = mWeek.size();
+            }
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            KuaiKanListFragment mFragment = KuaiKanListFragment.newInstance();
+            KuaiKanListPresenter mPresenter = new KuaiKanListPresenter(
+                    new KuaiKanListModel(KuaiKanFragment.this.getActivity()), mFragment);
+            return mFragment;
+        }
+
+        @Override
+        public int getCount() {
+            return pageCount;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            String title = "";
+            if(position == pageCount-1){
+                title="今天";
+            }else if(position == pageCount-2){
+                title="昨天";
+            }else {
+                if(mWeek != null && position < mWeek.size()){
+                    title=mWeek.get(pageCount-position-1);
+                }
+            }
+            return title;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            //如果注释这行，那么不管怎么切换，page都不会被销毁
+            //super.destroyItem(container, position, object);
+        }
     }
 
     @Override
