@@ -7,6 +7,8 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
+import com.gs.gscartoon.home.view.HomeActivity;
+
 import me.wangyuwei.particleview.ParticleView;
 
 public class SplashActivity extends AppCompatActivity {
@@ -27,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
         pvGs.setOnParticleAnimListener(new ParticleView.ParticleAnimListener() {
             @Override
             public void onAnimationEnd() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashActivity.this).toBundle();
                 startActivity(intent, bundle);
                 finish();
@@ -37,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
         /*mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
             }

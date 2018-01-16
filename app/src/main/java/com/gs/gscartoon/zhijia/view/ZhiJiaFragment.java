@@ -1,4 +1,4 @@
-package com.gs.gscartoon.kuaikan.view;
+package com.gs.gscartoon.zhijia.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,22 +8,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gs.gscartoon.R;
-import com.gs.gscartoon.kuaikan.KuaiKanContract;
+import com.gs.gscartoon.manman.ManManContract;
+import com.gs.gscartoon.zhijia.ZhiJiaContract;
 
 import butterknife.ButterKnife;
 
 
-public class KuaiKanFragment extends Fragment implements KuaiKanContract.View{
-    private final static String TAG = "KuaiKanFragment";
+public class ZhiJiaFragment extends Fragment implements ZhiJiaContract.View{
+    private final static String TAG = "ZhiJiaFragment";
 
-    private KuaiKanContract.Presenter mPresenter;
+    private ZhiJiaContract.Presenter mPresenter;
 
-    public KuaiKanFragment() {
+    public ZhiJiaFragment() {
 
     }
 
-    public static KuaiKanFragment newInstance(/*int myVideo, String categories*/) {
-        KuaiKanFragment fragment = new KuaiKanFragment();
+    public static ZhiJiaFragment newInstance(/*int myVideo, String categories*/) {
+        ZhiJiaFragment fragment = new ZhiJiaFragment();
         /*Bundle args = new Bundle();
         args.putInt(MyVideoActivity.MY_VIDEO, myVideo);
         args.putString(AppConstants.CATEGORIES, categories);
@@ -44,7 +45,7 @@ public class KuaiKanFragment extends Fragment implements KuaiKanContract.View{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_kuai_kan, container, false);
+        View view = inflater.inflate(R.layout.fragment_zhi_jia, container, false);
         ButterKnife.bind(this, view);
         initView();
         return view;
@@ -90,17 +91,7 @@ public class KuaiKanFragment extends Fragment implements KuaiKanContract.View{
     }
 
     @Override
-    public void setPresenter(KuaiKanContract.Presenter presenter) {
+    public void setPresenter(ZhiJiaContract.Presenter presenter) {
         mPresenter = presenter;
-    }
-
-    @Override
-    public void setLoadingIndicator(boolean active) {
-
-    }
-
-    @Override
-    public boolean isActive() {
-        return isAdded();
     }
 }

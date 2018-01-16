@@ -27,6 +27,11 @@ public class KuaiKanPresenter implements KuaiKanContract.Presenter {
     }
 
     @Override
+    public void destroy() {
+
+    }
+
+    @Override
     public void result(int requestCode, int resultCode) {
 
     }

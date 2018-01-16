@@ -7,7 +7,15 @@
     <color name="ToolbarDark">#1D8CE0</color>
     <color name="ToolbarLight">#58B7FF</color>
 
-    <!-- Web colors -->
+    <color name="transparent">#00000000</color>
+    <color name="translucent">#77000000</color>
+
+    <color name="holo_blue_bright">#ff00ddff</color>
+    <color name="holo_green_light">#ff99cc00</color>
+    <color name="holo_orange_light">#ffffbb33</color>
+    <color name="holo_red_light">#ffff4444</color>
+
+    <!-- ++++++++++++++++++Web colors -->
     <color name="CLEAR">#00000000</color>
     <color name="HALF_CLEAR_WHITE">#7fffffff</color>
     <color name="QUATER_CLEAR_WHITE">#3fffffff</color>
@@ -152,4 +160,5 @@
     <color name="BEIGE">#fff5f5dc</color>
     <color name="LIGHTSALMON">#ffffa07a</color>
     <color name="MEDIUMSLATEBLUE">#ff7b68ee</color>
+    <!-- *********************Web colors -->
 </resources>
