@@ -1,8 +1,11 @@
 package com.gs.gscartoon.home.view;
 
+import android.animation.Animator;
 import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +15,9 @@ import android.transition.TransitionInflater;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -201,17 +207,30 @@ public class HomeActivity extends AppCompatActivity implements
             case R.id.ll_kuaikan:
                 setFragment(KUAI_KAN_FRAGMENT_INDEX);
                 dlLeftMain.closeDrawers();
+                animateRevealColorFromCoordinates(flContent, 0, (int)llKuaiKan.getY()+llKuaiKan.getHeight()/2);
                 break;
             case R.id.ll_zhijia:
                 setFragment(ZHI_JIA_FRAGMENT_INDEX);
                 dlLeftMain.closeDrawers();
+                animateRevealColorFromCoordinates(flContent, 0, (int)llZhiJia.getY()+llKuaiKan.getHeight()/2);
                 break;
             case R.id.ll_manman:
                 setFragment(MAN_MAN_FRAGMENT_INDEX);
                 dlLeftMain.closeDrawers();
+                animateRevealColorFromCoordinates(flContent, 0, (int)llManMan.getY()+llKuaiKan.getHeight()/2);
                 break;
             default:
                 break;
         }
+    }
+
+    private Animator animateRevealColorFromCoordinates(ViewGroup viewRoot, int x, int y) {
+        float finalRadius = (float) Math.hypot(viewRoot.getWidth(), viewRoot.getHeight());
+
+        Animator anim = ViewAnimationUtils.createCircularReveal(viewRoot, x, y, 0, finalRadius);
+        anim.setDuration(500);
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        anim.start();
+        return anim;
     }
 }
