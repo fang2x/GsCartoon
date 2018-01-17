@@ -19,4 +19,9 @@
     <style name="HomeTheme" parent="AppTheme">
         <!--<item name="android:windowBackground">@color/ToolbarDark</item>-->
     </style>
+
+    <!-- TabLayout文字大小 -->
+    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

@@ -131,14 +131,6 @@ public class KuaiKanListFragment extends Fragment implements
     }
 
     @Override
-    public void setMenuVisibility(boolean menuVisible) {
-        super.setMenuVisibility(menuVisible);
-        if (this.getView() != null) {
-            this.getView().setVisibility(menuVisible ? View.VISIBLE : View.GONE);
-        }
-    }
-
-    @Override
     public void setPresenter(KuaiKanListContract.Presenter presenter) {
         mPresenter = presenter;
     }
