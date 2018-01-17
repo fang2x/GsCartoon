@@ -233,4 +233,9 @@ public class HomeActivity extends AppCompatActivity implements
         anim.start();
         return anim;
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        //super.onSaveInstanceState(outState);//这里不保存数据,避免activity异常退出,在进入该activity时出现fragment重叠问题
+    }
 }

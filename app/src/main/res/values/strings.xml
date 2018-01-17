@@ -7,4 +7,26 @@
     <string name="zhijia">之家</string>
     <string name="manman">漫漫</string>
     <string name="press_again_to_exit">再按一次退出程序</string>
+    <string name="data_is_empty">数据为空</string>
+    <string name="not_set">未设置</string>
+
+
+
+    <!-- ++++++++++++网络请求出错-->
+    <string name="access_network_error">访问网络出错</string>
+    <string name="data_returned_wrong">返回的数据错误，请检查网络</string>
+    <string name="bad_request">错误的请求</string>
+    <string name="no_verification">没有验证信息或者验证失败</string>
+    <string name="access_is_denied">访问被拒绝，请先登录</string>
+    <string name="resource_does_not_exist">资源不存在</string>
+    <string name="request_method_is_not_appropriate">请求方法不合适</string>
+    <string name="too_much_request">过多的请求</string>
+    <string name="There_was_an_error_inside_server">服务器内部出错了</string>
+    <string name="invalid_proxy">无效代理</string>
+    <string name="service_is_temporarily_suspended">服务暂时失效</string>
+    <string name="account_has_been_bound_to_other_users">该账号已绑定其他用户，请先解绑</string>
+    <string name="you_only_have_one_can_login_account">您只有一个可登陆账号，不能再解绑</string>
+    <string name="did_not_find_user">没有找到用户，请注册</string>
+    <string name="request_too_many_times">请求次数太多，请稍后再试。</string>
+    <!--************网络请求出错-->
 </resources>

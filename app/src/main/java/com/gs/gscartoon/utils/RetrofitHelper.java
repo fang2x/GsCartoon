@@ -94,8 +94,8 @@ public class RetrofitHelper {
     private void resetAppRetrofit(String url) {
 
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
-        builder.readTimeout(10, TimeUnit.SECONDS);
-        builder.connectTimeout(10, TimeUnit.SECONDS);
+        builder.readTimeout(5, TimeUnit.SECONDS);
+        builder.connectTimeout(5, TimeUnit.SECONDS);
         builder.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {

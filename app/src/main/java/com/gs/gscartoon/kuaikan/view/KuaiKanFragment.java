@@ -15,6 +15,7 @@ import com.gs.gscartoon.R;
 import com.gs.gscartoon.kuaikan.KuaiKanContract;
 import com.gs.gscartoon.kuaikan.model.KuaiKanListModel;
 import com.gs.gscartoon.kuaikan.presenter.KuaiKanListPresenter;
+import com.gs.gscartoon.utils.TimeUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class KuaiKanFragment extends Fragment implements KuaiKanContract.View{
 
     private ViewPagerAdapter mViewPagerAdapter;
     private ArrayList<String> mWeek = null;
+    private ArrayList<String> mWeekTimeStamp;//每天的时间戳，用于拼接链接
     private KuaiKanContract.Presenter mPresenter;
 
     public KuaiKanFragment() {
@@ -105,7 +107,16 @@ public class KuaiKanFragment extends Fragment implements KuaiKanContract.View{
 
         @Override
         public Fragment getItem(int position) {
-            KuaiKanListFragment mFragment = KuaiKanListFragment.newInstance();
+            mWeekTimeStamp = TimeUtil.getWeekTimeStamp();
+            String timestamp;
+            if(position == 6){//今天
+                timestamp = 0+"";
+            }else if(position == 5){//昨天
+                timestamp = 1+"";
+            }else {
+                timestamp = mWeekTimeStamp.get(mWeekTimeStamp.size() - position - 1);
+            }
+            KuaiKanListFragment mFragment = KuaiKanListFragment.newInstance(timestamp);
             KuaiKanListPresenter mPresenter = new KuaiKanListPresenter(
                     new KuaiKanListModel(KuaiKanFragment.this.getActivity()), mFragment);
             return mFragment;

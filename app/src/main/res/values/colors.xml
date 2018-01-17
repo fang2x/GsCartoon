@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="pageBackground">#F7F9FA</color>
+
     <color name="ToolbarDark">#1D8CE0</color>
     <color name="ToolbarLight">#58B7FF</color>
     <color name="tab_text_color">#727272</color>
