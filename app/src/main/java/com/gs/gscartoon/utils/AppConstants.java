@@ -11,5 +11,6 @@ public class AppConstants {
     public static final String MAN_MAN_URL = "";//漫漫访问服务器地址
 
     public static final String TIMESTAMP = "timestamp";//时间戳
-    public static final String ID = "id";
+    public static final String COMICS_ID = "ComicsId";//某一话漫画id
+    public static final String TOPIC_ID = "TopicId";//漫画id
 }

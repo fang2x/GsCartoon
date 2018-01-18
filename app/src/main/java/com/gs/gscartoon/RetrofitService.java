@@ -1,5 +1,6 @@
 package com.gs.gscartoon;
 
+import com.gs.gscartoon.kuaikan.bean.KuaiKanAllChapterBean;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanBrowseBean;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanListBean;
 
@@ -19,5 +20,9 @@ public interface RetrofitService {
 
     @GET("v1/comics/{id}")
     Observable<KuaiKanBrowseBean> refreshKuaiKanBrowse(
+            @Path("id") String id);
+
+    @GET("v1/topics/{id}")
+    Observable<KuaiKanAllChapterBean> refreshKuaiKanAllChapter(
             @Path("id") String id);
 }

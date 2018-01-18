@@ -1,9 +1,9 @@
 package com.gs.gscartoon.kuaikan.presenter;
 
 
-import com.gs.gscartoon.kuaikan.KuaiKanBrowseContract;
-import com.gs.gscartoon.kuaikan.bean.KuaiKanBrowseBean;
-import com.gs.gscartoon.kuaikan.model.KuaiKanBrowseModel;
+import com.gs.gscartoon.kuaikan.KuaiKanAllChapterContract;
+import com.gs.gscartoon.kuaikan.bean.KuaiKanAllChapterBean;
+import com.gs.gscartoon.kuaikan.model.KuaiKanAllChapterModel;
 import com.gs.gscartoon.utils.ErrorUtil;
 import com.gs.gscartoon.utils.LogUtil;
 
@@ -18,18 +18,18 @@ import retrofit2.HttpException;
  * Created by camdora on 17-11-22.
  */
 
-public class KuaiKanBrowsePresenter implements KuaiKanBrowseContract.Presenter {
-    private static final String TAG = "KuaiKanBrowsePresenter";
+public class KuaiKanAllChapterPresenter implements KuaiKanAllChapterContract.Presenter {
+    private static final String TAG = "KuaiKanAllChapterPresenter";
 
-    private final KuaiKanBrowseModel mKuaiKanBrowseModel;
-    private final KuaiKanBrowseContract.View mKuaiKanBrowseView;
+    private final KuaiKanAllChapterModel mKuaiKanAllChapterModel;
+    private final KuaiKanAllChapterContract.View mKuaiKanAllChapterView;
     private CompositeDisposable mCompositeDisposable;
 
-    public KuaiKanBrowsePresenter(KuaiKanBrowseModel model, KuaiKanBrowseContract.View view){
-        mKuaiKanBrowseModel = model;
+    public KuaiKanAllChapterPresenter(KuaiKanAllChapterModel model, KuaiKanAllChapterContract.View view){
+        mKuaiKanAllChapterModel = model;
 
-        mKuaiKanBrowseView = view;
-        mKuaiKanBrowseView.setPresenter(this);
+        mKuaiKanAllChapterView = view;
+        mKuaiKanAllChapterView.setPresenter(this);
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -47,10 +47,10 @@ public class KuaiKanBrowsePresenter implements KuaiKanBrowseContract.Presenter {
 
     @Override
     public void refreshData(String id) {
-        mKuaiKanBrowseModel.refreshKuaiKanBrowse(id)
+        mKuaiKanAllChapterModel.refreshKuaiKanAllChapter(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<KuaiKanBrowseBean>() {
+                .subscribe(new Observer<KuaiKanAllChapterBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         mCompositeDisposable.add(d);
@@ -64,7 +64,7 @@ public class KuaiKanBrowsePresenter implements KuaiKanBrowseContract.Presenter {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        mKuaiKanBrowseView.refreshDataFailure();
+                        mKuaiKanAllChapterView.refreshDataFailure();
                         if(e instanceof HttpException){
                             HttpException httpException = (HttpException) e;
                             ErrorUtil.showErrorInfo(httpException.code());
@@ -75,11 +75,11 @@ public class KuaiKanBrowsePresenter implements KuaiKanBrowseContract.Presenter {
                     }
 
                     @Override
-                    public void onNext(KuaiKanBrowseBean bean) {
+                    public void onNext(KuaiKanAllChapterBean bean) {
                         LogUtil.i(TAG, "onNext ");
                         if(bean.getData() != null) {
-                            mKuaiKanBrowseView.showRefreshData(bean.getData().getImages());
-                            mKuaiKanBrowseView.setTitle(bean.getData().getTitle());
+                            mKuaiKanAllChapterView.showRefreshData(bean.getData().getComics());
+                            mKuaiKanAllChapterView.setTitle(bean.getData().getTitle());
                         }else {
                             ErrorUtil.showErrorInfo(ErrorUtil.NOT_FOUND);
                         }

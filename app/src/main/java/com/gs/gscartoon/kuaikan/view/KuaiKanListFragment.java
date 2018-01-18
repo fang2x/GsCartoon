@@ -100,7 +100,10 @@ public class KuaiKanListFragment extends Fragment implements
                     return;
                 }
                 Intent intent = new Intent(KuaiKanListFragment.this.getActivity(), KuaiKanBrowseActivity.class);
-                intent.putExtra(AppConstants.ID, bean.getId()+"");
+                intent.putExtra(AppConstants.COMICS_ID, bean.getId()+"");
+                if(bean.getTopic() != null){
+                    intent.putExtra(AppConstants.TOPIC_ID, bean.getTopic().getId()+"");
+                }
                 startActivity(intent);
             }
 

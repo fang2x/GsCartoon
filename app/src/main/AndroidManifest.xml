@@ -42,6 +42,7 @@
             android:theme="@style/HomeTheme"></activity>
         <activity android:name=".kuaikan.view.KuaiKanBrowseActivity"
             android:launchMode="singleTask"/>
+        <activity android:name=".kuaikan.view.KuaiKanAllChapterActivity"/>
     </application>
 
 </manifest>
