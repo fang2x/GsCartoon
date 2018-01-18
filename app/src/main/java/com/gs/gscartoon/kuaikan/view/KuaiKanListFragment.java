@@ -99,6 +99,9 @@ public class KuaiKanListFragment extends Fragment implements
                 if(bean == null){
                     return;
                 }
+                Intent intent = new Intent(KuaiKanListFragment.this.getActivity(), KuaiKanBrowseActivity.class);
+                intent.putExtra(AppConstants.ID, bean.getId()+"");
+                startActivity(intent);
             }
 
             @Override

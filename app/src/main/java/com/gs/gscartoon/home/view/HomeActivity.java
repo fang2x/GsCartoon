@@ -228,7 +228,7 @@ public class HomeActivity extends AppCompatActivity implements
         float finalRadius = (float) Math.hypot(viewRoot.getWidth(), viewRoot.getHeight());
 
         Animator anim = ViewAnimationUtils.createCircularReveal(viewRoot, x, y, 0, finalRadius);
-        anim.setDuration(500);
+        anim.setDuration(600);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.start();
         return anim;

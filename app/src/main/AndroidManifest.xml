@@ -40,6 +40,8 @@
         </activity>
         <activity android:name=".home.view.HomeActivity"
             android:theme="@style/HomeTheme"></activity>
+        <activity android:name=".kuaikan.view.KuaiKanBrowseActivity"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

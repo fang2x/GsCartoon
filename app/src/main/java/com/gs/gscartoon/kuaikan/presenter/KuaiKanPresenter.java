@@ -14,10 +14,10 @@ public class KuaiKanPresenter implements KuaiKanContract.Presenter {
     private final KuaiKanModel mKuaiKanModel;
     private final KuaiKanContract.View mKuaiKanView;
 
-    public KuaiKanPresenter(KuaiKanModel model, KuaiKanContract.View kuaiKanView){
+    public KuaiKanPresenter(KuaiKanModel model, KuaiKanContract.View view){
         mKuaiKanModel = model;
 
-        mKuaiKanView = kuaiKanView;
+        mKuaiKanView = view;
         mKuaiKanView.setPresenter(this);
     }
 
