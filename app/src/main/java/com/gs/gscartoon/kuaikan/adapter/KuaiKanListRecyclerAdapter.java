@@ -9,6 +9,7 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.gs.gscartoon.R;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanListBean.DataBean.ComicsBean;
 import com.gs.gscartoon.utils.ColorUtil;
 import com.gs.gscartoon.utils.LogUtil;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by camdora on 16-12-13.
@@ -84,7 +86,10 @@ public class KuaiKanListRecyclerAdapter extends BaseRecyclerAdapter<ComicsBean,
             holder.tvAuthor.setText(R.string.not_set);
         }
 
-        holder.sdvCover.setImageURI(Uri.parse(bean.getCover_image_url()));
+        //holder.sdvCover.setImageURI(Uri.parse(bean.getCover_image_url()));
+        Picasso.with(mContext).load(bean.getCover_image_url()).placeholder(R.drawable.ic_kuaikan_default_image)
+                .error(R.drawable.ic_kuaikan_default_image)
+                .into(holder.ivCover);
 
         holder.tvTitle.setText(bean.getTitle());
         holder.tvCommon.setText(bean.getComments_count()+"");
@@ -107,7 +112,7 @@ public class KuaiKanListRecyclerAdapter extends BaseRecyclerAdapter<ComicsBean,
 
         private FrameLayout mFrameLayout;
         private RelativeLayout rlTopic;
-        private SimpleDraweeView sdvCover;
+        private ImageView ivCover;
         private TextView tvLabel, tvTopic, tvAuthor, tvTitle, tvCommon, tvLike;
 
         public KuaiKanListRecyclerHolder(View itemView) {
@@ -117,7 +122,7 @@ public class KuaiKanListRecyclerAdapter extends BaseRecyclerAdapter<ComicsBean,
             tvLabel = (TextView) itemView.findViewById(R.id.tv_label);
             tvTopic = (TextView) itemView.findViewById(R.id.tv_topic);
             tvAuthor = (TextView) itemView.findViewById(R.id.tv_author);
-            sdvCover = (SimpleDraweeView) itemView.findViewById(R.id.sdv_cover);
+            ivCover = (ImageView) itemView.findViewById(R.id.iv_cover);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
             tvCommon = (TextView) itemView.findViewById(R.id.tv_common);
             tvLike = (TextView) itemView.findViewById(R.id.tv_like);

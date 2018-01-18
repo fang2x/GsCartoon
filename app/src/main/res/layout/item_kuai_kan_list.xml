@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fl_item_root_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -84,21 +83,18 @@
                 android:textColor="@color/DIMGRAY"
                 android:text="全集"/>
         </RelativeLayout>
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/sdv_cover"
+        <ImageView
+            android:id="@+id/iv_cover"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rl_topic"
-            fresco:viewAspectRatio="1.60"
-            fresco:roundedCornerRadius="0dp"
-            fresco:placeholderImage="@drawable/ic_kuaikan_default_image"
-            fresco:actualImageScaleType="centerCrop"
+            android:scaleType="centerCrop"
             android:adjustViewBounds="true" />
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/sdv_cover"
+            android:layout_below="@id/iv_cover"
             android:text="name"
             android:layout_margin="15dp"
             android:maxLines="1"
@@ -111,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/sdv_cover"
+            android:layout_below="@id/iv_cover"
             android:drawableStart="@drawable/ic_common_detail_normal"
             android:drawablePadding="5.8dp"
             android:text="common"
@@ -127,7 +123,7 @@
             android:id="@+id/tv_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/sdv_cover"
+            android:layout_below="@id/iv_cover"
             android:layout_toLeftOf="@id/tv_common"
             android:drawableStart="@drawable/ic_common_praise_highlighted_like_normal"
             android:drawablePadding="5.8dp"

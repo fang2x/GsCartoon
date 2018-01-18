@@ -4,11 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.gscartoon.BaseRecyclerAdapter;
 import com.gs.gscartoon.BaseRecyclerVH;
 import com.gs.gscartoon.R;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by camdora on 16-12-13.
@@ -37,18 +39,21 @@ public class KuaiKanBrowseRecyclerAdapter extends BaseRecyclerAdapter<String,
 
     @Override
     public void onBindViewHolder(final KuaiKanBrowseRecyclerHolder holder, int position) {
-        holder.sdvBrowse.setImageURI(Uri.parse(mData.get(position)));
+        //holder.sdvBrowse.setImageURI(Uri.parse(mData.get(position)));
+        Picasso.with(mContext).load(mData.get(position)).placeholder(R.drawable.ic_kuaikan_default_image)
+                .error(R.drawable.ic_kuaikan_default_image)
+                .into(holder.ivBrowse);
     }
 
     public class KuaiKanBrowseRecyclerHolder extends BaseRecyclerVH<String> {
 
         private FrameLayout mFrameLayout;
-        private SimpleDraweeView sdvBrowse;
+        private ImageView ivBrowse;
 
         public KuaiKanBrowseRecyclerHolder(View itemView) {
             super(itemView);
             mFrameLayout = (FrameLayout) itemView.findViewById(R.id.fl_item_root_view);
-            sdvBrowse = (SimpleDraweeView) itemView.findViewById(R.id.sdv_browse);
+            ivBrowse = (ImageView) itemView.findViewById(R.id.iv_browse);
         }
     }
 }
