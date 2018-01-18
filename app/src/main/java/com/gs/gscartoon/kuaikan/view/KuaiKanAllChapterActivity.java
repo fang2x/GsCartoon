@@ -1,5 +1,6 @@
 package com.gs.gscartoon.kuaikan.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import com.gs.gscartoon.kuaikan.bean.KuaiKanAllChapterBean.DataBean.ComicsBean;
 import com.gs.gscartoon.kuaikan.model.KuaiKanAllChapterModel;
 import com.gs.gscartoon.kuaikan.presenter.KuaiKanAllChapterPresenter;
 import com.gs.gscartoon.utils.AppConstants;
+import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.utils.StatusBarUtil;
 import com.gs.gscartoon.utils.ToolbarUtil;
 
@@ -68,6 +70,20 @@ public class KuaiKanAllChapterActivity extends AppCompatActivity implements Kuai
         mRecyclerAdapter = new KuaiKanAllChapterRecyclerAdapter(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mRecyclerAdapter);
+        mRecyclerAdapter.setClickListener(new KuaiKanAllChapterRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                LogUtil.i(TAG,"点击item position="+position);
+                ComicsBean bean = mRecyclerAdapter.getItemData(position);
+                if(bean == null){
+                    return;
+                }
+                Intent intent = new Intent(KuaiKanAllChapterActivity.this, KuaiKanBrowseActivity.class);
+                intent.putExtra(AppConstants.COMICS_ID, bean.getId()+"");
+                intent.putExtra(AppConstants.TOPIC_ID, mTopicId);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

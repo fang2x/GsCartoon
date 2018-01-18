@@ -110,6 +110,13 @@ public class KuaiKanListFragment extends Fragment implements
             @Override
             public void onAllClick(int position) {
                 clickPosition = position;
+                ComicsBean bean = mRecyclerAdapter.getItemData(position);
+                if(bean == null || bean.getTopic() == null){
+                    return;
+                }
+                Intent intent = new Intent(KuaiKanListFragment.this.getActivity(), KuaiKanAllChapterActivity.class);
+                intent.putExtra(AppConstants.TOPIC_ID, bean.getTopic().getId()+"");
+                startActivity(intent);
             }
         });
     }

@@ -54,7 +54,18 @@ public class KuaiKanAllChapterRecyclerAdapter extends BaseRecyclerAdapter<Comics
         holder.tvLike.setText(bean.getLikes_count()+"");
     }
 
-    public class KuaiKanAllChapterRecyclerHolder extends BaseRecyclerVH<ComicsBean> {
+    private OnItemClickListener clickListener;
+
+    public void setClickListener(OnItemClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public interface OnItemClickListener {
+        void onClick(View view, int position);
+    }
+
+    public class KuaiKanAllChapterRecyclerHolder extends BaseRecyclerVH<ComicsBean>
+            implements View.OnClickListener{
 
         private RelativeLayout mRootView;
         private SimpleDraweeView sdvCover;
@@ -67,6 +78,21 @@ public class KuaiKanAllChapterRecyclerAdapter extends BaseRecyclerAdapter<Comics
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
             tvLike = (TextView) itemView.findViewById(R.id.tv_like);
+
+            mRootView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (clickListener != null) {
+                switch (v.getId()) {
+                    case R.id.rl_item_root_view:
+                        clickListener.onClick(itemView, getAdapterPosition());
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

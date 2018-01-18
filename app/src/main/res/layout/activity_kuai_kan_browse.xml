@@ -22,13 +22,19 @@
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             <TextView
                 android:id="@+id/tv_toolbar_kuai_kan_browse_title"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:textColor="@color/WHITE"
                 android:textSize="20sp"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:ellipsize="marquee"
+                android:scrollHorizontally="true"
+                android:focusableInTouchMode="true"
+                android:focusable="true"/>
             <TextView
                 android:id="@+id/tv_toolbar_kuai_kan_browse_all"
                 android:layout_width="wrap_content"

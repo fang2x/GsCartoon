@@ -74,6 +74,14 @@ public class KuaiKanBrowseActivity extends AppCompatActivity implements KuaiKanB
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);//must store the new intent unless getIntent() will return the old one
+        mComicsId = getIntent().getStringExtra(AppConstants.COMICS_ID);
+        mTopicId = getIntent().getStringExtra(AppConstants.TOPIC_ID);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         mPresenter.start();
