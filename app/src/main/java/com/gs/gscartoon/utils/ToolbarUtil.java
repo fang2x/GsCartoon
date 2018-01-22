@@ -2,6 +2,7 @@ package com.gs.gscartoon.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.gs.gscartoon.GsApplication;
 import com.gs.gscartoon.R;
 
 /**
@@ -51,5 +53,18 @@ public class ToolbarUtil {
                 };
         actionBarDrawerToggle.syncState();
         dlLeftMain.addDrawerListener(actionBarDrawerToggle);
+    }
+
+    /**
+     * 获取actionBarSize系统默认值
+     * @return
+     */
+    public static int getSystemActionBarSize(){
+        Context context = GsApplication.getAppContext();
+        final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(
+                new int[] { android.R.attr.actionBarSize });
+        int mActionBarSize = (int) styledAttributes.getDimension(0, 0);
+        styledAttributes.recycle();
+        return mActionBarSize;
     }
 }

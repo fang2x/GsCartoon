@@ -2,6 +2,11 @@ package com.gs.gscartoon.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Point;
+import android.view.Display;
+import android.view.WindowManager;
+
+import com.gs.gscartoon.GsApplication;
 
 /**
  * Created by camdora on 17-11-28.
@@ -28,9 +33,9 @@ public class DisplayUtil {
      *            （DisplayMetrics类中属性density）
      * @return
      */
-    public static int px2dip(Context context, float pxValue) {
+    public static float px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
+        return (pxValue / scale + 0.5f);
     }
 
     /**
@@ -40,9 +45,9 @@ public class DisplayUtil {
      *            （DisplayMetrics类中属性density）
      * @return
      */
-    public static int dip2px(Context context, float dipValue) {
+    public static float dip2px(Context context, float dipValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
+        return (dipValue * scale + 0.5f);
     }
 
     /**
@@ -52,9 +57,9 @@ public class DisplayUtil {
      *            （DisplayMetrics类中属性scaledDensity）
      * @return
      */
-    public static int px2sp(Context context, float pxValue) {
+    public static float px2sp(Context context, float pxValue) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (pxValue / fontScale + 0.5f);
+        return (pxValue / fontScale + 0.5f);
     }
 
     /**
@@ -64,8 +69,34 @@ public class DisplayUtil {
      *            （DisplayMetrics类中属性scaledDensity）
      * @return
      */
-    public static int sp2px(Context context, float spValue) {
+    public static float sp2px(Context context, float spValue) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (spValue * fontScale + 0.5f);
+        return (spValue * fontScale + 0.5f);
+    }
+
+    /**
+     * 获取屏幕的高
+     * @return
+     */
+    public static int getScreenHeight() {
+        Context c = GsApplication.getAppContext();
+        WindowManager wm = (WindowManager) c.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.y;
+    }
+
+    /**
+     * 获取屏幕的宽
+     * @return
+     */
+    public static int getScreenWidth() {
+        Context c = GsApplication.getAppContext();
+        WindowManager wm = (WindowManager) c.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.x;
     }
 }
