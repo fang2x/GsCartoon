@@ -1,6 +1,7 @@
 package com.gs.gscartoon.kuaikan.view;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,18 +9,22 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gs.gscartoon.R;
 import com.gs.gscartoon.kuaikan.KuaiKanAllChapterContract;
 import com.gs.gscartoon.kuaikan.adapter.KuaiKanAllChapterRecyclerAdapter;
+import com.gs.gscartoon.kuaikan.bean.KuaiKanAllChapterBean.DataBean;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanAllChapterBean.DataBean.ComicsBean;
 import com.gs.gscartoon.kuaikan.model.KuaiKanAllChapterModel;
 import com.gs.gscartoon.kuaikan.presenter.KuaiKanAllChapterPresenter;
 import com.gs.gscartoon.utils.AppConstants;
 import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.utils.StatusBarUtil;
+import com.gs.gscartoon.utils.StringUtil;
 import com.gs.gscartoon.utils.ToolbarUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -32,14 +37,18 @@ public class KuaiKanAllChapterActivity extends AppCompatActivity implements Kuai
         View.OnClickListener{
     private static final String TAG = "KuaiKanAllChapterActivity";
 
-    @BindView(R.id.tb_kuai_kan_browse)
+    @BindView(R.id.tb_kuai_kan_all_chapter)
     Toolbar tbToolbar;
-    @BindView(R.id.rv_kuai_kan_browse)
+    @BindView(R.id.rv_kuai_kan_all_chapter)
     RecyclerView mRecyclerView;
-    @BindView(R.id.tv_toolbar_kuai_kan_browse_title)
+    @BindView(R.id.iv_cover)
+    ImageView ivCover;
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_toolbar_kuai_kan_browse_all)
-    TextView tvAll;
+    @BindView(R.id.tv_label)
+    TextView tvLabel;
+    @BindView(R.id.tv_view_count)
+    TextView tvViewCount;
 
     private KuaiKanAllChapterContract.Presenter mPresenter;
     private KuaiKanAllChapterRecyclerAdapter mRecyclerAdapter;
@@ -60,8 +69,6 @@ public class KuaiKanAllChapterActivity extends AppCompatActivity implements Kuai
         ToolbarUtil.initToolbar(this, tbToolbar);
 
         mTopicId = getIntent().getStringExtra(AppConstants.TOPIC_ID);
-
-        tvAll.setOnClickListener(this);
 
         // Create the presenter
         new KuaiKanAllChapterPresenter(
@@ -84,6 +91,8 @@ public class KuaiKanAllChapterActivity extends AppCompatActivity implements Kuai
                 startActivity(intent);
             }
         });
+
+        ivCover.setColorFilter(Color.parseColor("#44000000"));
     }
 
     @Override
@@ -138,10 +147,19 @@ public class KuaiKanAllChapterActivity extends AppCompatActivity implements Kuai
     }
 
     @Override
-    public void setTitle(String title) {
-        if(tvTitle != null){
-            tvTitle.setText(title);
+    public void updateInfor(DataBean bean) {
+        if(ivCover == null || tvTitle == null || tvLabel == null || tvViewCount == null){
+            return;
         }
+
+        Picasso.with(this).load(bean.getCover_image_url()).placeholder(R.drawable.ic_kuaikan_default_image)
+                .error(R.drawable.ic_kuaikan_default_image)
+                .into(ivCover);
+        tvTitle.setText(bean.getTitle());
+        if(bean.getLabel() != null) {
+            tvLabel.setText(bean.getLabel().getText());
+        }
+        tvViewCount.setText("总热度" + StringUtil.getPrintHugeNumber(bean.getView_count()));
     }
 
     @Override

@@ -435,6 +435,50 @@ public class KuaiKanAllChapterBean {
         }
 
         public static class LabelBean {
+
+            /**
+             * id : 32
+             * text : 悬疑
+             * text_color : #ffffff
+             * bg_color : #1e4691
+             */
+
+            private int id;
+            private String text;
+            private String text_color;
+            private String bg_color;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getText() {
+                return text;
+            }
+
+            public void setText(String text) {
+                this.text = text;
+            }
+
+            public String getText_color() {
+                return text_color;
+            }
+
+            public void setText_color(String text_color) {
+                this.text_color = text_color;
+            }
+
+            public String getBg_color() {
+                return bg_color;
+            }
+
+            public void setBg_color(String bg_color) {
+                this.bg_color = bg_color;
+            }
         }
 
         public static class ContinueReadComicBean {

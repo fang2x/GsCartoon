@@ -79,7 +79,7 @@ public class KuaiKanAllChapterPresenter implements KuaiKanAllChapterContract.Pre
                         LogUtil.i(TAG, "onNext ");
                         if(bean.getData() != null) {
                             mKuaiKanAllChapterView.showRefreshData(bean.getData().getComics());
-                            mKuaiKanAllChapterView.setTitle(bean.getData().getTitle());
+                            mKuaiKanAllChapterView.updateInfor(bean.getData());
                         }else {
                             ErrorUtil.showErrorInfo(ErrorUtil.NOT_FOUND);
                         }

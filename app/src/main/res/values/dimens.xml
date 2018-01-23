@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="toolbar_padding_top">0dp</dimen>
+
+    <dimen name="toolbar_label_height">30dp</dimen>
 </resources>

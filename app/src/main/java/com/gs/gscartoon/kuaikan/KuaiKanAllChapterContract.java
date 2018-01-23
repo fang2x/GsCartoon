@@ -3,6 +3,7 @@ package com.gs.gscartoon.kuaikan;
 
 import com.gs.gscartoon.BasePresenter;
 import com.gs.gscartoon.BaseView;
+import com.gs.gscartoon.kuaikan.bean.KuaiKanAllChapterBean.DataBean;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanAllChapterBean.DataBean.ComicsBean;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface KuaiKanAllChapterContract {
         void showRefreshData(List<ComicsBean> mData);
         void refreshDataFailure();
 
-        void setTitle(String title);
+        void updateInfor(DataBean bean);
     }
 
     interface Presenter extends BasePresenter {
