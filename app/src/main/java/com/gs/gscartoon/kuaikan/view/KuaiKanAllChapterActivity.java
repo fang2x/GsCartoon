@@ -24,6 +24,7 @@ import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.utils.StatusBarUtil;
 import com.gs.gscartoon.utils.StringUtil;
 import com.gs.gscartoon.utils.ToolbarUtil;
+import com.gs.gscartoon.widget.view.MarqueTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -43,8 +44,8 @@ public class KuaiKanAllChapterActivity extends AppCompatActivity implements Kuai
     RecyclerView mRecyclerView;
     @BindView(R.id.iv_cover)
     ImageView ivCover;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
+    @BindView(R.id.mtv_title)
+    MarqueTextView mtvTitle;
     @BindView(R.id.tv_label)
     TextView tvLabel;
     @BindView(R.id.tv_view_count)
@@ -148,14 +149,14 @@ public class KuaiKanAllChapterActivity extends AppCompatActivity implements Kuai
 
     @Override
     public void updateInfor(DataBean bean) {
-        if(ivCover == null || tvTitle == null || tvLabel == null || tvViewCount == null){
+        if(ivCover == null || mtvTitle == null || tvLabel == null || tvViewCount == null){
             return;
         }
 
         Picasso.with(this).load(bean.getCover_image_url()).placeholder(R.drawable.ic_kuaikan_default_image)
                 .error(R.drawable.ic_kuaikan_default_image)
                 .into(ivCover);
-        tvTitle.setText(bean.getTitle());
+        mtvTitle.setText(bean.getTitle());
         if(bean.getLabel() != null) {
             tvLabel.setText(bean.getLabel().getText());
         }

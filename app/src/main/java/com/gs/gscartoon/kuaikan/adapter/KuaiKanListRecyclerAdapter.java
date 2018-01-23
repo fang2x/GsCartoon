@@ -75,15 +75,15 @@ public class KuaiKanListRecyclerAdapter extends BaseRecyclerAdapter<ComicsBean,
         holder.tvLabel.setText(bean.getLabel_text());
 
         if(bean.getTopic() != null){
-            holder.tvTopic.setText(bean.getTopic().getTitle());
+            holder.mtvTopic.setText(bean.getTopic().getTitle());
             if(bean.getTopic().getUser() != null){
-                holder.tvAuthor.setText(bean.getTopic().getUser().getNickname());
+                holder.mtvAuthor.setText(bean.getTopic().getUser().getNickname());
             }else {
-                holder.tvAuthor.setText(R.string.not_set);
+                holder.mtvAuthor.setText(R.string.not_set);
             }
         }else {
-            holder.tvTopic.setText(R.string.not_set);
-            holder.tvAuthor.setText(R.string.not_set);
+            holder.mtvTopic.setText(R.string.not_set);
+            holder.mtvAuthor.setText(R.string.not_set);
         }
 
         //holder.sdvCover.setImageURI(Uri.parse(bean.getCover_image_url()));
@@ -113,15 +113,15 @@ public class KuaiKanListRecyclerAdapter extends BaseRecyclerAdapter<ComicsBean,
         private FrameLayout mFrameLayout;
         private RelativeLayout rlTopic;
         private ImageView ivCover;
-        private TextView tvLabel, tvTopic, tvAuthor, tvTitle, tvCommon, tvLike;
+        private TextView tvLabel, mtvTopic, mtvAuthor, tvTitle, tvCommon, tvLike;
 
         public KuaiKanListRecyclerHolder(View itemView) {
             super(itemView);
             mFrameLayout = (FrameLayout) itemView.findViewById(R.id.fl_item_root_view);
             rlTopic = (RelativeLayout) itemView.findViewById(R.id.rl_topic);
             tvLabel = (TextView) itemView.findViewById(R.id.tv_label);
-            tvTopic = (TextView) itemView.findViewById(R.id.tv_topic);
-            tvAuthor = (TextView) itemView.findViewById(R.id.tv_author);
+            mtvTopic = (TextView) itemView.findViewById(R.id.mtv_topic);
+            mtvAuthor = (TextView) itemView.findViewById(R.id.mtv_author);
             ivCover = (ImageView) itemView.findViewById(R.id.iv_cover);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
             tvCommon = (TextView) itemView.findViewById(R.id.tv_common);

@@ -49,7 +49,7 @@ public class KuaiKanAllChapterRecyclerAdapter extends BaseRecyclerAdapter<Comics
 
         holder.sdvCover.setImageURI(Uri.parse(bean.getCover_image_url()));
 
-        holder.tvTitle.setText(bean.getTitle());
+        holder.mtvTitle.setText(bean.getTitle());
         holder.tvTime.setText(TimeUtil.timestampToDate(bean.getCreated_at()));
         holder.tvLike.setText(bean.getLikes_count()+"");
     }
@@ -69,13 +69,13 @@ public class KuaiKanAllChapterRecyclerAdapter extends BaseRecyclerAdapter<Comics
 
         private RelativeLayout mRootView;
         private SimpleDraweeView sdvCover;
-        private TextView tvTitle, tvTime, tvLike;
+        private TextView mtvTitle, tvTime, tvLike;
 
         public KuaiKanAllChapterRecyclerHolder(View itemView) {
             super(itemView);
             mRootView = (RelativeLayout) itemView.findViewById(R.id.rl_item_root_view);
             sdvCover = (SimpleDraweeView) itemView.findViewById(R.id.sdv_cover);
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
+            mtvTitle = (TextView) itemView.findViewById(R.id.mtv_title);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
             tvLike = (TextView) itemView.findViewById(R.id.tv_like);
 

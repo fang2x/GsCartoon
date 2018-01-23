@@ -20,15 +20,19 @@
         fresco:actualImageScaleType="centerCrop"
         android:adjustViewBounds="true" />
 
-    <TextView
-        android:id="@+id/tv_title"
+    <com.gs.gscartoon.widget.view.MarqueTextView
+        android:id="@+id/mtv_title"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:textSize="14sp"
         android:text="Title"
-        android:maxLines="1"
-        android:ellipsize="end"
+        android:singleLine="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:ellipsize="marquee"
+        android:scrollHorizontally="true"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
         android:layout_toRightOf="@id/sdv_cover"
         android:textColor="@color/BLACK"/>
     <TextView
