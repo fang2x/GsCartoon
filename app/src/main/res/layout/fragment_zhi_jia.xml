@@ -4,6 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/BLUEVIOLET">
-
+    android:orientation="vertical"
+    android:background="@color/WHITE">
+    <com.gs.gscartoon.widget.view.refresh.JFengRefreshLayout
+        android:id="@+id/jfrl_zhi_jia_list_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_zhi_jia_data_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.gs.gscartoon.widget.view.refresh.JFengRefreshLayout>
+    <com.gs.gscartoon.widget.view.refresh.JFengRefreshLayout
+        android:id="@+id/jfrl_zhi_jia_empty_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                layout="@layout/empty"/>
+        </ScrollView>
+    </com.gs.gscartoon.widget.view.refresh.JFengRefreshLayout>
 </LinearLayout>
