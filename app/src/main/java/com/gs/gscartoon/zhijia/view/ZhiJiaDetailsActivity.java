@@ -238,6 +238,9 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
             }
             tvTime.setText(str);
         }
+
+        mDescriptionPresenter.getDetails(bean);
+        mSectionPresenter.getDetails(bean);
     }
 
     @Override

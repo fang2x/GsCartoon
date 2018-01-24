@@ -35,6 +35,6 @@ public class ZhiJiaDescriptionPresenter implements ZhiJiaDescriptionContract.Pre
 
     @Override
     public void getDetails(ZhiJiaDetailsBean bean) {
-
+        mZhiJiaDescriptionView.updateDetails(bean);
     }
 }

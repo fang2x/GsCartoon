@@ -2,27 +2,15 @@ package com.gs.gscartoon.zhijia.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.gs.gscartoon.R;
-import com.gs.gscartoon.kuaikan.KuaiKanContract;
-import com.gs.gscartoon.kuaikan.model.KuaiKanListModel;
-import com.gs.gscartoon.kuaikan.presenter.KuaiKanListPresenter;
-import com.gs.gscartoon.kuaikan.view.KuaiKanListFragment;
-import com.gs.gscartoon.utils.TimeUtil;
 import com.gs.gscartoon.zhijia.ZhiJiaDescriptionContract;
 import com.gs.gscartoon.zhijia.bean.ZhiJiaDetailsBean;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +19,9 @@ import butterknife.ButterKnife;
 public class ZhiJiaDescriptionFragment extends Fragment
         implements ZhiJiaDescriptionContract.View{
     private final static String TAG = "ZhiJiaDescriptionFragment";
+
+    @BindView(R.id.tv_description)
+    TextView tvDescription;
 
     private ZhiJiaDescriptionContract.Presenter mPresenter;
 
@@ -60,7 +51,7 @@ public class ZhiJiaDescriptionFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_kuai_kan, container, false);
+        View view = inflater.inflate(R.layout.fragment_zhi_jia_description, container, false);
         ButterKnife.bind(this, view);
         initView();
         return view;
@@ -104,7 +95,10 @@ public class ZhiJiaDescriptionFragment extends Fragment
 
     @Override
     public void updateDetails(ZhiJiaDetailsBean bean) {
-
+        if(tvDescription == null){
+            return;
+        }
+        tvDescription.setText(bean.getDescription());
     }
 
     @Override

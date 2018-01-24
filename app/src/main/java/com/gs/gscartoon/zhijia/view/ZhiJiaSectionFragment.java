@@ -3,22 +3,40 @@ package com.gs.gscartoon.zhijia.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.gs.gscartoon.R;
+import com.gs.gscartoon.utils.AppConstants;
+import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.zhijia.ZhiJiaSectionContract;
+import com.gs.gscartoon.zhijia.adapter.ZhiJiaSectionRecyclerAdapter;
 import com.gs.gscartoon.zhijia.bean.ZhiJiaDetailsBean;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class ZhiJiaSectionFragment extends Fragment
-        implements ZhiJiaSectionContract.View{
+        implements ZhiJiaSectionContract.View, View.OnClickListener{
     private final static String TAG = "ZhiJiaSectionFragment";
 
+    @BindView(R.id.rv_zhi_jia_section)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.tv_count)
+    TextView tvCount;
+    @BindView(R.id.tv_asc)
+    TextView tvAsc;
+    @BindView(R.id.tv_desc)
+    TextView tvDesc;
+
     private ZhiJiaSectionContract.Presenter mPresenter;
+    private ZhiJiaSectionRecyclerAdapter mRecyclerAdapter;
+    private int mOrder = AppConstants.ASC;//排序，默认正序
 
     public ZhiJiaSectionFragment() {
 
@@ -46,7 +64,7 @@ public class ZhiJiaSectionFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_kuai_kan, container, false);
+        View view = inflater.inflate(R.layout.fragment_zhi_jia_section, container, false);
         ButterKnife.bind(this, view);
         initView();
         return view;
@@ -58,12 +76,31 @@ public class ZhiJiaSectionFragment extends Fragment
     }
 
     public void initView(){
+        tvAsc.setOnClickListener(this);
+        tvDesc.setOnClickListener(this);
 
+        mRecyclerAdapter = new ZhiJiaSectionRecyclerAdapter(this.getActivity());
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this.getActivity(), 4, GridLayoutManager.VERTICAL, false));
+        mRecyclerView.setAdapter(mRecyclerAdapter);
+        mRecyclerAdapter.setClickListener(new ZhiJiaSectionRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                LogUtil.i(TAG,"点击item position="+position);
+                /*ZhiJiaListBean bean = mRecyclerAdapter.getItemData(position);
+                if(bean == null){
+                    return;
+                }
+                Intent intent = new Intent(ZhiJiaFragment.this.getActivity(), ZhiJiaDetailsActivity.class);
+                intent.putExtra(AppConstants.TOPIC_ID, bean.getId()+"");
+                startActivity(intent);*/
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        updateOrder();
         mPresenter.start();
     }
 
@@ -90,11 +127,56 @@ public class ZhiJiaSectionFragment extends Fragment
 
     @Override
     public void updateDetails(ZhiJiaDetailsBean bean) {
-
+        if(bean.getChapters() == null || bean.getChapters().get(0) == null){
+            LogUtil.e(TAG, "bean.getChapters() == null || bean.getChapters().get(0) == null");
+            return;
+        }
+        mRecyclerAdapter.clear();
+        mRecyclerAdapter.addItems(bean.getChapters().get(0).getData());
+        mRecyclerAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void getDetailsFailure() {
 
+    }
+
+    @Override
+    public void updateOrder() {
+        if(tvAsc == null || tvDesc == null){
+            return;
+        }
+
+        if(mOrder == AppConstants.ASC){
+            tvAsc.setTextColor(getResources().getColor(R.color.ToolbarDark));
+            tvDesc.setTextColor(getResources().getColor(R.color.BLACK));
+        }else {
+            tvDesc.setTextColor(getResources().getColor(R.color.ToolbarDark));
+            tvAsc.setTextColor(getResources().getColor(R.color.BLACK));
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_asc:
+                if(mOrder != AppConstants.ASC){
+                    mOrder = AppConstants.ASC;
+                    updateOrder();
+                }else {
+                    LogUtil.i(TAG, "当前正是正序");
+                }
+                break;
+            case R.id.tv_desc:
+                if(mOrder != AppConstants.DESC){
+                    mOrder = AppConstants.DESC;
+                    updateOrder();
+                }else {
+                    LogUtil.i(TAG, "当前正是倒序");
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

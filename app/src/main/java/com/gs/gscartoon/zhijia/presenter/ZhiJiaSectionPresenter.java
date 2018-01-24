@@ -35,6 +35,6 @@ public class ZhiJiaSectionPresenter implements ZhiJiaSectionContract.Presenter {
 
     @Override
     public void getDetails(ZhiJiaDetailsBean bean) {
-
+        mZhiJiaSectionView.updateDetails(bean);
     }
 }

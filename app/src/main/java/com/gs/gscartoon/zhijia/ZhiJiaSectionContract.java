@@ -13,6 +13,8 @@ public interface ZhiJiaSectionContract {
     interface View extends BaseView<Presenter> {
         void updateDetails(ZhiJiaDetailsBean bean);
         void getDetailsFailure();
+
+        void updateOrder();
     }
 
     interface Presenter extends BasePresenter {
