@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -57,6 +58,25 @@ public class ZhiJiaListRecyclerAdapter extends BaseRecyclerAdapter<ZhiJiaListBea
         }
 
         holder.sdvCover.setImageURI(Uri.parse(bean.getCover()));
+        holder.sdvCover.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        holder.sdvCover.setColorFilter(Color.parseColor("#44000000"));
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        holder.sdvCover.setColorFilter(null);
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        holder.sdvCover.setColorFilter(null);
+                        break;
+                }
+                //这里一定要return false，不然该方法会拦截事件，造成不能响应点击等操作
+                return false;
+            }
+        });
 
         holder.tvTitle.setText(bean.getTitle());
         holder.tvName.setText(bean.getLast_update_chapter_name());
@@ -87,6 +107,7 @@ public class ZhiJiaListRecyclerAdapter extends BaseRecyclerAdapter<ZhiJiaListBea
             sdvCover = (SimpleDraweeView) itemView.findViewById(R.id.sdv_cover);
 
             mRootView.setOnClickListener(this);
+            sdvCover.setOnClickListener(this);
         }
 
         @Override
@@ -94,6 +115,9 @@ public class ZhiJiaListRecyclerAdapter extends BaseRecyclerAdapter<ZhiJiaListBea
             if (clickListener != null) {
                 switch (v.getId()) {
                     case R.id.rl_item_root_view:
+                        clickListener.onClick(itemView, getAdapterPosition());
+                        break;
+                    case R.id.sdv_cover:
                         clickListener.onClick(itemView, getAdapterPosition());
                         break;
                     default:

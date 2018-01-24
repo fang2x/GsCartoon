@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 带圆角 黄色色边框  长方体 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners android:bottomRightRadius="3dp" android:bottomLeftRadius="3dp" />
+            <solid android:color="@color/translucent" />
+        </shape>
+    </item>
+</layer-list>

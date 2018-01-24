@@ -93,7 +93,7 @@ public class KuaiKanAllChapterActivity extends AppCompatActivity implements Kuai
             }
         });
 
-        ivCover.setColorFilter(Color.parseColor("#44000000"));
+        //ivCover.setColorFilter(Color.parseColor("#44000000"));
     }
 
     @Override

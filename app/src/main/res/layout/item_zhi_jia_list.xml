@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginEnd="15dp"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="10dp"
     android:background="@color/WHITE"
     android:foreground="?attr/selectableItemBackground">
 
@@ -15,28 +15,30 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         fresco:actualImageScaleType="centerCrop"
-        fresco:placeholderImage="@drawable/ic_kuaikan_default_image"
-        fresco:roundedCornerRadius="2dp"
+        fresco:placeholderImage="@drawable/ic_kuaikan_default_image_vertical"
+        fresco:roundedCornerRadius="3dp"
         fresco:viewAspectRatio="0.75" />
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/sdv_cover"
-        android:layout_margin="15dp"
+        android:padding="2dp"
+        android:background="@drawable/bg_circle_corner_button_fill_translucent"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="name"
-        android:textColor="@color/BLACK"
-        android:textSize="14sp" />
+        android:textColor="@color/WHITE"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/sdv_cover"
-        android:layout_margin="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="title"
