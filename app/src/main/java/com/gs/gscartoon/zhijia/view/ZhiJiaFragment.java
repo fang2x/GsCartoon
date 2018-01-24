@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.gs.gscartoon.R;
 import com.gs.gscartoon.manman.ManManContract;
+import com.gs.gscartoon.utils.AppConstants;
 import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.widget.view.refresh.JFengRefreshLayout;
 import com.gs.gscartoon.widget.view.refresh.JFengRefreshListener;
@@ -103,12 +104,9 @@ public class ZhiJiaFragment extends Fragment implements ZhiJiaContract.View,
                 if(bean == null){
                     return;
                 }
-                /*Intent intent = new Intent(KuaiKanListFragment.this.getActivity(), KuaiKanBrowseActivity.class);
-                intent.putExtra(AppConstants.COMICS_ID, bean.getId()+"");
-                if(bean.getTopic() != null){
-                    intent.putExtra(AppConstants.TOPIC_ID, bean.getTopic().getId()+"");
-                }
-                startActivity(intent);*/
+                Intent intent = new Intent(ZhiJiaFragment.this.getActivity(), ZhiJiaDetailsActivity.class);
+                intent.putExtra(AppConstants.TOPIC_ID, bean.getId()+"");
+                startActivity(intent);
             }
         });
     }

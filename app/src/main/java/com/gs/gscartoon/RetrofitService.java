@@ -3,10 +3,7 @@ package com.gs.gscartoon;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanAllChapterBean;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanBrowseBean;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanListBean;
-import com.gs.gscartoon.zhijia.bean.ZhiJiaListBean;
-import com.gs.gscartoon.zhijia.bean.ZhiJiaResult;
-
-import java.util.List;
+import com.gs.gscartoon.zhijia.bean.ZhiJiaDetailsBean;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -40,5 +37,9 @@ public interface RetrofitService {
     @GET("latest/100/{page}.json")
     Observable<ResponseBody> loadZhiJiaList(
             @Path("page") int page);
+
+    @GET("comic/{id}.json")
+    Observable<ZhiJiaDetailsBean> getZhiJiaDetails(
+            @Path("id") String id);
     //---------------------动漫之家---------------
 }

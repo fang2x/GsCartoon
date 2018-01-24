@@ -8,7 +8,6 @@ import com.gs.gscartoon.utils.ErrorUtil;
 import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.zhijia.ZhiJiaContract;
 import com.gs.gscartoon.zhijia.bean.ZhiJiaListBean;
-import com.gs.gscartoon.zhijia.bean.ZhiJiaResult;
 import com.gs.gscartoon.zhijia.model.ZhiJiaModel;
 
 import java.util.List;

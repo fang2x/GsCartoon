@@ -30,7 +30,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/SplashAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,11 +39,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.view.HomeActivity"
-            android:theme="@style/HomeTheme"></activity>
-        <activity android:name=".kuaikan.view.KuaiKanBrowseActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".kuaikan.view.KuaiKanAllChapterActivity"/>
+        <activity
+            android:name=".home.view.HomeActivity"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".kuaikan.view.KuaiKanBrowseActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".kuaikan.view.KuaiKanAllChapterActivity" />
+        <activity android:name=".zhijia.view.ZhiJiaDetailsActivity"></activity>
     </application>
 
 </manifest>
