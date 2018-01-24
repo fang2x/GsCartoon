@@ -1,145 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fl_item_root_view"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_item_root_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
-    android:background="@color/WHITE">
+    android:background="@color/WHITE"
+    android:foreground="?attr/selectableItemBackground">
+
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:id="@+id/rl_topic"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground">
-        <RelativeLayout
-            android:id="@+id/rl_topic"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:id="@+id/ll_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="?attr/selectableItemBackground">
-            <LinearLayout
-                android:id="@+id/ll_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <TextView
-                    android:id="@+id/tv_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:background="@drawable/bg_circle_corner_button_fill_white"
-                    android:paddingStart="2dp"
-                    android:paddingEnd="2dp"
-                    android:textColor="@color/WHITE"
-                    android:text="label"
-                    android:layout_marginStart="15dp"/>
-                <com.gs.gscartoon.widget.view.MarqueTextView
-                    android:id="@+id/mtv_topic"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:singleLine="true"
-                    android:textColor="@color/BLACK"
-                    android:text="title"
-                    android:textSize="16sp"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:ellipsize="marquee"
-                    android:scrollHorizontally="true"
-                    android:focusableInTouchMode="true"
-                    android:focusable="true"/>
-            </LinearLayout>
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
             <TextView
-                android:id="@+id/tv_author_display"
+                android:id="@+id/tv_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textColor="@color/DIMGRAY"
-                android:layout_below="@id/ll_label"
-                android:text="作者："
-                android:layout_marginStart="15dp"/>
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_circle_corner_button_fill_white"
+                android:paddingEnd="2dp"
+                android:paddingStart="2dp"
+                android:text="label"
+                android:textColor="@color/WHITE"
+                android:textSize="12sp" />
+
             <com.gs.gscartoon.widget.view.MarqueTextView
-                android:id="@+id/mtv_author"
-                android:layout_width="150dp"
+                android:id="@+id/mtv_topic"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/tv_author_display"
-                android:singleLine="true"
-                android:marqueeRepeatLimit="marquee_forever"
+                android:layout_marginStart="10dp"
                 android:ellipsize="marquee"
-                android:scrollHorizontally="true"
-                android:focusableInTouchMode="true"
                 android:focusable="true"
-                android:layout_marginStart="5dp"
-                android:layout_below="@id/ll_label"
-                android:textColor="@color/DIMGRAY"
-                android:text="author"
-                android:textSize="12sp"/>
-            <ImageView
-                android:id="@+id/iv_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="15dp"
-                android:tint="@color/DIMGRAY"
-                android:src="@drawable/ic_collection_next_normal"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/iv_next"
-                android:layout_centerVertical="true"
-                android:textSize="14sp"
-                android:textColor="@color/DIMGRAY"
-                android:text="全集"/>
-        </RelativeLayout>
-        <ImageView
-            android:id="@+id/iv_cover"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rl_topic"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true" />
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/iv_cover"
-            android:text="name"
-            android:layout_margin="15dp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="@color/BLACK"
-            android:textSize="14sp"/>
+                android:focusableInTouchMode="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="title"
+                android:textColor="@color/BLACK"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_common"
+            android:id="@+id/tv_author_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_label"
+            android:layout_marginStart="15dp"
+            android:text="作者："
+            android:textColor="@color/DIMGRAY"
+            android:textSize="12sp" />
+
+        <com.gs.gscartoon.widget.view.MarqueTextView
+            android:id="@+id/mtv_author"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_label"
+            android:layout_marginStart="5dp"
+            android:layout_toRightOf="@id/tv_author_display"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="author"
+            android:textColor="@color/DIMGRAY"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/iv_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/iv_cover"
-            android:drawableStart="@drawable/ic_common_detail_normal"
-            android:drawablePadding="5.8dp"
-            android:text="common"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="15dp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="@color/DIMGRAY"
-            android:textSize="12sp"/>
+            android:src="@drawable/ic_collection_next_normal"
+            android:tint="@color/DIMGRAY" />
 
         <TextView
-            android:id="@+id/tv_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/iv_cover"
-            android:layout_toLeftOf="@id/tv_common"
-            android:drawableStart="@drawable/ic_common_praise_highlighted_like_normal"
-            android:drawablePadding="5.8dp"
-            android:text="like"
-            android:layout_margin="15dp"
-            android:maxLines="1"
-            android:ellipsize="end"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_next"
+            android:text="全集"
             android:textColor="@color/DIMGRAY"
-            android:textSize="12sp"/>
+            android:textSize="14sp" />
     </RelativeLayout>
-</FrameLayout>
+
+    <ImageView
+        android:id="@+id/iv_cover"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_topic"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_cover"
+        android:layout_margin="15dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="name"
+        android:textColor="@color/BLACK"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_common"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/iv_cover"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="15dp"
+        android:drawablePadding="5.8dp"
+        android:drawableStart="@drawable/ic_common_detail_normal"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="common"
+        android:textColor="@color/DIMGRAY"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_cover"
+        android:layout_margin="15dp"
+        android:layout_toLeftOf="@id/tv_common"
+        android:drawablePadding="5.8dp"
+        android:drawableStart="@drawable/ic_common_praise_highlighted_like_normal"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="like"
+        android:textColor="@color/DIMGRAY"
+        android:textSize="12sp" />
+</RelativeLayout>

@@ -13,7 +13,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_zhi_jia_data_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:paddingStart="15dp"/>
     </com.gs.gscartoon.widget.view.refresh.JFengRefreshLayout>
     <com.gs.gscartoon.widget.view.refresh.JFengRefreshLayout
         android:id="@+id/jfrl_zhi_jia_empty_refresh_layout"

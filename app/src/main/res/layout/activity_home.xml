@@ -67,7 +67,7 @@
                 android:id="@+id/ll_kuaikan"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -89,7 +89,7 @@
                 android:id="@+id/ll_zhijia"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -111,7 +111,7 @@
                 android:id="@+id/ll_manman"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal">
 

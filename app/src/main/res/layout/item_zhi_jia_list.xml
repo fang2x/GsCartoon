@@ -1,40 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fl_item_root_view"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_item_root_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="15dp"
     android:layout_marginTop="5dp"
-    android:background="@color/WHITE">
-    <RelativeLayout
+    android:background="@color/WHITE"
+    android:foreground="?attr/selectableItemBackground">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_cover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground">
-        <ImageView
-            android:id="@+id/iv_cover"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true" />
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="name"
-            android:layout_margin="15dp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="@color/BLACK"
-            android:textSize="14sp"/>
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/iv_cover"
-            android:text="title"
-            android:layout_margin="15dp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="@color/BLACK"
-            android:textSize="14sp"/>
-    </RelativeLayout>
-</FrameLayout>
+        android:adjustViewBounds="true"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@drawable/ic_kuaikan_default_image"
+        fresco:roundedCornerRadius="2dp"
+        fresco:viewAspectRatio="0.75" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/sdv_cover"
+        android:layout_margin="15dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="name"
+        android:textColor="@color/BLACK"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sdv_cover"
+        android:layout_margin="15dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="title"
+        android:textColor="@color/BLACK"
+        android:textSize="14sp" />
+</RelativeLayout>

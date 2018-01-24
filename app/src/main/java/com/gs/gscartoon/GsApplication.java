@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.gs.gscartoon.utils.FrescoUtil;
 
 /**
  * Created by camdora on 16-12-26. 12:00
@@ -18,7 +20,13 @@ public class GsApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
-        Fresco.initialize(mContext);
+
+        ImagePipelineConfig imagePipelineConfig = FrescoUtil.getConfig();
+        if(imagePipelineConfig == null){
+            Fresco.initialize(mContext);
+        }else {
+            Fresco.initialize(mContext, imagePipelineConfig);
+        }
     }
 
     public static Context getAppContext(){

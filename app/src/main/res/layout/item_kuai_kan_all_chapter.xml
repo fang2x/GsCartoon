@@ -8,7 +8,7 @@
     android:paddingBottom="10dp"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
-    android:background="?attr/selectableItemBackground">
+    android:foreground="?attr/selectableItemBackground">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sdv_cover"

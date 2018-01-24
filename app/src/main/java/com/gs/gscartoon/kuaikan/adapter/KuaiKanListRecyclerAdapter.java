@@ -110,14 +110,14 @@ public class KuaiKanListRecyclerAdapter extends BaseRecyclerAdapter<ComicsBean,
     public class KuaiKanListRecyclerHolder extends BaseRecyclerVH<ComicsBean>
             implements View.OnClickListener {
 
-        private FrameLayout mFrameLayout;
+        private RelativeLayout mRootView;
         private RelativeLayout rlTopic;
         private ImageView ivCover;
         private TextView tvLabel, mtvTopic, mtvAuthor, tvTitle, tvCommon, tvLike;
 
         public KuaiKanListRecyclerHolder(View itemView) {
             super(itemView);
-            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.fl_item_root_view);
+            mRootView = (RelativeLayout) itemView.findViewById(R.id.rl_item_root_view);
             rlTopic = (RelativeLayout) itemView.findViewById(R.id.rl_topic);
             tvLabel = (TextView) itemView.findViewById(R.id.tv_label);
             mtvTopic = (TextView) itemView.findViewById(R.id.mtv_topic);
@@ -127,7 +127,7 @@ public class KuaiKanListRecyclerAdapter extends BaseRecyclerAdapter<ComicsBean,
             tvCommon = (TextView) itemView.findViewById(R.id.tv_common);
             tvLike = (TextView) itemView.findViewById(R.id.tv_like);
 
-            mFrameLayout.setOnClickListener(this);
+            mRootView.setOnClickListener(this);
             rlTopic.setOnClickListener(this);
         }
 
@@ -135,7 +135,7 @@ public class KuaiKanListRecyclerAdapter extends BaseRecyclerAdapter<ComicsBean,
         public void onClick(View v) {
             if (clickListener != null) {
                 switch (v.getId()) {
-                    case R.id.fl_item_root_view:
+                    case R.id.rl_item_root_view:
                         clickListener.onClick(itemView, getAdapterPosition());
                         break;
                     case R.id.rl_topic:

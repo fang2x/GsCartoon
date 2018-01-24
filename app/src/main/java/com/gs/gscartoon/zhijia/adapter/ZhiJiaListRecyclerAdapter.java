@@ -3,6 +3,7 @@ package com.gs.gscartoon.zhijia.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.gscartoon.BaseRecyclerAdapter;
 import com.gs.gscartoon.BaseRecyclerVH;
 import com.gs.gscartoon.R;
@@ -19,7 +21,7 @@ import com.gs.gscartoon.R;
 import com.gs.gscartoon.utils.ColorUtil;
 import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.zhijia.bean.ZhiJiaListBean;
-import com.squareup.picasso.Picasso;
+
 
 /**
  * Created by camdora on 16-12-13.
@@ -54,10 +56,7 @@ public class ZhiJiaListRecyclerAdapter extends BaseRecyclerAdapter<ZhiJiaListBea
             return;
         }
 
-        //holder.sdvCover.setImageURI(Uri.parse(bean.getCover_image_url()));
-        Picasso.with(mContext).load(bean.getCover()).placeholder(R.drawable.ic_kuaikan_default_image_vertical)
-                .error(R.drawable.ic_kuaikan_default_image_vertical)
-                .into(holder.ivCover);
+        holder.sdvCover.setImageURI(Uri.parse(bean.getCover()));
 
         holder.tvTitle.setText(bean.getTitle());
         holder.tvName.setText(bean.getLast_update_chapter_name());
@@ -76,25 +75,25 @@ public class ZhiJiaListRecyclerAdapter extends BaseRecyclerAdapter<ZhiJiaListBea
     public class ZhiJiaListRecyclerHolder extends BaseRecyclerVH<ZhiJiaListBean>
             implements View.OnClickListener {
 
-        private FrameLayout mFrameLayout;
-        private ImageView ivCover;
+        private RelativeLayout mRootView;
+        private SimpleDraweeView sdvCover;
         private TextView tvTitle, tvName;
 
         public ZhiJiaListRecyclerHolder(View itemView) {
             super(itemView);
-            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.fl_item_root_view);
-            ivCover = (ImageView) itemView.findViewById(R.id.iv_cover);
+            mRootView = (RelativeLayout) itemView.findViewById(R.id.rl_item_root_view);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
+            sdvCover = (SimpleDraweeView) itemView.findViewById(R.id.sdv_cover);
 
-            mFrameLayout.setOnClickListener(this);
+            mRootView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             if (clickListener != null) {
                 switch (v.getId()) {
-                    case R.id.fl_item_root_view:
+                    case R.id.rl_item_root_view:
                         clickListener.onClick(itemView, getAdapterPosition());
                         break;
                     default:
