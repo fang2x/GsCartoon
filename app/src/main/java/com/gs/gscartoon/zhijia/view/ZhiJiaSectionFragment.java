@@ -36,7 +36,7 @@ public class ZhiJiaSectionFragment extends Fragment
 
     private ZhiJiaSectionContract.Presenter mPresenter;
     private ZhiJiaSectionRecyclerAdapter mRecyclerAdapter;
-    private int mOrder = AppConstants.ASC;//排序，默认正序
+    private int mOrder = AppConstants.DESC;//排序，默认倒序
 
     public ZhiJiaSectionFragment() {
 
@@ -162,6 +162,7 @@ public class ZhiJiaSectionFragment extends Fragment
             case R.id.tv_asc:
                 if(mOrder != AppConstants.ASC){
                     mOrder = AppConstants.ASC;
+                    mRecyclerAdapter.order(mOrder);
                     updateOrder();
                 }else {
                     LogUtil.i(TAG, "当前正是正序");
@@ -170,6 +171,7 @@ public class ZhiJiaSectionFragment extends Fragment
             case R.id.tv_desc:
                 if(mOrder != AppConstants.DESC){
                     mOrder = AppConstants.DESC;
+                    mRecyclerAdapter.order(mOrder);
                     updateOrder();
                 }else {
                     LogUtil.i(TAG, "当前正是倒序");

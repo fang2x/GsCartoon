@@ -8,8 +8,12 @@ import android.widget.TextView;
 import com.gs.gscartoon.BaseRecyclerAdapter;
 import com.gs.gscartoon.BaseRecyclerVH;
 import com.gs.gscartoon.R;
+import com.gs.gscartoon.utils.AppConstants;
 import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.zhijia.bean.ZhiJiaDetailsBean.ChaptersBean.DataBean;
+
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by camdora on 16-12-13.
@@ -45,6 +49,24 @@ public class ZhiJiaSectionRecyclerAdapter extends BaseRecyclerAdapter<DataBean,
         }
 
         holder.tvSection.setText(bean.getChapter_title());
+    }
+
+    /**
+     * 排序
+     * @param order
+     */
+    public void order(final int order){
+        //直接在这里添加我们的排序规则
+        Collections.sort(mData, new Comparator<DataBean>() {
+            public int compare(DataBean arg0, DataBean arg1) {
+                if(order == AppConstants.ASC){
+                    return new Integer(arg0.getChapter_order()).compareTo(arg1.getChapter_order());
+                }else {
+                    return new Integer(arg1.getChapter_order()).compareTo(arg0.getChapter_order());
+                }
+            }
+        });
+        notifyDataSetChanged();
     }
 
     private OnItemClickListener clickListener;
