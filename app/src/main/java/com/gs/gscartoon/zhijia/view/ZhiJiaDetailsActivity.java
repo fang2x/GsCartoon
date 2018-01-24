@@ -1,10 +1,16 @@
 package com.gs.gscartoon.zhijia.view;
 
 import android.net.Uri;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -13,10 +19,14 @@ import com.gs.gscartoon.utils.AppConstants;
 import com.gs.gscartoon.utils.StatusBarUtil;
 import com.gs.gscartoon.utils.TimeUtil;
 import com.gs.gscartoon.utils.ToolbarUtil;
+import com.gs.gscartoon.zhijia.ZhiJiaDescriptionContract;
 import com.gs.gscartoon.zhijia.ZhiJiaDetailsContract;
+import com.gs.gscartoon.zhijia.ZhiJiaSectionContract;
 import com.gs.gscartoon.zhijia.bean.ZhiJiaDetailsBean;
 import com.gs.gscartoon.zhijia.model.ZhiJiaDetailsModel;
+import com.gs.gscartoon.zhijia.presenter.ZhiJiaDescriptionPresenter;
 import com.gs.gscartoon.zhijia.presenter.ZhiJiaDetailsPresenter;
+import com.gs.gscartoon.zhijia.presenter.ZhiJiaSectionPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,8 +52,21 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
     TextView tvSubscribeCount;
     @BindView(R.id.tv_time)
     TextView tvTime;
+    @BindView(R.id.vp_viewpager)
+    ViewPager vpViewPager;
+    @BindView(R.id.tl_tabs)
+    TabLayout tlTabLayout;
+
+    private static final int FRAGMENT_COUNT = 2;
 
     private ZhiJiaDetailsContract.Presenter mPresenter;
+
+    private ZhiJiaDescriptionContract.Presenter mDescriptionPresenter;
+    private ZhiJiaDescriptionFragment mDescriptionFragment;
+    private ZhiJiaSectionContract.Presenter mSectionPresenter;
+    private ZhiJiaSectionFragment mSectionFragment;
+
+    private ViewPagerAdapter mViewPagerAdapter;
     private Unbinder unbinder;
     private String mTopicId;//漫画Id
 
@@ -66,6 +89,75 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
         new ZhiJiaDetailsPresenter(
                 new ZhiJiaDetailsModel(getApplicationContext()), this);
 
+        mViewPagerAdapter = new ViewPagerAdapter(this.getSupportFragmentManager());
+        vpViewPager.setAdapter(mViewPagerAdapter);
+        tlTabLayout.setupWithViewPager(vpViewPager);
+        tlTabLayout.setTabMode(TabLayout.MODE_FIXED);//Tablayout不可以滚动
+
+    }
+
+    class ViewPagerAdapter extends FragmentStatePagerAdapter {
+
+        public ViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment = null;
+            switch (position) {
+                case 0://房源图片
+                    if(mDescriptionFragment == null){
+                        mDescriptionFragment = ZhiJiaDescriptionFragment.newInstance();
+                    }
+                    if(mDescriptionPresenter == null){
+                        mDescriptionPresenter = new ZhiJiaDescriptionPresenter(
+                                mDescriptionFragment);
+                    }
+                    fragment = mDescriptionFragment;
+                    break;
+                case 1://房源信息
+                    if(mSectionFragment == null){
+                        mSectionFragment = ZhiJiaSectionFragment.newInstance();
+                    }
+                    if(mSectionPresenter == null){
+                        mSectionPresenter = new ZhiJiaSectionPresenter(
+                                mSectionFragment);
+                    }
+                    fragment = mSectionFragment;
+                    break;
+                default:
+                    break;
+            }
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return FRAGMENT_COUNT;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            String stringPageTitle = null;
+            switch (position) {
+                case 0://详情
+                    stringPageTitle = "详情";
+                    break;
+                case 1://目录
+                    stringPageTitle = "目录";
+                    break;
+                default:
+                    break;
+            }
+            return stringPageTitle;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            //如果注释这行，那么不管怎么切换，page都不会被销毁
+            //super.destroyItem(container, position, object);
+        }
     }
 
     @Override

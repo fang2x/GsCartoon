@@ -106,4 +106,28 @@
                 android:textSize="14sp"/>
         </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/dividing_line_gray" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:tabTextAppearance="@style/ZhiJiaTabLayoutTextAppearance"
+        app:tabBackground="@color/WHITE"
+        app:tabSelectedTextColor="@color/ToolbarDark"
+        app:tabIndicatorColor="@color/ToolbarLight"
+        app:tabTextColor="@color/tab_text_color"
+        app:tabGravity="fill" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/pageBackground" />
 </LinearLayout>
