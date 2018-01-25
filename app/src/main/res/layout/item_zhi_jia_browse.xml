@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fl_item_root_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/WHITE">
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="5dp">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/sdv_browse"
+    <ImageView
+        android:id="@+id/iv_browse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        fresco:actualImageScaleType="centerCrop"
-        fresco:placeholderImage="@drawable/ic_kuaikan_default_image_vertical"
-        fresco:viewAspectRatio="0.75" />
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true" />
 </FrameLayout>

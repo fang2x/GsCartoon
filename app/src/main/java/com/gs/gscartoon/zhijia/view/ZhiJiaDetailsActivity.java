@@ -78,6 +78,8 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
         StatusBarUtil.enableTranslucentStatusBar(this);
         unbinder = ButterKnife.bind(this);
         initView();
+
+        mPresenter.getDetails(mTopicId);
     }
 
     private void initView(){
@@ -91,6 +93,7 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
 
         mViewPagerAdapter = new ViewPagerAdapter(this.getSupportFragmentManager());
         vpViewPager.setAdapter(mViewPagerAdapter);
+        vpViewPager.setCurrentItem(mViewPagerAdapter.getCount()-1);
         tlTabLayout.setupWithViewPager(vpViewPager);
         tlTabLayout.setTabMode(TabLayout.MODE_FIXED);//Tablayout不可以滚动
 
@@ -169,7 +172,6 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.getDetails(mTopicId);
     }
 
     @Override
