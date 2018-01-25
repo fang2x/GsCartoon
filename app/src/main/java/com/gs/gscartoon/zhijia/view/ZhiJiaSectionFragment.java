@@ -1,5 +1,6 @@
 package com.gs.gscartoon.zhijia.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.zhijia.ZhiJiaSectionContract;
 import com.gs.gscartoon.zhijia.adapter.ZhiJiaSectionRecyclerAdapter;
 import com.gs.gscartoon.zhijia.bean.ZhiJiaDetailsBean;
+import com.gs.gscartoon.zhijia.bean.ZhiJiaDetailsBean.ChaptersBean.DataBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +39,7 @@ public class ZhiJiaSectionFragment extends Fragment
     private ZhiJiaSectionContract.Presenter mPresenter;
     private ZhiJiaSectionRecyclerAdapter mRecyclerAdapter;
     private int mOrder = AppConstants.DESC;//排序，默认倒序
+    private int mTopicId;//漫画Id
 
     public ZhiJiaSectionFragment() {
 
@@ -86,13 +89,14 @@ public class ZhiJiaSectionFragment extends Fragment
             @Override
             public void onClick(View view, int position) {
                 LogUtil.i(TAG,"点击item position="+position);
-                /*ZhiJiaListBean bean = mRecyclerAdapter.getItemData(position);
+                DataBean bean = mRecyclerAdapter.getItemData(position);
                 if(bean == null){
                     return;
                 }
-                Intent intent = new Intent(ZhiJiaFragment.this.getActivity(), ZhiJiaDetailsActivity.class);
-                intent.putExtra(AppConstants.TOPIC_ID, bean.getId()+"");
-                startActivity(intent);*/
+                Intent intent = new Intent(ZhiJiaSectionFragment.this.getActivity(), ZhiJiaBrowseActivity.class);
+                intent.putExtra(AppConstants.TOPIC_ID, mTopicId);
+                intent.putExtra(AppConstants.COMICS_ID, bean.getChapter_id());
+                startActivity(intent);
             }
         });
     }
@@ -134,6 +138,8 @@ public class ZhiJiaSectionFragment extends Fragment
         mRecyclerAdapter.clear();
         mRecyclerAdapter.addItems(bean.getChapters().get(0).getData());
         mRecyclerAdapter.notifyDataSetChanged();
+
+        mTopicId = bean.getId();
     }
 
     @Override

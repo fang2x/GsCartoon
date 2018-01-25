@@ -47,6 +47,9 @@
             android:launchMode="singleTask" />
         <activity android:name=".kuaikan.view.KuaiKanAllChapterActivity" />
         <activity android:name=".zhijia.view.ZhiJiaDetailsActivity"></activity>
+        <activity
+            android:name=".zhijia.view.ZhiJiaBrowseActivity"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>
