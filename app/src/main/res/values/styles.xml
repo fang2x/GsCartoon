@@ -6,6 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowEnterTransition">@transition/activity_slide_right</item>
+        <item name="android:windowExitTransition">@transition/activity_slide_left</item>
+
+        <!-- 是否允许过渡效果之间的重叠 -->
+        <!--<item name="android:windowAllowEnterTransitionOverlap">false</item>-->
+        <!--<item name="android:windowAllowReturnTransitionOverlap">false</item>-->
     </style>
 
     <!-- 解决启动时空白页 -->

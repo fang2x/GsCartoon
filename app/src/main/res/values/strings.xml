@@ -10,7 +10,9 @@
     <string name="data_is_empty">数据为空</string>
     <string name="not_set">未设置</string>
 
-
+    <!-- ++++++++++++共享元素transitionName-->
+    <string name="transition_name_zhi_jia_cover">zhi_jia_cover</string>
+    <!-- ************共享元素transitionName-->
 
     <!-- ++++++++++++网络请求出错-->
     <string name="access_network_error">访问网络出错</string>

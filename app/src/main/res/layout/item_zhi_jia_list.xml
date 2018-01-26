@@ -9,21 +9,19 @@
     android:background="@color/WHITE"
     android:foreground="?attr/selectableItemBackground">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/sdv_cover"
+    <ImageView
+        android:id="@+id/iv_cover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
-        fresco:actualImageScaleType="centerCrop"
-        fresco:placeholderImage="@drawable/ic_kuaikan_default_image_vertical"
-        fresco:roundedCornerRadius="3dp"
-        fresco:viewAspectRatio="0.75" />
+        android:transitionName="@string/transition_name_zhi_jia_cover" />
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/sdv_cover"
+        android:layout_alignBottom="@id/iv_cover"
         android:padding="2dp"
         android:background="@drawable/bg_circle_corner_button_fill_translucent"
         android:ellipsize="end"
@@ -36,7 +34,7 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/sdv_cover"
+        android:layout_below="@id/iv_cover"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:ellipsize="end"

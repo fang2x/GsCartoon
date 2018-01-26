@@ -11,11 +11,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.gscartoon.R;
 import com.gs.gscartoon.utils.AppConstants;
+import com.gs.gscartoon.utils.OkHttpUtil;
+import com.gs.gscartoon.utils.PicassoRoundTransform;
 import com.gs.gscartoon.utils.StatusBarUtil;
 import com.gs.gscartoon.utils.TimeUtil;
 import com.gs.gscartoon.utils.ToolbarUtil;
@@ -27,10 +30,13 @@ import com.gs.gscartoon.zhijia.model.ZhiJiaDetailsModel;
 import com.gs.gscartoon.zhijia.presenter.ZhiJiaDescriptionPresenter;
 import com.gs.gscartoon.zhijia.presenter.ZhiJiaDetailsPresenter;
 import com.gs.gscartoon.zhijia.presenter.ZhiJiaSectionPresenter;
+import com.jakewharton.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import okhttp3.OkHttpClient;
 
 public class ZhiJiaDetailsActivity extends AppCompatActivity
         implements ZhiJiaDetailsContract.View{
@@ -40,8 +46,8 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
     Toolbar tbToolbar;
     @BindView(R.id.tv_toolbar_zhi_jia_details_title)
     TextView tvTitle;
-    @BindView(R.id.sdv_cover)
-    SimpleDraweeView sdvCover;
+    @BindView(R.id.iv_cover)
+    ImageView ivCover;
     @BindView(R.id.tv_author)
     TextView tvAuthor;
     @BindView(R.id.tv_label)
@@ -69,6 +75,7 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
     private ViewPagerAdapter mViewPagerAdapter;
     private Unbinder unbinder;
     private String mTopicId;//漫画Id
+    private Picasso mPicasso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +104,10 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
         tlTabLayout.setupWithViewPager(vpViewPager);
         tlTabLayout.setTabMode(TabLayout.MODE_FIXED);//Tablayout不可以滚动
 
+        OkHttpClient okHttpClient = OkHttpUtil.getHeaderOkHttpClientBuilder().build();
+        mPicasso = new Picasso.Builder(this)
+                .downloader(new OkHttp3Downloader(okHttpClient))
+                .build();
     }
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -203,14 +214,18 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
 
     @Override
     public void updateDetails(ZhiJiaDetailsBean bean) {
-        if(tvTitle == null || sdvCover == null || tvAuthor == null ||
+        if(tvTitle == null || ivCover == null || tvAuthor == null ||
                 tvLabel == null || tvViewCount == null || tvSubscribeCount == null ||
                 tvTime == null){
             return;
         }
 
         tvTitle.setText(bean.getTitle());
-        sdvCover.setImageURI(Uri.parse(bean.getCover()));
+        //sdvCover.setImageURI(Uri.parse(bean.getCover()));
+        mPicasso.load(bean.getCover()).placeholder(R.drawable.ic_kuaikan_default_image_vertical)
+                .error(R.drawable.ic_kuaikan_default_image_vertical)
+                .into(ivCover);
+
         tvViewCount.setText("人气：" + bean.getHot_num());
         tvSubscribeCount.setText("订阅：" + bean.getSubscribe_num());
 
