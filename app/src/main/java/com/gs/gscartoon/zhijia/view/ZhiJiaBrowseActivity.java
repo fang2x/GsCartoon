@@ -1,11 +1,14 @@
 package com.gs.gscartoon.zhijia.view;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -48,6 +51,7 @@ public class ZhiJiaBrowseActivity extends AppCompatActivity implements ZhiJiaBro
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zhi_jia_browse);
 
+        setupWindowAnimations();
         StatusBarUtil.enableTranslucentStatusBar(this);
         unbinder = ButterKnife.bind(this);
         initView();
@@ -74,6 +78,14 @@ public class ZhiJiaBrowseActivity extends AppCompatActivity implements ZhiJiaBro
         setIntent(intent);//must store the new intent unless getIntent() will return the old one
         mComicsId = getIntent().getIntExtra(AppConstants.COMICS_ID, 0);
         mTopicId = getIntent().getIntExtra(AppConstants.TOPIC_ID, 0);
+    }
+
+    private void setupWindowAnimations() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Transition transition = TransitionInflater.from(this)
+                    .inflateTransition(R.transition.activity_slide_right);
+            getWindow().setEnterTransition(transition);
+        }
     }
 
     @Override
@@ -109,7 +121,7 @@ public class ZhiJiaBrowseActivity extends AppCompatActivity implements ZhiJiaBro
     public boolean onOptionsItemSelected(MenuItem item) {
         // TODO Auto-generated method stub
         if(item.getItemId() == android.R.id.home) {
-            finish();
+            finishAfterTransition();
             return true;
         }
         return super.onOptionsItemSelected(item);

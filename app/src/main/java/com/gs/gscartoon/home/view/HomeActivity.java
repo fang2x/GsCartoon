@@ -178,7 +178,7 @@ public class HomeActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         // TODO Auto-generated method stub
         if(item.getItemId() == android.R.id.home) {
-            finish();
+            finishAfterTransition();
             return true;
         }
         return super.onOptionsItemSelected(item);

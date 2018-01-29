@@ -114,7 +114,7 @@ public class KuaiKanBrowseActivity extends AppCompatActivity implements KuaiKanB
     public boolean onOptionsItemSelected(MenuItem item) {
         // TODO Auto-generated method stub
         if(item.getItemId() == android.R.id.home) {
-            finish();
+            finishAfterTransition();
             return true;
         }
         return super.onOptionsItemSelected(item);

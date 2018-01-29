@@ -3,6 +3,7 @@ package com.gs.gscartoon.zhijia.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -96,7 +97,9 @@ public class ZhiJiaSectionFragment extends Fragment
                 Intent intent = new Intent(ZhiJiaSectionFragment.this.getActivity(), ZhiJiaBrowseActivity.class);
                 intent.putExtra(AppConstants.TOPIC_ID, mTopicId);
                 intent.putExtra(AppConstants.COMICS_ID, bean.getChapter_id());
-                startActivity(intent);
+                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        ZhiJiaSectionFragment.this.getActivity()).toBundle();
+                startActivity(intent, bundle);
             }
         });
     }

@@ -2,6 +2,7 @@ package com.gs.gscartoon.zhijia.view;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +11,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -85,6 +88,7 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zhi_jia_details);
 
+        setupWindowAnimations();
         StatusBarUtil.enableTranslucentStatusBar(this);
         unbinder = ButterKnife.bind(this);
         initView();
@@ -180,6 +184,18 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
         }
     }
 
+    private void setupWindowAnimations() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Transition transition = TransitionInflater.from(this)
+                    .inflateTransition(R.transition.activity_explode);
+            getWindow().setEnterTransition(transition);
+
+            transition = TransitionInflater.from(this)
+                    .inflateTransition(R.transition.activity_slide_left);
+            getWindow().setExitTransition(transition);
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -212,7 +228,7 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         // TODO Auto-generated method stub
         if(item.getItemId() == android.R.id.home) {
-            finish();
+            finishAfterTransition();
             return true;
         }
         return super.onOptionsItemSelected(item);
