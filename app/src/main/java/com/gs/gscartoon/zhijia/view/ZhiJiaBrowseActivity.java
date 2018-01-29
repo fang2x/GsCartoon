@@ -43,8 +43,8 @@ public class ZhiJiaBrowseActivity extends AppCompatActivity implements ZhiJiaBro
     private ZhiJiaBrowseContract.Presenter mPresenter;
     private ZhiJiaBrowseRecyclerAdapter mRecyclerAdapter;
     private Unbinder unbinder;
-    private int mComicsId;//某一话漫画Id
-    private int mTopicId;//漫画Id
+    private int mChapterId;//某一话漫画Id
+    private int mComicId;//漫画Id
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +60,8 @@ public class ZhiJiaBrowseActivity extends AppCompatActivity implements ZhiJiaBro
     private void initView(){
         ToolbarUtil.initToolbar(this, tbToolbar);
 
-        mComicsId = getIntent().getIntExtra(AppConstants.COMICS_ID, 0);
-        mTopicId = getIntent().getIntExtra(AppConstants.TOPIC_ID, 0);
+        mChapterId = getIntent().getIntExtra(AppConstants.CHAPTER_ID, 0);
+        mComicId = getIntent().getIntExtra(AppConstants.COMIC_ID, 0);
 
         // Create the presenter
         new ZhiJiaBrowsePresenter(
@@ -76,8 +76,8 @@ public class ZhiJiaBrowseActivity extends AppCompatActivity implements ZhiJiaBro
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);//must store the new intent unless getIntent() will return the old one
-        mComicsId = getIntent().getIntExtra(AppConstants.COMICS_ID, 0);
-        mTopicId = getIntent().getIntExtra(AppConstants.TOPIC_ID, 0);
+        mChapterId = getIntent().getIntExtra(AppConstants.CHAPTER_ID, 0);
+        mComicId = getIntent().getIntExtra(AppConstants.COMIC_ID, 0);
     }
 
     private void setupWindowAnimations() {
@@ -97,7 +97,7 @@ public class ZhiJiaBrowseActivity extends AppCompatActivity implements ZhiJiaBro
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.refreshData(mTopicId, mComicsId);
+        mPresenter.refreshData(mComicId, mChapterId);
     }
 
     @Override

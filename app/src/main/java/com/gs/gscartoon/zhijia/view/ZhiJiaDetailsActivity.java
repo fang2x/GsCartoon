@@ -79,7 +79,7 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
 
     private ViewPagerAdapter mViewPagerAdapter;
     private Unbinder unbinder;
-    private String mTopicId;//漫画Id
+    private String mComicId;//漫画Id
     private Bitmap mZhiJiaCoverBitmap;
     private Picasso mPicasso;
 
@@ -93,13 +93,13 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
         unbinder = ButterKnife.bind(this);
         initView();
 
-        mPresenter.getDetails(mTopicId);
+        mPresenter.getDetails(mComicId);
     }
 
     private void initView(){
         ToolbarUtil.initToolbar(this, tbToolbar);
 
-        mTopicId = getIntent().getStringExtra(AppConstants.TOPIC_ID);
+        mComicId = getIntent().getStringExtra(AppConstants.COMIC_ID);
         mZhiJiaCoverBitmap = (Bitmap) getIntent().getParcelableExtra(AppConstants.ZHI_JIA_COVER_BITMAP);
 
         // Create the presenter

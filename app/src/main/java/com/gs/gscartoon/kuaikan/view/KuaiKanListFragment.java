@@ -100,9 +100,9 @@ public class KuaiKanListFragment extends Fragment implements
                     return;
                 }
                 Intent intent = new Intent(KuaiKanListFragment.this.getActivity(), KuaiKanBrowseActivity.class);
-                intent.putExtra(AppConstants.COMICS_ID, bean.getId()+"");
+                intent.putExtra(AppConstants.CHAPTER_ID, bean.getId()+"");
                 if(bean.getTopic() != null){
-                    intent.putExtra(AppConstants.TOPIC_ID, bean.getTopic().getId()+"");
+                    intent.putExtra(AppConstants.COMIC_ID, bean.getTopic().getId()+"");
                 }
                 startActivity(intent);
             }
@@ -115,7 +115,7 @@ public class KuaiKanListFragment extends Fragment implements
                     return;
                 }
                 Intent intent = new Intent(KuaiKanListFragment.this.getActivity(), KuaiKanAllChapterActivity.class);
-                intent.putExtra(AppConstants.TOPIC_ID, bean.getTopic().getId()+"");
+                intent.putExtra(AppConstants.COMIC_ID, bean.getTopic().getId()+"");
                 startActivity(intent);
             }
         });

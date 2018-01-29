@@ -110,7 +110,7 @@ public class ZhiJiaFragment extends Fragment implements ZhiJiaContract.View,
                 Intent intent = new Intent(ZhiJiaFragment.this.getActivity(), ZhiJiaDetailsActivity.class);
                 ImageView imageView = view.findViewById(R.id.iv_cover);
                 BitmapDrawable mDrawable =  (BitmapDrawable) imageView.getDrawable();
-                intent.putExtra(AppConstants.TOPIC_ID, bean.getId()+"");
+                intent.putExtra(AppConstants.COMIC_ID, bean.getId()+"");
                 intent.putExtra(AppConstants.ZHI_JIA_COVER_BITMAP, mDrawable.getBitmap());
                 ActivityOptionsCompat options =
                         ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),

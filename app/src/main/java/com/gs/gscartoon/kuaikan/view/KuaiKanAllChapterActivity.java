@@ -54,7 +54,7 @@ public class KuaiKanAllChapterActivity extends AppCompatActivity implements Kuai
     private KuaiKanAllChapterContract.Presenter mPresenter;
     private KuaiKanAllChapterRecyclerAdapter mRecyclerAdapter;
     private Unbinder unbinder;
-    private String mTopicId;//漫画Id
+    private String mComicId;//漫画Id
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class KuaiKanAllChapterActivity extends AppCompatActivity implements Kuai
     private void initView(){
         ToolbarUtil.initToolbar(this, tbToolbar);
 
-        mTopicId = getIntent().getStringExtra(AppConstants.TOPIC_ID);
+        mComicId = getIntent().getStringExtra(AppConstants.COMIC_ID);
 
         // Create the presenter
         new KuaiKanAllChapterPresenter(
@@ -87,8 +87,8 @@ public class KuaiKanAllChapterActivity extends AppCompatActivity implements Kuai
                     return;
                 }
                 Intent intent = new Intent(KuaiKanAllChapterActivity.this, KuaiKanBrowseActivity.class);
-                intent.putExtra(AppConstants.COMICS_ID, bean.getId()+"");
-                intent.putExtra(AppConstants.TOPIC_ID, mTopicId);
+                intent.putExtra(AppConstants.CHAPTER_ID, bean.getId()+"");
+                intent.putExtra(AppConstants.COMIC_ID, mComicId);
                 startActivity(intent);
             }
         });
@@ -105,7 +105,7 @@ public class KuaiKanAllChapterActivity extends AppCompatActivity implements Kuai
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.refreshData(mTopicId);
+        mPresenter.refreshData(mComicId);
     }
 
     @Override

@@ -43,8 +43,8 @@ public class KuaiKanBrowseActivity extends AppCompatActivity implements KuaiKanB
     private KuaiKanBrowseContract.Presenter mPresenter;
     private KuaiKanBrowseRecyclerAdapter mRecyclerAdapter;
     private Unbinder unbinder;
-    private String mComicsId;//某一话漫画Id
-    private String mTopicId;//漫画Id
+    private String mChapterId;//某一话漫画Id
+    private String mComicId;//漫画Id
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +59,8 @@ public class KuaiKanBrowseActivity extends AppCompatActivity implements KuaiKanB
     private void initView(){
         ToolbarUtil.initToolbar(this, tbToolbar);
 
-        mComicsId = getIntent().getStringExtra(AppConstants.COMICS_ID);
-        mTopicId = getIntent().getStringExtra(AppConstants.TOPIC_ID);
+        mChapterId = getIntent().getStringExtra(AppConstants.CHAPTER_ID);
+        mComicId = getIntent().getStringExtra(AppConstants.COMIC_ID);
 
         tvAll.setOnClickListener(this);
 
@@ -77,8 +77,8 @@ public class KuaiKanBrowseActivity extends AppCompatActivity implements KuaiKanB
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);//must store the new intent unless getIntent() will return the old one
-        mComicsId = getIntent().getStringExtra(AppConstants.COMICS_ID);
-        mTopicId = getIntent().getStringExtra(AppConstants.TOPIC_ID);
+        mChapterId = getIntent().getStringExtra(AppConstants.CHAPTER_ID);
+        mComicId = getIntent().getStringExtra(AppConstants.COMIC_ID);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class KuaiKanBrowseActivity extends AppCompatActivity implements KuaiKanB
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.refreshData(mComicsId);
+        mPresenter.refreshData(mChapterId);
     }
 
     @Override
@@ -144,7 +144,7 @@ public class KuaiKanBrowseActivity extends AppCompatActivity implements KuaiKanB
         switch (v.getId()){
             case R.id.tv_toolbar_kuai_kan_browse_all:
                 Intent intent = new Intent(KuaiKanBrowseActivity.this, KuaiKanAllChapterActivity.class);
-                intent.putExtra(AppConstants.TOPIC_ID, mTopicId);
+                intent.putExtra(AppConstants.COMIC_ID, mComicId);
                 startActivity(intent);
                 break;
             default:
