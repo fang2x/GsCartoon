@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp">
 
-    <com.gs.gscartoon.widget.view.MarqueTextView
+    <TextView
         android:id="@+id/tv_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,10 +15,6 @@
         android:layout_marginEnd="10dp"
         android:background="@drawable/selector_ellipse_border_gray_blue"
         android:textColor="@drawable/selector_text_black_blue"
-        android:singleLine="true"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:ellipsize="marquee"
-        android:scrollHorizontally="true"
-        android:focusableInTouchMode="true"
-        android:focusable="true"/>
+        android:maxLines="1"
+        android:ellipsize="end"/>
 </FrameLayout>
