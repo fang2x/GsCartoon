@@ -1,6 +1,7 @@
 package com.gs.gscartoon.zhijia.view;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -106,10 +108,13 @@ public class ZhiJiaFragment extends Fragment implements ZhiJiaContract.View,
                     return;
                 }
                 Intent intent = new Intent(ZhiJiaFragment.this.getActivity(), ZhiJiaDetailsActivity.class);
+                ImageView imageView = view.findViewById(R.id.iv_cover);
+                BitmapDrawable mDrawable =  (BitmapDrawable) imageView.getDrawable();
                 intent.putExtra(AppConstants.TOPIC_ID, bean.getId()+"");
+                intent.putExtra(AppConstants.ZHI_JIA_COVER_BITMAP, mDrawable.getBitmap());
                 ActivityOptionsCompat options =
                         ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-                                view.findViewById(R.id.iv_cover), getString(R.string.transition_name_zhi_jia_cover));
+                                imageView, getString(R.string.transition_name_zhi_jia_cover));
                 startActivity(intent, options.toBundle());
             }
         });

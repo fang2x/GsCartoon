@@ -13,6 +13,7 @@ public class AppConstants {
     public static final String TIMESTAMP = "timestamp";//时间戳
     public static final String COMICS_ID = "ComicsId";//某一话漫画id
     public static final String TOPIC_ID = "TopicId";//漫画id
+    public static final String ZHI_JIA_COVER_BITMAP = "ZhiJiaCoverBitmap";
 
     public static final int ASC = 100001;//正序
     public static final int DESC = 100002;//倒序

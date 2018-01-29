@@ -1,5 +1,6 @@
 package com.gs.gscartoon.zhijia.view;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.gscartoon.R;
 import com.gs.gscartoon.utils.AppConstants;
+import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.utils.OkHttpUtil;
 import com.gs.gscartoon.utils.PicassoRoundTransform;
 import com.gs.gscartoon.utils.StatusBarUtil;
@@ -75,6 +77,7 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
     private ViewPagerAdapter mViewPagerAdapter;
     private Unbinder unbinder;
     private String mTopicId;//漫画Id
+    private Bitmap mZhiJiaCoverBitmap;
     private Picasso mPicasso;
 
     @Override
@@ -93,6 +96,7 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
         ToolbarUtil.initToolbar(this, tbToolbar);
 
         mTopicId = getIntent().getStringExtra(AppConstants.TOPIC_ID);
+        mZhiJiaCoverBitmap = (Bitmap) getIntent().getParcelableExtra(AppConstants.ZHI_JIA_COVER_BITMAP);
 
         // Create the presenter
         new ZhiJiaDetailsPresenter(
@@ -108,6 +112,8 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
         mPicasso = new Picasso.Builder(this)
                 .downloader(new OkHttp3Downloader(okHttpClient))
                 .build();
+
+        ivCover.setImageBitmap(mZhiJiaCoverBitmap);
     }
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -222,9 +228,10 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
 
         tvTitle.setText(bean.getTitle());
         //sdvCover.setImageURI(Uri.parse(bean.getCover()));
-        mPicasso.load(bean.getCover()).placeholder(R.drawable.ic_kuaikan_default_image_vertical)
+        //使用传过来的bitmap，否则共享动画效果不好
+        /*mPicasso.load(bean.getCover()).placeholder(R.drawable.ic_kuaikan_default_image_vertical)
                 .error(R.drawable.ic_kuaikan_default_image_vertical)
-                .into(ivCover);
+                .into(ivCover);*/
 
         tvViewCount.setText("人气：" + bean.getHot_num());
         tvSubscribeCount.setText("订阅：" + bean.getSubscribe_num());
