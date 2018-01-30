@@ -45,6 +45,8 @@ public class ZhiJiaBrowseActivity extends AppCompatActivity implements ZhiJiaBro
     private Unbinder unbinder;
     private int mChapterId;//某一话漫画Id
     private int mComicId;//漫画Id
+    private String mComicTitle;//漫画Title
+    private String mCoverUrl;//封面url
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,8 @@ public class ZhiJiaBrowseActivity extends AppCompatActivity implements ZhiJiaBro
 
         mChapterId = getIntent().getIntExtra(AppConstants.CHAPTER_ID, 0);
         mComicId = getIntent().getIntExtra(AppConstants.COMIC_ID, 0);
+        mComicTitle = getIntent().getStringExtra(AppConstants.COMIC_TITLE);
+        mCoverUrl = getIntent().getStringExtra(AppConstants.COVER_URL);
 
         // Create the presenter
         new ZhiJiaBrowsePresenter(
@@ -78,6 +82,8 @@ public class ZhiJiaBrowseActivity extends AppCompatActivity implements ZhiJiaBro
         setIntent(intent);//must store the new intent unless getIntent() will return the old one
         mChapterId = getIntent().getIntExtra(AppConstants.CHAPTER_ID, 0);
         mComicId = getIntent().getIntExtra(AppConstants.COMIC_ID, 0);
+        mComicTitle = getIntent().getStringExtra(AppConstants.COMIC_TITLE);
+        mCoverUrl = getIntent().getStringExtra(AppConstants.COVER_URL);
     }
 
     private void setupWindowAnimations() {
@@ -97,7 +103,7 @@ public class ZhiJiaBrowseActivity extends AppCompatActivity implements ZhiJiaBro
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.refreshData(mComicId, mChapterId);
+        mPresenter.refreshData(mComicId, mChapterId, mComicTitle, mCoverUrl);
     }
 
     @Override

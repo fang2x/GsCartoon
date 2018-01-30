@@ -50,7 +50,7 @@ public class HistoryRecyclerAdapter extends BaseRecyclerAdapter<HistoryBean,
         holder.sdvCover.setImageURI(Uri.parse(bean.getCoverUrl()));
 
         holder.mtvTitle.setText(bean.getComicName());
-        holder.tvTime.setText(TimeUtil.timestampToDate(bean.getUpdateTime().getTime()));
+        holder.tvTime.setText(TimeUtil.timestampToDate(bean.getUpdateTime().getTime()/1000, "yyyy-MM-dd hh:mm:ss"));
         //holder.tvLike.setText(bean.getLikes_count()+"");
     }
 

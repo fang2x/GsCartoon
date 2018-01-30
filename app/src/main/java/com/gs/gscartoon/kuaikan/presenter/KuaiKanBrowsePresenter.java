@@ -1,11 +1,15 @@
 package com.gs.gscartoon.kuaikan.presenter;
 
 
+import com.gs.gscartoon.history.bean.HistoryBean;
 import com.gs.gscartoon.kuaikan.KuaiKanBrowseContract;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanBrowseBean;
 import com.gs.gscartoon.kuaikan.model.KuaiKanBrowseModel;
+import com.gs.gscartoon.utils.AppConstants;
 import com.gs.gscartoon.utils.ErrorUtil;
 import com.gs.gscartoon.utils.LogUtil;
+
+import java.util.Date;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -40,6 +44,7 @@ public class KuaiKanBrowsePresenter implements KuaiKanBrowseContract.Presenter {
 
     @Override
     public void destroy() {
+        mKuaiKanBrowseModel.closeRealm();
         if(mCompositeDisposable != null){
             mCompositeDisposable.clear();
         }
@@ -80,6 +85,8 @@ public class KuaiKanBrowsePresenter implements KuaiKanBrowseContract.Presenter {
                         if(bean.getData() != null) {
                             mKuaiKanBrowseView.showRefreshData(bean.getData().getImages());
                             mKuaiKanBrowseView.setTitle(bean.getData().getTitle());
+                            //加入历史记录中
+                            mKuaiKanBrowseModel.createHistory(bean.getData());
                         }else {
                             ErrorUtil.showErrorInfo(ErrorUtil.NOT_FOUND);
                         }

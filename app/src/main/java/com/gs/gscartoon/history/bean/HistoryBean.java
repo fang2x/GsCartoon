@@ -12,7 +12,7 @@ import io.realm.annotations.PrimaryKey;
 public class HistoryBean extends RealmObject {
 
     @PrimaryKey
-    private String id;
+    private String id;//id采用来源+"_"+漫画id组成
     private int origin;//来源
     private int comicId;//漫画id
     private int chapterId;//章节id

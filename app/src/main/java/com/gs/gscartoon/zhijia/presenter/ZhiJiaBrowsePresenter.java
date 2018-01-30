@@ -40,13 +40,14 @@ public class ZhiJiaBrowsePresenter implements ZhiJiaBrowseContract.Presenter {
 
     @Override
     public void destroy() {
+        mZhiJiaBrowseModel.closeRealm();
         if(mCompositeDisposable != null){
             mCompositeDisposable.clear();
         }
     }
 
     @Override
-    public void refreshData(int comicId, int chapterId) {
+    public void refreshData(int comicId, int chapterId, final String comicTitle, final String coverUrl) {
         mZhiJiaBrowseModel.refreshZhiJiaBrowse(comicId, chapterId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -80,6 +81,8 @@ public class ZhiJiaBrowsePresenter implements ZhiJiaBrowseContract.Presenter {
                         if(bean != null) {
                             mZhiJiaBrowseView.showRefreshData(bean.getPage_url());
                             mZhiJiaBrowseView.setTitle(bean.getTitle());
+                            //加入历史记录中
+                            mZhiJiaBrowseModel.createHistory(bean, comicTitle, coverUrl);
                         }else {
                             ErrorUtil.showErrorInfo(ErrorUtil.NOT_FOUND);
                         }

@@ -41,6 +41,8 @@ public class ZhiJiaSectionFragment extends Fragment
     private ZhiJiaSectionRecyclerAdapter mRecyclerAdapter;
     private int mOrder = AppConstants.DESC;//排序，默认倒序
     private int mComicId;//漫画Id
+    private String mComicTitle;//漫画Title
+    private String mCoverUrl;//封面url
 
     public ZhiJiaSectionFragment() {
 
@@ -97,6 +99,8 @@ public class ZhiJiaSectionFragment extends Fragment
                 Intent intent = new Intent(ZhiJiaSectionFragment.this.getActivity(), ZhiJiaBrowseActivity.class);
                 intent.putExtra(AppConstants.COMIC_ID, mComicId);
                 intent.putExtra(AppConstants.CHAPTER_ID, bean.getChapter_id());
+                intent.putExtra(AppConstants.COMIC_TITLE, mComicTitle);//为了保存在历史记录中
+                intent.putExtra(AppConstants.COVER_URL, mCoverUrl);//为了保存在历史记录中
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         ZhiJiaSectionFragment.this.getActivity()).toBundle();
                 startActivity(intent, bundle);
@@ -143,6 +147,8 @@ public class ZhiJiaSectionFragment extends Fragment
         mRecyclerAdapter.notifyDataSetChanged();
 
         mComicId = bean.getId();
+        mComicTitle = bean.getTitle();
+        mCoverUrl = bean.getCover();
     }
 
     @Override

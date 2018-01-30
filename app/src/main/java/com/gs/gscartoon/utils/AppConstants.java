@@ -16,6 +16,8 @@ public class AppConstants {
     public static final String TIMESTAMP = "timestamp";//时间戳
     public static final String CHAPTER_ID = "ChapterId";//某一话漫画id
     public static final String COMIC_ID = "ComicId";//漫画id
+    public static final String COMIC_TITLE = "ComicTitle";//漫画Title
+    public static final String COVER_URL = "CoverUrl";//封面url
     public static final String ZHI_JIA_COVER_BITMAP = "ZhiJiaCoverBitmap";
     //------------Activity传递数据　key ------------
 

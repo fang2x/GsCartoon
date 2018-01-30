@@ -19,6 +19,6 @@ public interface ZhiJiaBrowseContract {
     }
 
     interface Presenter extends BasePresenter {
-        void refreshData(int comicId, int chapterId);
+        void refreshData(int comicId, int chapterId, String comicTitle, String coverUrl);
     }
 }

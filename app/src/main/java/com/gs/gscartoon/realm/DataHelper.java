@@ -1,6 +1,7 @@
 package com.gs.gscartoon.realm;
 
 
+import com.gs.gscartoon.history.bean.HistoryBean;
 import com.gs.gscartoon.utils.LogUtil;
 
 import io.realm.Realm;
@@ -36,5 +37,32 @@ public class DataHelper {
             return realm;
         }
         return realm;
+    }
+
+    /**
+     * 历史记录
+     * 根据id号获取一条数据，如果没有数据可以在数据库中插入一条数据。子线程中不能访问！！！
+     * isCreate,没有数据时是否创建
+     * @return
+     */
+    public static HistoryBean getHistoryById(String id, boolean isCreate){
+        Realm realm = getRealmInstance();
+        HistoryBean bean = null;
+        RealmResults<HistoryBean> result = realm.where(HistoryBean.class).equalTo("id", id)
+                .findAll();
+        if(result.size() == 0){
+            if(isCreate) {
+                bean = new HistoryBean();
+                bean.setId(id);
+
+                realm.beginTransaction();
+                bean = realm.copyToRealmOrUpdate(bean);
+                realm.commitTransaction();
+            }
+        }else {
+            bean = result.first();
+        }
+        realm.close();
+        return bean;
     }
 }
