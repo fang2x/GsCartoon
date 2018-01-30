@@ -30,5 +30,7 @@ public class AppConstants {
     public static final int WANG_YI_INT = 900003;//网易
     public static final int MAN_MAN_INT = 900004;//漫漫
     public static final int TENG_XUN_INT = 900005;//腾讯
+
+    public static final int HISTORY_LIMIT = 1000;//历史记录上限
     //------------int串常量------------
 }

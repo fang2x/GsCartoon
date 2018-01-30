@@ -2,11 +2,13 @@ package com.gs.gscartoon.realm;
 
 
 import com.gs.gscartoon.history.bean.HistoryBean;
+import com.gs.gscartoon.utils.AppConstants;
 import com.gs.gscartoon.utils.LogUtil;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 /**
  * Created by yinjianfeng on 16/12/6.
@@ -17,6 +19,8 @@ public class DataHelper {
 
     //realm数据库名字
     public final static String REALM_NAME = "GsCartoonRealm.realm";
+
+    private static boolean isHistoryLimit = false;//是否达到历史记录的上线
 
     /**
      * 得到数据库实例
@@ -52,6 +56,18 @@ public class DataHelper {
                 .findAll();
         if(result.size() == 0){
             if(isCreate) {
+                if(isHistoryLimit){//达到历史记录上限
+                    LogUtil.e(TAG, "达到历史记录上限");
+                    deleteOldestHistory();
+                }else {
+                    LogUtil.e(TAG, "没有达到历史记录上限");
+                    if(realm.where(HistoryBean.class).findAll().size() >= AppConstants.HISTORY_LIMIT){
+                        LogUtil.e(TAG, "达到历史记录上限");
+                        isHistoryLimit = true;
+                        deleteOldestHistory();
+                    }
+                }
+
                 bean = new HistoryBean();
                 bean.setId(id);
 
@@ -64,5 +80,26 @@ public class DataHelper {
         }
         realm.close();
         return bean;
+    }
+
+    /**
+     * 删除最旧的历史记录
+     * @return
+     */
+    public static boolean deleteOldestHistory(){
+        Realm realm = getRealmInstance();
+        HistoryBean bean;
+        RealmResults<HistoryBean> realmResults = realm
+                .where(HistoryBean.class).findAll().sort("updateTime", Sort.ASCENDING);
+        if(realmResults.size() == 0){
+            return false;
+        }else {
+            bean = realmResults.first();
+
+            realm.beginTransaction();
+            bean.deleteFromRealm();
+            realm.commitTransaction();
+        }
+        return true;
     }
 }
