@@ -6,6 +6,7 @@
     android:paddingTop="10dp"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
+    android:background="@color/WHITE"
     android:foreground="?attr/selectableItemBackground">
 
     <ImageView

@@ -1,9 +1,11 @@
 package com.gs.gscartoon.history.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +25,7 @@ import com.gs.gscartoon.history.presenter.HistoryPresenter;
 import com.gs.gscartoon.kuaikan.view.KuaiKanAllChapterActivity;
 import com.gs.gscartoon.kuaikan.view.KuaiKanBrowseActivity;
 import com.gs.gscartoon.utils.AppConstants;
+import com.gs.gscartoon.utils.ItemTouchHelperCallback;
 import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.utils.StatusBarUtil;
 import com.gs.gscartoon.utils.StringUtil;
@@ -30,6 +33,7 @@ import com.gs.gscartoon.utils.ToolbarUtil;
 import com.gs.gscartoon.widget.view.MarqueTextView;
 import com.gs.gscartoon.zhijia.view.ZhiJiaBrowseActivity;
 import com.gs.gscartoon.zhijia.view.ZhiJiaDetailsActivity;
+import com.loopeer.itemtouchhelperextension.ItemTouchHelperExtension;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -59,6 +63,11 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
     private HistoryContract.Presenter mPresenter;
     private HistoryRecyclerAdapter mRecyclerAdapter;
     private Unbinder unbinder;
+    private int clickPosition = 0;
+    //++++++左滑显示菜单
+    public ItemTouchHelperExtension mItemTouchHelper;
+    public ItemTouchHelperExtension.Callback mCallback;
+    //------左滑显示菜单
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +89,15 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
         mRecyclerAdapter = new HistoryRecyclerAdapter(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mRecyclerAdapter);
+        mCallback = new ItemTouchHelperCallback();
+        mItemTouchHelper = new ItemTouchHelperExtension(mCallback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
         mRecyclerAdapter.setClickListener(new HistoryRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
                 LogUtil.i(TAG,"点击item position="+position);
+                clickPosition = position;
+                mItemTouchHelper.closeOpened();//点击item时关闭左侧滑动菜单
                 HistoryBean bean = mRecyclerAdapter.getItemData(position);
                 if(bean == null){
                     return;
@@ -112,6 +126,8 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
             @Override
             public void Continue(View view, int position) {
                 LogUtil.i(TAG,"点击Continue position="+position);
+                clickPosition = position;
+                mItemTouchHelper.closeOpened();//点击Continue时关闭左侧滑动菜单
                 HistoryBean bean = mRecyclerAdapter.getItemData(position);
                 if(bean == null){
                     return;
@@ -134,6 +150,13 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
                 }else if(bean.getOrigin() == AppConstants.WANG_YI_INT){
 
                 }
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                LogUtil.i(TAG,"点击删除 position="+position);
+                clickPosition = position;
+                showDeleteDialog();
             }
         });
     }
@@ -207,6 +230,14 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
     }
 
     @Override
+    public void removeRecycleData() {
+        if(mRecyclerAdapter != null) {
+            mRecyclerAdapter.removeItem(clickPosition);
+            mItemTouchHelper.closeOpened();//删除最后一条数据，再添加一条还是会展开左侧菜单
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_toolbar_history_edit:
@@ -226,5 +257,30 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
         if(llEmpty != null) {
             llEmpty.setVisibility(View.GONE);
         }
+    }
+
+    private void showDeleteDialog(){
+        final AlertDialog.Builder normalDialog = new AlertDialog.Builder(this);
+        normalDialog.setMessage("清除已选中的历史记录吗？");
+        normalDialog.setPositiveButton(getString(R.string.determine),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        HistoryBean bean = mRecyclerAdapter.getItemData(clickPosition);
+                        if(bean != null) {
+                            mPresenter.deleteData(bean.getId());
+                        }else {
+                            LogUtil.e(TAG, "bean == null");
+                        }
+                    }
+                });
+        normalDialog.setNegativeButton(getString(R.string.cancel),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        normalDialog.show();
     }
 }

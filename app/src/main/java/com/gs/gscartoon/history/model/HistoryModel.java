@@ -5,6 +5,7 @@ import android.content.Context;
 import com.gs.gscartoon.RetrofitService;
 import com.gs.gscartoon.history.bean.HistoryBean;
 import com.gs.gscartoon.realm.DataHelper;
+import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.utils.RetrofitHelper;
 
 import java.util.List;
@@ -36,5 +37,20 @@ public class HistoryModel {
     public List<HistoryBean> refreshHistory(){
         return realm.where(HistoryBean.class)
                 .findAll().sort("updateTime", Sort.DESCENDING);
+    }
+
+    public boolean deleteHistory(String id){
+        boolean result = true;
+        HistoryBean bean = DataHelper.getHistoryById(id, false);
+        if(bean == null) {
+            LogUtil.e(TAG, "bean == null");
+            return false;
+        }
+
+        realm.beginTransaction();
+        bean.deleteFromRealm();
+        realm.commitTransaction();
+
+        return result;
     }
 }

@@ -15,9 +15,13 @@ public interface HistoryContract {
     interface View extends BaseView<Presenter> {
         void showRefreshData(List<HistoryBean> mData);
         void refreshDataFailure();
+
+        void removeRecycleData();
     }
 
     interface Presenter extends BasePresenter {
         void refreshData();
+
+        void deleteData(String id);
     }
 }

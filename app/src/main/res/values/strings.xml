@@ -11,6 +11,11 @@
     <string name="press_again_to_exit">再按一次退出程序</string>
     <string name="data_is_empty">数据为空</string>
     <string name="not_set">未设置</string>
+    <string name="determine">确认</string>
+    <string name="cancel">取消</string>
+    <string name="delete">删除</string>
+    <string name="successfully_deleted">删除成功</string>
+    <string name="failed_to_delete">删除失败</string>
 
     <!-- ++++++++++++共享元素transitionName-->
     <string name="transition_name_zhi_jia_cover">zhi_jia_cover</string>

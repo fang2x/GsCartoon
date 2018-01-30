@@ -1,18 +1,11 @@
 package com.gs.gscartoon.history.presenter;
 
 
+import com.gs.gscartoon.R;
 import com.gs.gscartoon.history.HistoryContract;
-import com.gs.gscartoon.history.bean.HistoryBean;
 import com.gs.gscartoon.history.model.HistoryModel;
-import com.gs.gscartoon.utils.ErrorUtil;
-import com.gs.gscartoon.utils.LogUtil;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import com.gs.gscartoon.utils.ToastUtil;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.HttpException;
 
 /**
  * Created by camdora on 17-11-22.
@@ -49,5 +42,15 @@ public class HistoryPresenter implements HistoryContract.Presenter {
     @Override
     public void refreshData() {
         mHistoryView.showRefreshData(mHistoryModel.refreshHistory());
+    }
+
+    @Override
+    public void deleteData(String id) {
+        if(mHistoryModel.deleteHistory(id)){
+            mHistoryView.removeRecycleData();
+            ToastUtil.showToastShort(R.string.successfully_deleted);
+        }else {
+            ToastUtil.showToastShort(R.string.failed_to_delete);
+        }
     }
 }

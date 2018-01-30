@@ -1,1 +1,1 @@
-include ':app', ':ParticleView'
+include ':app', ':ParticleView', ':itemtouchhelperextension'

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.gs.gscartoon.utils.OkHttpUtil;
 import com.gs.gscartoon.utils.PicassoRoundTransform;
 import com.gs.gscartoon.utils.TimeUtil;
 import com.jakewharton.picasso.OkHttp3Downloader;
+import com.loopeer.itemtouchhelperextension.Extension;
 import com.squareup.picasso.Picasso;
 
 import okhttp3.OkHttpClient;
@@ -44,7 +46,7 @@ public class HistoryRecyclerAdapter extends BaseRecyclerAdapter<HistoryBean,
 
     @Override
     protected int getLayoutId() {
-        return R.layout.item_history;
+        return R.layout.item_history_main;
     }
 
     @Override
@@ -92,14 +94,18 @@ public class HistoryRecyclerAdapter extends BaseRecyclerAdapter<HistoryBean,
     public interface OnItemClickListener {
         void onClick(View view, int position);
         void Continue(View view, int position);
+        void onDeleteClick(int position);
     }
 
     public class HistoryRecyclerHolder extends BaseRecyclerVH<HistoryBean>
-            implements View.OnClickListener{
+            implements View.OnClickListener, Extension {
 
-        private RelativeLayout mRootView;
+        public RelativeLayout mRootView;
         private ImageView ivCover;
         private TextView mtvTitle, tvTime, tvSee, tvContinue, tvOrigin;
+        //main中的组件
+        private LinearLayout mLinearLayout;
+        private TextView tvDelete;
 
         public HistoryRecyclerHolder(View itemView) {
             super(itemView);
@@ -110,9 +116,13 @@ public class HistoryRecyclerAdapter extends BaseRecyclerAdapter<HistoryBean,
             tvSee = (TextView) itemView.findViewById(R.id.tv_see);
             tvContinue = (TextView) itemView.findViewById(R.id.tv_continue);
             tvOrigin = (TextView) itemView.findViewById(R.id.tv_origin);
+            //main中的组件
+            mLinearLayout = (LinearLayout) itemView.findViewById(R.id.ll_action);
+            tvDelete = (TextView) itemView.findViewById(R.id.tv_action_delete);
 
             mRootView.setOnClickListener(this);
             tvContinue.setOnClickListener(this);
+            tvDelete.setOnClickListener(this);
         }
 
         @Override
@@ -125,10 +135,18 @@ public class HistoryRecyclerAdapter extends BaseRecyclerAdapter<HistoryBean,
                     case R.id.tv_continue:
                         clickListener.Continue(itemView, getAdapterPosition());
                         break;
+                    case R.id.tv_action_delete:
+                        clickListener.onDeleteClick(getAdapterPosition());
+                        break;
                     default:
                         break;
                 }
             }
+        }
+
+        @Override
+        public float getActionWidth() {
+            return mLinearLayout.getWidth();
         }
     }
 }
