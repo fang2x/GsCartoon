@@ -3,6 +3,7 @@ package com.gs.gscartoon.history.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -12,7 +13,13 @@ import com.gs.gscartoon.BaseRecyclerVH;
 import com.gs.gscartoon.R;
 import com.gs.gscartoon.history.bean.HistoryBean;
 import com.gs.gscartoon.utils.LogUtil;
+import com.gs.gscartoon.utils.OkHttpUtil;
+import com.gs.gscartoon.utils.PicassoRoundTransform;
 import com.gs.gscartoon.utils.TimeUtil;
+import com.jakewharton.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
+
+import okhttp3.OkHttpClient;
 
 /**
  * Created by camdora on 16-12-13.
@@ -22,10 +29,16 @@ public class HistoryRecyclerAdapter extends BaseRecyclerAdapter<HistoryBean,
         HistoryRecyclerAdapter.HistoryRecyclerHolder> {
 
     private Context mContext;
+    private Picasso mPicasso;
 
     public HistoryRecyclerAdapter(Context context) {
         super(context);
         mContext = context;
+
+        OkHttpClient okHttpClient = OkHttpUtil.getHeaderOkHttpClientBuilder().build();
+        mPicasso = new Picasso.Builder(mContext)
+                .downloader(new OkHttp3Downloader(okHttpClient))
+                .build();
     }
 
     @Override
@@ -47,11 +60,15 @@ public class HistoryRecyclerAdapter extends BaseRecyclerAdapter<HistoryBean,
             return;
         }
 
-        holder.sdvCover.setImageURI(Uri.parse(bean.getCoverUrl()));
+        //holder.sdvCover.setImageURI(Uri.parse(bean.getCoverUrl()));
+        mPicasso.load(bean.getCoverUrl()).placeholder(R.drawable.ic_kuaikan_default_image_vertical)
+                .error(R.drawable.ic_kuaikan_default_image_vertical)
+                .transform(new PicassoRoundTransform(7))
+                .into(holder.ivCover);
 
         holder.mtvTitle.setText(bean.getComicName());
         holder.tvTime.setText(TimeUtil.timestampToDate(bean.getUpdateTime().getTime()/1000, "yyyy-MM-dd hh:mm:ss"));
-        //holder.tvLike.setText(bean.getLikes_count()+"");
+        holder.tvSee.setText("看到"+bean.getChapterTitle());
     }
 
     private OnItemClickListener clickListener;
@@ -62,24 +79,27 @@ public class HistoryRecyclerAdapter extends BaseRecyclerAdapter<HistoryBean,
 
     public interface OnItemClickListener {
         void onClick(View view, int position);
+        void Continue(View view, int position);
     }
 
     public class HistoryRecyclerHolder extends BaseRecyclerVH<HistoryBean>
             implements View.OnClickListener{
 
         private RelativeLayout mRootView;
-        private SimpleDraweeView sdvCover;
-        private TextView mtvTitle, tvTime, tvLike;
+        private ImageView ivCover;
+        private TextView mtvTitle, tvTime, tvSee, tvContinue;
 
         public HistoryRecyclerHolder(View itemView) {
             super(itemView);
             mRootView = (RelativeLayout) itemView.findViewById(R.id.rl_item_root_view);
-            sdvCover = (SimpleDraweeView) itemView.findViewById(R.id.sdv_cover);
+            ivCover = (ImageView) itemView.findViewById(R.id.iv_cover);
             mtvTitle = (TextView) itemView.findViewById(R.id.mtv_title);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
-            tvLike = (TextView) itemView.findViewById(R.id.tv_like);
+            tvSee = (TextView) itemView.findViewById(R.id.tv_see);
+            tvContinue = (TextView) itemView.findViewById(R.id.tv_continue);
 
             mRootView.setOnClickListener(this);
+            tvContinue.setOnClickListener(this);
         }
 
         @Override
@@ -88,6 +108,9 @@ public class HistoryRecyclerAdapter extends BaseRecyclerAdapter<HistoryBean,
                 switch (v.getId()) {
                     case R.id.rl_item_root_view:
                         clickListener.onClick(itemView, getAdapterPosition());
+                        break;
+                    case R.id.tv_continue:
+                        clickListener.Continue(itemView, getAdapterPosition());
                         break;
                     default:
                         break;

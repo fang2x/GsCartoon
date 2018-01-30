@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_item_root_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
-    android:paddingBottom="10dp"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
     android:foreground="?attr/selectableItemBackground">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/sdv_cover"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        fresco:viewAspectRatio="1.78"
-        fresco:roundedCornerRadius="2dp"
-        fresco:placeholderImage="@drawable/ic_kuaikan_default_image"
-        fresco:actualImageScaleType="centerCrop"
+    <ImageView
+        android:id="@+id/iv_cover"
+        android:layout_width="wrap_content"
+        android:layout_height="110dp"
+        android:transitionName="@string/transition_name_zhi_jia_cover"
+        android:scaleType="centerCrop"
         android:adjustViewBounds="true" />
 
     <com.gs.gscartoon.widget.view.MarqueTextView
@@ -25,37 +21,63 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:textSize="14sp"
+        android:textSize="15sp"
         android:text="Title"
+        android:textStyle="bold"
         android:singleLine="true"
         android:marqueeRepeatLimit="marquee_forever"
         android:ellipsize="marquee"
         android:scrollHorizontally="true"
         android:focusableInTouchMode="true"
         android:focusable="true"
-        android:layout_toRightOf="@id/sdv_cover"
+        android:layout_toRightOf="@id/iv_cover"
         android:textColor="@color/BLACK"/>
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:textSize="12sp"
+        android:layout_toRightOf="@id/iv_cover"
+        android:layout_alignBottom="@id/iv_cover"
         android:text="Time"
-        android:layout_toRightOf="@id/sdv_cover"
-        android:layout_alignBottom="@+id/sdv_cover"
-        android:textColor="@color/DIMGRAY"/>
-    <TextView
-        android:id="@+id/tv_like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/sdv_cover"
-        android:layout_alignParentEnd="true"
-        android:drawableStart="@drawable/ic_common_praise_highlighted_like_normal"
-        android:drawablePadding="5.8dp"
-        android:text="like"
         android:maxLines="1"
         android:ellipsize="end"
         android:textColor="@color/DIMGRAY"
         android:textSize="12sp"/>
+    <TextView
+        android:id="@+id/tv_see"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="12sp"
+        android:text="See"
+        android:layout_toRightOf="@id/iv_cover"
+        android:layout_above="@id/tv_time"
+        android:textColor="@color/DIMGRAY"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/iv_cover"
+        android:background="@color/dividing_line_gray" />
+
+    <TextView
+        android:id="@+id/tv_continue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:gravity="center"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:text="续看"
+        android:textSize="13sp"
+        android:background="@drawable/selector_ellipse_border_red_blue_42"
+        android:textColor="@drawable/selector_text_red_blue"
+        android:maxLines="1"
+        android:ellipsize="end"/>
 </RelativeLayout>

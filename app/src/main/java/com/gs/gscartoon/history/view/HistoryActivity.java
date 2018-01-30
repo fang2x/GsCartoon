@@ -1,7 +1,9 @@
 package com.gs.gscartoon.history.view;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +20,7 @@ import com.gs.gscartoon.history.adapter.HistoryRecyclerAdapter;
 import com.gs.gscartoon.history.bean.HistoryBean;
 import com.gs.gscartoon.history.model.HistoryModel;
 import com.gs.gscartoon.history.presenter.HistoryPresenter;
+import com.gs.gscartoon.kuaikan.view.KuaiKanAllChapterActivity;
 import com.gs.gscartoon.kuaikan.view.KuaiKanBrowseActivity;
 import com.gs.gscartoon.utils.AppConstants;
 import com.gs.gscartoon.utils.LogUtil;
@@ -25,6 +28,8 @@ import com.gs.gscartoon.utils.StatusBarUtil;
 import com.gs.gscartoon.utils.StringUtil;
 import com.gs.gscartoon.utils.ToolbarUtil;
 import com.gs.gscartoon.widget.view.MarqueTextView;
+import com.gs.gscartoon.zhijia.view.ZhiJiaBrowseActivity;
+import com.gs.gscartoon.zhijia.view.ZhiJiaDetailsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -83,10 +88,52 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
                 if(bean == null){
                     return;
                 }
-                /*Intent intent = new Intent(HistoryActivity.this, KuaiKanBrowseActivity.class);
-                intent.putExtra(AppConstants.CHAPTER_ID, bean.getId()+"");
-                intent.putExtra(AppConstants.COMIC_ID, mComicId);
-                startActivity(intent);*/
+                Intent intent;
+                if(bean.getOrigin() == AppConstants.KUAI_KAN_INT){
+                    intent = new Intent(HistoryActivity.this, KuaiKanAllChapterActivity.class);
+                    intent.putExtra(AppConstants.COMIC_ID, bean.getComicId()+"");
+                    startActivity(intent);
+                }else if(bean.getOrigin() == AppConstants.ZHI_JIA_INT){
+                    intent = new Intent(HistoryActivity.this, ZhiJiaDetailsActivity.class);
+                    ImageView imageView = view.findViewById(R.id.iv_cover);
+                    BitmapDrawable mDrawable =  (BitmapDrawable) imageView.getDrawable();
+                    intent.putExtra(AppConstants.COMIC_ID, bean.getComicId()+"");
+                    intent.putExtra(AppConstants.ZHI_JIA_COVER_BITMAP, mDrawable.getBitmap());
+                    ActivityOptionsCompat options =
+                            ActivityOptionsCompat.makeSceneTransitionAnimation(HistoryActivity.this,
+                                    imageView, getString(R.string.transition_name_zhi_jia_cover));
+                    startActivity(intent, options.toBundle());
+                }else if(bean.getOrigin() == AppConstants.WANG_YI_INT){
+
+                }
+
+            }
+
+            @Override
+            public void Continue(View view, int position) {
+                LogUtil.i(TAG,"点击Continue position="+position);
+                HistoryBean bean = mRecyclerAdapter.getItemData(position);
+                if(bean == null){
+                    return;
+                }
+                Intent intent;
+                if(bean.getOrigin() == AppConstants.KUAI_KAN_INT){
+                    intent = new Intent(HistoryActivity.this, KuaiKanBrowseActivity.class);
+                    intent.putExtra(AppConstants.CHAPTER_ID, bean.getChapterId()+"");
+                    intent.putExtra(AppConstants.COMIC_ID, bean.getComicId()+"");
+                    startActivity(intent);
+                }else if(bean.getOrigin() == AppConstants.ZHI_JIA_INT){
+                    intent = new Intent(HistoryActivity.this, ZhiJiaBrowseActivity.class);
+                    intent.putExtra(AppConstants.COMIC_ID, bean.getComicId());
+                    intent.putExtra(AppConstants.CHAPTER_ID, bean.getChapterId());
+                    intent.putExtra(AppConstants.COMIC_TITLE, bean.getComicName());//为了保存在历史记录中
+                    intent.putExtra(AppConstants.COVER_URL, bean.getCoverUrl());//为了保存在历史记录中
+                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            HistoryActivity.this).toBundle();
+                    startActivity(intent, bundle);
+                }else if(bean.getOrigin() == AppConstants.WANG_YI_INT){
+
+                }
             }
         });
     }

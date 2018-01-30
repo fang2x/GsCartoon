@@ -50,7 +50,7 @@ public class KuaiKanBrowseModel {
             mHistoryBean.setOrigin(AppConstants.KUAI_KAN_INT);
             mHistoryBean.setComicId(mTopicBean.getId());
             mHistoryBean.setChapterId(mDataBean.getId());
-            mHistoryBean.setCoverUrl(mDataBean.getCover_image_url());
+            mHistoryBean.setCoverUrl(mTopicBean.getVertical_image_url());
             mHistoryBean.setComicName(mTopicBean.getTitle());
             mHistoryBean.setChapterTitle(mDataBean.getTitle());
             mHistoryBean.setUpdateTime(new Date());
