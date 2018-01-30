@@ -1,8 +1,11 @@
 package com.gs.gscartoon.home.view;
 
 import android.animation.Animator;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.ColorRes;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
@@ -20,8 +23,12 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.gscartoon.R;
+import com.gs.gscartoon.history.view.HistoryActivity;
 import com.gs.gscartoon.kuaikan.model.KuaiKanModel;
 import com.gs.gscartoon.kuaikan.presenter.KuaiKanPresenter;
 import com.gs.gscartoon.kuaikan.view.KuaiKanFragment;
@@ -50,12 +57,20 @@ public class HomeActivity extends AppCompatActivity implements
     Toolbar tbToolbar;
     @BindView(R.id.fl_content)
     FrameLayout flContent;
-    @BindView(R.id.ll_kuaikan)
-    LinearLayout llKuaiKan;
-    @BindView(R.id.ll_zhijia)
-    LinearLayout llZhiJia;
-    @BindView(R.id.ll_manman)
-    LinearLayout llManMan;
+    @BindView(R.id.rl_kuaikan)
+    RelativeLayout rlKuaiKan;
+    @BindView(R.id.rl_zhijia)
+    RelativeLayout rlZhiJia;
+    @BindView(R.id.rl_manman)
+    RelativeLayout rlManMan;
+    @BindView(R.id.sdv_launcher)
+    SimpleDraweeView sdvLauncher;
+    @BindView(R.id.tv_history)
+    TextView tvHistory;
+    @BindView(R.id.tv_favorite)
+    TextView tvFavorite;
+    @BindView(R.id.tv_about)
+    TextView tvAbout;
 
     private static final int FRAGMENT_COUNT = 3;
     private static final int KUAI_KAN_FRAGMENT_INDEX = 0;//快看Fragment索引
@@ -88,9 +103,16 @@ public class HomeActivity extends AppCompatActivity implements
         ToolbarUtil.initToolbar(this, tbToolbar);
         ToolbarUtil.actionBarDrawerToggle(this, dlLeftMain, tbToolbar);
 
-        llKuaiKan.setOnClickListener(this);
-        llZhiJia.setOnClickListener(this);
-        llManMan.setOnClickListener(this);
+        rlKuaiKan.setOnClickListener(this);
+        rlZhiJia.setOnClickListener(this);
+        rlManMan.setOnClickListener(this);
+        tvHistory.setOnClickListener(this);
+        tvFavorite.setOnClickListener(this);
+        tvAbout.setOnClickListener(this);
+        sdvLauncher.setOnClickListener(this);
+
+        sdvLauncher.setImageURI(Uri.parse("res://"+
+                this.getPackageName()+"/" + R.drawable.ic_launcher));
 
         setFragment(KUAI_KAN_FRAGMENT_INDEX);//默认打开快看
     }
@@ -203,21 +225,35 @@ public class HomeActivity extends AppCompatActivity implements
 
     @Override
     public void onClick(View v) {
+        Intent intent;
+        ActivityOptionsCompat options;
         switch (v.getId()){
-            case R.id.ll_kuaikan:
+            case R.id.rl_kuaikan:
                 setFragment(KUAI_KAN_FRAGMENT_INDEX);
                 dlLeftMain.closeDrawers();
-                animateRevealColorFromCoordinates(flContent, 0, (int)llKuaiKan.getY()+llKuaiKan.getHeight()/2);
+                animateRevealColorFromCoordinates(flContent, 0, (int)rlKuaiKan.getY()+rlKuaiKan.getHeight()/2);
                 break;
-            case R.id.ll_zhijia:
+            case R.id.rl_zhijia:
                 setFragment(ZHI_JIA_FRAGMENT_INDEX);
                 dlLeftMain.closeDrawers();
-                animateRevealColorFromCoordinates(flContent, 0, (int)llZhiJia.getY()+llKuaiKan.getHeight()/2);
+                animateRevealColorFromCoordinates(flContent, 0, (int)rlZhiJia.getY()+rlZhiJia.getHeight()/2);
                 break;
-            case R.id.ll_manman:
+            case R.id.rl_manman:
                 setFragment(MAN_MAN_FRAGMENT_INDEX);
                 dlLeftMain.closeDrawers();
-                animateRevealColorFromCoordinates(flContent, 0, (int)llManMan.getY()+llKuaiKan.getHeight()/2);
+                animateRevealColorFromCoordinates(flContent, 0, (int)rlManMan.getY()+rlManMan.getHeight()/2);
+                break;
+            case R.id.tv_history:
+                intent = new Intent(HomeActivity.this, HistoryActivity.class);
+                options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeActivity.this,
+                                tvHistory, getString(R.string.transition_name_history_title));
+                startActivity(intent, options.toBundle());
+                break;
+            case R.id.tv_favorite:
+                break;
+            case R.id.tv_about:
+                break;
+            case R.id.sdv_launcher:
                 break;
             default:
                 break;

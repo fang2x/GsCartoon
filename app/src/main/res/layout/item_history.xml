@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_item_root_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:foreground="?attr/selectableItemBackground">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_cover"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        fresco:viewAspectRatio="1.78"
+        fresco:roundedCornerRadius="2dp"
+        fresco:placeholderImage="@drawable/ic_kuaikan_default_image"
+        fresco:actualImageScaleType="centerCrop"
+        android:adjustViewBounds="true" />
+
+    <com.gs.gscartoon.widget.view.MarqueTextView
+        android:id="@+id/mtv_title"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textSize="14sp"
+        android:text="Title"
+        android:singleLine="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:ellipsize="marquee"
+        android:scrollHorizontally="true"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:layout_toRightOf="@id/sdv_cover"
+        android:textColor="@color/BLACK"/>
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textSize="12sp"
+        android:text="Time"
+        android:layout_toRightOf="@id/sdv_cover"
+        android:layout_alignBottom="@+id/sdv_cover"
+        android:textColor="@color/DIMGRAY"/>
+    <TextView
+        android:id="@+id/tv_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/sdv_cover"
+        android:layout_alignParentEnd="true"
+        android:drawableStart="@drawable/ic_common_praise_highlighted_like_normal"
+        android:drawablePadding="5.8dp"
+        android:text="like"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/DIMGRAY"
+        android:textSize="12sp"/>
+</RelativeLayout>

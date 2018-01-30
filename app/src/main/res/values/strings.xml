@@ -3,15 +3,18 @@
 
     <string name="open">打开</string>
     <string name="close">关闭</string>
-    <string name="kuaikan">快看</string>
-    <string name="zhijia">之家</string>
-    <string name="manman">漫漫</string>
+    <string name="kuaikan">快看漫画</string>
+    <string name="zhijia">动漫之家</string>
+    <string name="manman">漫漫漫画</string>
+    <string name="wangyi">网易漫画</string>
+    <string name="tengxun">腾讯漫画</string>
     <string name="press_again_to_exit">再按一次退出程序</string>
     <string name="data_is_empty">数据为空</string>
     <string name="not_set">未设置</string>
 
     <!-- ++++++++++++共享元素transitionName-->
     <string name="transition_name_zhi_jia_cover">zhi_jia_cover</string>
+    <string name="transition_name_history_title">history_title</string>
     <!-- ************共享元素transitionName-->
 
     <!-- ++++++++++++网络请求出错-->

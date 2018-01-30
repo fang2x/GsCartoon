@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -44,92 +45,139 @@
             android:layout_height="match_parent" />
 
         <LinearLayout
-            android:layout_width="150dp"
+            android:layout_width="250dp"
             android:layout_height="match_parent"
-            android:background="@color/WHITE"
+            android:background="@color/pageBackground"
             android:layout_gravity="start"
             android:orientation="vertical"
             android:gravity="center_horizontal"
             android:clickable="true">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/ic_launcher"
-                android:scaleType="centerCrop" />
-            <View
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="0.5px"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="30dp"
-                android:background="@color/DARKGRAY" />
-            <LinearLayout
-                android:id="@+id/ll_kuaikan"
+                android:layout_height="120dp"
+                android:layout_marginBottom="20dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_buildings"
+                    android:layout_gravity="bottom"/>
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/sdv_launcher"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    fresco:roundedCornerRadius="45dp"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="right"/>
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_kuaikan"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:background="@color/WHITE">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:src="@drawable/ic_kuai_kan_icon"
-                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/kuaikan"
+                    android:layout_centerInParent="true"
                     android:textColor="@color/KuaiKanColor"
-                    android:textSize="15sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll_zhijia"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_zhijia"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:background="@color/WHITE">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:src="@drawable/ic_zhi_jia_icon"
-                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:text="@string/zhijia"
                     android:textColor="@color/ZhiJiaColor"
-                    android:textSize="15sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll_manman"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_manman"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:background="@color/WHITE">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:src="@drawable/ic_man_man_icon"
-                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:text="@string/manman"
                     android:textColor="@color/ManManColor"
-                    android:textSize="15sp" />
-            </LinearLayout>
+                    android:textSize="16sp" />
+            </RelativeLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:background="@color/WHITE"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="历史记录"
+                    android:textColor="@color/ToolbarLight"
+                    android:textSize="16sp"
+                    android:transitionName="@string/transition_name_history_title"/>
+                <TextView
+                    android:id="@+id/tv_favorite"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="我的收藏"
+                    android:textColor="@color/ToolbarLight"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/tv_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="关于作者"
+                    android:textColor="@color/ToolbarLight"
+                    android:textSize="16sp"/>
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 </LinearLayout>

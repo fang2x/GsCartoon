@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="pageBackground">#F7F9FA</color>
+    <color name="pageBackground">#f2f2f2</color>
     <color name="dividing_line_gray">#d9d6c3</color>
 
     <color name="ToolbarDark">#1D8CE0</color>

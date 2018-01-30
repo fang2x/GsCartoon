@@ -7,6 +7,8 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.gs.gscartoon.utils.FrescoUtil;
 
+import io.realm.Realm;
+
 /**
  * Created by camdora on 16-12-26. 12:00
  */
@@ -20,7 +22,7 @@ public class GsApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
-
+        Realm.init(this);//Realm 库进行初始化
         ImagePipelineConfig imagePipelineConfig = FrescoUtil.getConfig();
         if(imagePipelineConfig == null){
             Fresco.initialize(mContext);
