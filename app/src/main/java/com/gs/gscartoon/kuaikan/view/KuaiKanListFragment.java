@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanListBean.DataBean.ComicsBean;
@@ -40,6 +41,8 @@ public class KuaiKanListFragment extends Fragment implements
     LinearLayout llEmpty;
     @BindView(R.id.tv_empty_title)
     TextView tvEmptyTitle;
+    @BindView(R.id.iv_empty_image)
+    ImageView ivEmptyImage;
 
     private KuaiKanListContract.Presenter mPresenter;
     private KuaiKanListRecyclerAdapter mRecyclerAdapter;
@@ -119,6 +122,8 @@ public class KuaiKanListFragment extends Fragment implements
                 startActivity(intent);
             }
         });
+
+        tvEmptyTitle.setVisibility(View.GONE);
     }
 
     @Override
@@ -189,8 +194,8 @@ public class KuaiKanListFragment extends Fragment implements
         mRecyclerAdapter.addItems(mData);
         mRecyclerAdapter.notifyDataSetChanged();
         if(mRecyclerAdapter.getItemCount() < 1){
-            if(tvEmptyTitle != null){
-                tvEmptyTitle.setText(getString(R.string.data_is_empty));
+            if(ivEmptyImage != null){
+                ivEmptyImage.setImageResource(R.drawable.ic_recommend_empty_icon);
             }
             dataIsEmpty();
         }else {
@@ -202,8 +207,8 @@ public class KuaiKanListFragment extends Fragment implements
     public void refreshDataFailure(){
         if(mRecyclerAdapter != null) {
             if (mRecyclerAdapter.getItemCount() < 1) {
-                if(tvEmptyTitle != null) {
-                    tvEmptyTitle.setText(getString(R.string.access_network_error));
+                if(ivEmptyImage != null) {
+                    ivEmptyImage.setImageResource(R.drawable.ic_load_failure);
                 }
                 dataIsEmpty();
             } else {

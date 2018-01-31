@@ -59,6 +59,8 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
     LinearLayout llEmpty;
     @BindView(R.id.tv_empty_title)
     TextView tvEmptyTitle;
+    @BindView(R.id.iv_empty_image)
+    ImageView ivEmptyImage;
 
     private HistoryContract.Presenter mPresenter;
     private HistoryRecyclerAdapter mRecyclerAdapter;
@@ -159,6 +161,8 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
                 showDeleteDialog();
             }
         });
+
+        tvEmptyTitle.setVisibility(View.GONE);
     }
 
     @Override
@@ -205,28 +209,12 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
         mRecyclerAdapter.clear();
         mRecyclerAdapter.addItems(mData);
         mRecyclerAdapter.notifyDataSetChanged();
-        if(mRecyclerAdapter.getItemCount() < 1){
-            if(tvEmptyTitle != null){
-                tvEmptyTitle.setText(getString(R.string.data_is_empty));
-            }
-            dataIsEmpty();
-        }else {
-            dataIsNotEmpty();
-        }
+        isEmpty();
     }
 
     @Override
     public void refreshDataFailure() {
-        if(mRecyclerAdapter != null) {
-            if (mRecyclerAdapter.getItemCount() < 1) {
-                if(tvEmptyTitle != null) {
-                    tvEmptyTitle.setText("获取数据失败");
-                }
-                dataIsEmpty();
-            } else {
-                dataIsNotEmpty();
-            }
-        }
+        isEmpty();
     }
 
     @Override
@@ -234,6 +222,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
         if(mRecyclerAdapter != null) {
             mRecyclerAdapter.removeItem(clickPosition);
             mItemTouchHelper.closeOpened();//删除最后一条数据，再添加一条还是会展开左侧菜单
+            isEmpty();
         }
     }
 
@@ -247,15 +236,32 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
         }
     }
 
+    private void isEmpty(){
+        if(mRecyclerAdapter == null) {
+            return;
+        }
+
+        if(mRecyclerAdapter.getItemCount() < 1){
+            if(ivEmptyImage != null){
+                ivEmptyImage.setImageResource(R.drawable.ic_history_none);
+            }
+            dataIsEmpty();
+        }else {
+            dataIsNotEmpty();
+        }
+    }
+
     private void dataIsEmpty(){
-        if(llEmpty != null) {
+        if(llEmpty != null && mRecyclerView != null) {
             llEmpty.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
         }
     }
 
     private void dataIsNotEmpty(){
-        if(llEmpty != null) {
+        if(llEmpty != null && mRecyclerView != null) {
             llEmpty.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
         }
     }
 

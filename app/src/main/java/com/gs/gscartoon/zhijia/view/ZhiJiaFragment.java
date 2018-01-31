@@ -46,6 +46,8 @@ public class ZhiJiaFragment extends Fragment implements ZhiJiaContract.View,
     LinearLayout llEmpty;
     @BindView(R.id.tv_empty_title)
     TextView tvEmptyTitle;
+    @BindView(R.id.iv_empty_image)
+    ImageView ivEmptyImage;
 
     private ZhiJiaContract.Presenter mPresenter;
     private ZhiJiaListRecyclerAdapter mRecyclerAdapter;
@@ -118,6 +120,8 @@ public class ZhiJiaFragment extends Fragment implements ZhiJiaContract.View,
                 startActivity(intent, options.toBundle());
             }
         });
+
+        tvEmptyTitle.setVisibility(View.GONE);
     }
 
     @Override
@@ -193,8 +197,8 @@ public class ZhiJiaFragment extends Fragment implements ZhiJiaContract.View,
         mRecyclerAdapter.addItems(mData);
         mRecyclerAdapter.notifyDataSetChanged();
         if(mRecyclerAdapter.getItemCount() < 1){
-            if(tvEmptyTitle != null){
-                tvEmptyTitle.setText(getString(R.string.data_is_empty));
+            if(ivEmptyImage != null){
+                ivEmptyImage.setImageResource(R.drawable.ic_recommend_empty_icon);
             }
             dataIsEmpty();
         }else {
@@ -206,8 +210,8 @@ public class ZhiJiaFragment extends Fragment implements ZhiJiaContract.View,
     public void refreshDataFailure(){
         if(mRecyclerAdapter != null) {
             if (mRecyclerAdapter.getItemCount() < 1) {
-                if(tvEmptyTitle != null) {
-                    tvEmptyTitle.setText(getString(R.string.access_network_error));
+                if(ivEmptyImage != null) {
+                    ivEmptyImage.setImageResource(R.drawable.ic_load_failure);
                 }
                 dataIsEmpty();
             } else {
