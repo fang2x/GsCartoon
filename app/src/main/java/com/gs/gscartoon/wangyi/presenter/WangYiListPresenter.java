@@ -1,15 +1,17 @@
-package com.gs.gscartoon.zhijia.presenter;
+package com.gs.gscartoon.wangyi.presenter;
 
 import com.google.gson.Gson;
-import java.lang.reflect.Type;
-
 import com.google.gson.reflect.TypeToken;
 import com.gs.gscartoon.utils.ErrorUtil;
 import com.gs.gscartoon.utils.LogUtil;
+import com.gs.gscartoon.wangyi.WangYiListContract;
+import com.gs.gscartoon.wangyi.bean.WangYiListBean;
+import com.gs.gscartoon.wangyi.model.WangYiListModel;
 import com.gs.gscartoon.zhijia.ZhiJiaContract;
 import com.gs.gscartoon.zhijia.bean.ZhiJiaListBean;
 import com.gs.gscartoon.zhijia.model.ZhiJiaModel;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -24,18 +26,18 @@ import retrofit2.HttpException;
  * Created by camdora on 17-11-22.
  */
 
-public class ZhiJiaPresenter implements ZhiJiaContract.Presenter {
-    private static final String TAG = "ZhiJiaPresenter";
+public class WangYiListPresenter implements WangYiListContract.Presenter {
+    private static final String TAG = "WangYiListPresenter";
 
-    private final ZhiJiaModel mZhiJiaModel;
-    private final ZhiJiaContract.View mZhiJiaView;
+    private final WangYiListModel mWangYiListModel;
+    private final WangYiListContract.View mWangYiListView;
     private CompositeDisposable mCompositeDisposable;
 
-    public ZhiJiaPresenter(ZhiJiaModel model, ZhiJiaContract.View view){
-        mZhiJiaModel = model;
+    public WangYiListPresenter(WangYiListModel model, WangYiListContract.View view){
+        mWangYiListModel = model;
 
-        mZhiJiaView = view;
-        mZhiJiaView.setPresenter(this);
+        mWangYiListView = view;
+        mWangYiListView.setPresenter(this);
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -52,11 +54,12 @@ public class ZhiJiaPresenter implements ZhiJiaContract.Presenter {
     }
 
     @Override
-    public void refreshData() {
-        mZhiJiaModel.refreshZhiJiaList()
+    public void refreshData(String url) {
+        LogUtil.e(TAG, "4444 url= "+url);
+        mWangYiListModel.refreshWangYiList(url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseBody>() {
+                .subscribe(new Observer<WangYiListBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         mCompositeDisposable.add(d);
@@ -65,14 +68,14 @@ public class ZhiJiaPresenter implements ZhiJiaContract.Presenter {
                     @Override
                     public void onComplete() {
                         LogUtil.i(TAG, "refreshData onCompleted");
-                        mZhiJiaView.hideRefreshProgress();
+                        mWangYiListView.hideRefreshProgress();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        mZhiJiaView.hideRefreshProgress();
-                        mZhiJiaView.refreshDataFailure();
+                        mWangYiListView.hideRefreshProgress();
+                        mWangYiListView.refreshDataFailure();
                         if(e instanceof HttpException){
                             HttpException httpException = (HttpException) e;
                             ErrorUtil.showErrorInfo(httpException.code());
@@ -83,30 +86,26 @@ public class ZhiJiaPresenter implements ZhiJiaContract.Presenter {
                     }
 
                     @Override
-                    public void onNext(ResponseBody body) {
+                    public void onNext(WangYiListBean bean) {
                         LogUtil.i(TAG, "refreshData onNext");
-                        try {
-                            Gson gson = new Gson();
-                            Type type = new TypeToken<List<ZhiJiaListBean>>() {}.getType();
-                            Object fromJson2 = gson.fromJson(body.string(), type);
-                            List<ZhiJiaListBean> list = (List<ZhiJiaListBean>) fromJson2;
-
-                            mZhiJiaView.showRefreshData(list);
-                        }catch (Exception e){
-                            mZhiJiaView.hideRefreshProgress();
-                            mZhiJiaView.refreshDataFailure();
-                            e.printStackTrace();
+                        if(bean == null || bean.getData() == null){
+                            mWangYiListView.hideRefreshProgress();
+                            mWangYiListView.refreshDataFailure();
+                            return;
                         }
+                        LogUtil.i(TAG, "刷新数据:"+bean.getData().getBooks().size());
+                        mWangYiListView.showRefreshData(bean.getData().getBooks());
+                        mWangYiListView.setNextUrl(bean.getData().getNext());
                     }
                 });
     }
 
     @Override
-    public void loadData(int page) {
-        mZhiJiaModel.loadZhiJiaList(page)
+    public void loadData(String url) {
+        mWangYiListModel.loadWangYiList(url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseBody>() {
+                .subscribe(new Observer<WangYiListBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         mCompositeDisposable.add(d);
@@ -115,13 +114,13 @@ public class ZhiJiaPresenter implements ZhiJiaContract.Presenter {
                     @Override
                     public void onComplete() {
                         LogUtil.i(TAG, "loadData onCompleted ");
-                        mZhiJiaView.setLoading(false);
+                        mWangYiListView.setLoading(false);
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        mZhiJiaView.setLoading(false);
+                        mWangYiListView.setLoading(false);
                         if(e instanceof HttpException){
                             HttpException httpException = (HttpException) e;
                             ErrorUtil.showErrorInfo(httpException.code());
@@ -132,19 +131,14 @@ public class ZhiJiaPresenter implements ZhiJiaContract.Presenter {
                     }
 
                     @Override
-                    public void onNext(ResponseBody body) {
+                    public void onNext(WangYiListBean bean) {
                         LogUtil.i(TAG, "loadData onNext");
-                        try {
-                            Gson gson = new Gson();
-                            Type type = new TypeToken<List<ZhiJiaListBean>>() {}.getType();
-                            Object fromJson2 = gson.fromJson(body.string(), type);
-                            List<ZhiJiaListBean> list = (List<ZhiJiaListBean>) fromJson2;
-
-                            mZhiJiaView.showLoadData(list);
-                        }catch (Exception e){
-                            mZhiJiaView.setLoading(false);
-                            e.printStackTrace();
+                        if(bean == null || bean.getData() == null){
+                            mWangYiListView.setLoading(false);
+                            return;
                         }
+                        mWangYiListView.showLoadData(bean.getData().getBooks());
+                        mWangYiListView.setNextUrl(bean.getData().getNext());
                     }
                 });
     }

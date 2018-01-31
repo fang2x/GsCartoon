@@ -39,6 +39,9 @@ import com.gs.gscartoon.utils.ActivityUtil;
 import com.gs.gscartoon.utils.StatusBarUtil;
 import com.gs.gscartoon.utils.ToastUtil;
 import com.gs.gscartoon.utils.ToolbarUtil;
+import com.gs.gscartoon.wangyi.model.WangYiModel;
+import com.gs.gscartoon.wangyi.presenter.WangYiPresenter;
+import com.gs.gscartoon.wangyi.view.WangYiFragment;
 import com.gs.gscartoon.zhijia.model.ZhiJiaModel;
 import com.gs.gscartoon.zhijia.presenter.ZhiJiaPresenter;
 import com.gs.gscartoon.zhijia.view.ZhiJiaFragment;
@@ -63,6 +66,8 @@ public class HomeActivity extends AppCompatActivity implements
     RelativeLayout rlZhiJia;
     @BindView(R.id.rl_manman)
     RelativeLayout rlManMan;
+    @BindView(R.id.rl_wangyi)
+    RelativeLayout rlWangYi;
     @BindView(R.id.sdv_launcher)
     SimpleDraweeView sdvLauncher;
     @BindView(R.id.tv_history)
@@ -72,10 +77,11 @@ public class HomeActivity extends AppCompatActivity implements
     @BindView(R.id.tv_about)
     TextView tvAbout;
 
-    private static final int FRAGMENT_COUNT = 3;
+    private static final int FRAGMENT_COUNT = 4;
     private static final int KUAI_KAN_FRAGMENT_INDEX = 0;//快看Fragment索引
     private static final int ZHI_JIA_FRAGMENT_INDEX = 1;//之家Fragment索引
     private static final int MAN_MAN_FRAGMENT_INDEX = 2;//漫漫Fragment索引
+    private static final int WANG_YI_FRAGMENT_INDEX = 3;//网易Fragment索引
 
     private KuaiKanFragment mKuaiKanFragment;
     private KuaiKanPresenter mKuaiKanPresenter;
@@ -83,6 +89,8 @@ public class HomeActivity extends AppCompatActivity implements
     private ManManPresenter mManManPresenter;
     private ZhiJiaFragment mZhiJiaFragment;
     private ZhiJiaPresenter mZhiJiaPresenter;
+    private WangYiFragment mWangYiFragment;
+    private WangYiPresenter mWangYiPresenter;
 
     private Unbinder unbinder;
 
@@ -106,6 +114,7 @@ public class HomeActivity extends AppCompatActivity implements
         rlKuaiKan.setOnClickListener(this);
         rlZhiJia.setOnClickListener(this);
         rlManMan.setOnClickListener(this);
+        rlWangYi.setOnClickListener(this);
         tvHistory.setOnClickListener(this);
         tvFavorite.setOnClickListener(this);
         tvAbout.setOnClickListener(this);
@@ -176,6 +185,16 @@ public class HomeActivity extends AppCompatActivity implements
                             }
                             fragment = mManManFragment;
                             break;
+                        case WANG_YI_FRAGMENT_INDEX://网易
+                            if(mWangYiFragment == null){
+                                mWangYiFragment = WangYiFragment.newInstance();
+                            }
+                            if(mWangYiPresenter == null) {
+                                mWangYiPresenter = new WangYiPresenter(
+                                        new WangYiModel(getApplicationContext()), mWangYiFragment);
+                            }
+                            fragment = mWangYiFragment;
+                            break;
                         default:
                             break;
                     }
@@ -242,6 +261,11 @@ public class HomeActivity extends AppCompatActivity implements
                 setFragment(MAN_MAN_FRAGMENT_INDEX);
                 dlLeftMain.closeDrawers();
                 animateRevealColorFromCoordinates(flContent, 0, (int)rlManMan.getY()+rlManMan.getHeight()/2);
+                break;
+            case R.id.rl_wangyi:
+                setFragment(WANG_YI_FRAGMENT_INDEX);
+                dlLeftMain.closeDrawers();
+                animateRevealColorFromCoordinates(flContent, 0, (int)rlWangYi.getY()+rlWangYi.getHeight()/2);
                 break;
             case R.id.tv_history:
                 intent = new Intent(HomeActivity.this, HistoryActivity.class);

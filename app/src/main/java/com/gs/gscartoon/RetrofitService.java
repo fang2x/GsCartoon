@@ -3,6 +3,8 @@ package com.gs.gscartoon;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanAllChapterBean;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanBrowseBean;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanListBean;
+import com.gs.gscartoon.wangyi.bean.WangYiCategoryBean;
+import com.gs.gscartoon.wangyi.bean.WangYiListBean;
 import com.gs.gscartoon.zhijia.bean.ZhiJiaBrowseBean;
 import com.gs.gscartoon.zhijia.bean.ZhiJiaDetailsBean;
 
@@ -11,6 +13,7 @@ import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 /**
  * Created by camdora on 17-11-21.
@@ -47,4 +50,15 @@ public interface RetrofitService {
     Observable<ZhiJiaBrowseBean> refreshZhiJiaBrowse(
             @Path("comic_id") int comic_id, @Path("chapter_id") int chapter_id);
     //---------------------动漫之家---------------
+
+    //+++++++++++++++++++++网易+++++++++++++++
+    @GET("navi.json?type=1&gender=1")
+    Observable<WangYiCategoryBean> getWangYiCategory();
+
+    @GET
+    Observable<WangYiListBean> refreshWangYiList(@Url String url);
+
+    @GET
+    Observable<WangYiListBean> loadWangYiList(@Url String url);
+    //---------------------网易---------------
 }

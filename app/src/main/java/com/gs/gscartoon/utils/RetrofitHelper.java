@@ -28,6 +28,7 @@ public class RetrofitHelper {
     private static RetrofitHelper mKuaiKanInstance = null;
     private static RetrofitHelper mZhiJiaInstance = null;
     private static RetrofitHelper mManManInstance = null;
+    private static RetrofitHelper mWangYiInstance = null;
     private Context mContext;
 
     private Retrofit mRetrofit = null;
@@ -91,6 +92,17 @@ public class RetrofitHelper {
         return mManManInstance;
     }
 
+    public static RetrofitHelper getWangYiInstance(Context context){
+        if (mWangYiInstance == null){
+            synchronized (RetrofitHelper.class){
+                if(mWangYiInstance == null){
+                    mWangYiInstance = new RetrofitHelper(context, AppConstants.WANG_YI_URL);
+                }
+            }
+        }
+        return mWangYiInstance;
+    }
+
     private void resetAppRetrofit(String url) {
 
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
@@ -102,6 +114,7 @@ public class RetrofitHelper {
 
                 Request.Builder builder = chain.request().newBuilder();
                 builder.addHeader("X-Device-Type", "android");
+                builder.addHeader("COMIC-Authorization","Digest username=\"352638077662832_85361a3be1160e38\", realm=\"COMIC online catalog\", nonce=\"bba9aa601b974d1d9240f478e8a6572a\", response=\"\", type=\"10\"");
                 Request request = builder.build();
                 return chain.proceed(request);
             }

@@ -10,9 +10,11 @@ public class AppConstants {
     public static final String KUAI_KAN_URL = "http://api.kuaikanmanhua.com/";//快看访问服务器地址
     public static final String ZHI_JIA_URL = "http://v2.api.dmzj.com/";//动漫之家访问服务器地址
     public static final String MAN_MAN_URL = "";//漫漫访问服务器地址
+    public static final String WANG_YI_URL = "https://api.mh.163.com/";//网易访问服务器地址
     //------------字符串常量------------
 
     //++++++++++++Activity传递数据　key ++++++++++++
+    public static final String URL = "url";//链接地址
     public static final String TIMESTAMP = "timestamp";//时间戳
     public static final String CHAPTER_ID = "ChapterId";//某一话漫画id
     public static final String COMIC_ID = "ComicId";//漫画id

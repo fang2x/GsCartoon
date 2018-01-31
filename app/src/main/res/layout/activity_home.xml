@@ -96,6 +96,29 @@
                     android:textSize="16sp" />
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/rl_wangyi"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:foreground="?attr/selectableItemBackground"
+                android:background="@color/WHITE">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_wang_yi_icon"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/wangyi"
+                    android:textColor="@color/WangYiColor"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+            <RelativeLayout
                 android:id="@+id/rl_zhijia"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
