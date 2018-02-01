@@ -1,21 +1,14 @@
 package com.gs.gscartoon.zhijia.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.gscartoon.BaseRecyclerAdapter;
 import com.gs.gscartoon.BaseRecyclerVH;
 import com.gs.gscartoon.R;
-import com.gs.gscartoon.utils.LogUtil;
-import com.gs.gscartoon.utils.OkHttpUtil;
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
-
-import okhttp3.OkHttpClient;
 
 /**
  * Created by camdora on 16-12-13.
@@ -25,16 +18,10 @@ public class ZhiJiaBrowseRecyclerAdapter extends BaseRecyclerAdapter<String,
         ZhiJiaBrowseRecyclerAdapter.ZhiJiaBrowseRecyclerHolder> {
 
     private Context mContext;
-    private Picasso mPicasso;
 
     public ZhiJiaBrowseRecyclerAdapter(Context context) {
         super(context);
         mContext = context;
-
-        OkHttpClient okHttpClient = OkHttpUtil.getHeaderOkHttpClientBuilder().build();
-        mPicasso = new Picasso.Builder(mContext)
-                .downloader(new OkHttp3Downloader(okHttpClient))
-                .build();
     }
 
     @Override
@@ -51,8 +38,8 @@ public class ZhiJiaBrowseRecyclerAdapter extends BaseRecyclerAdapter<String,
     @Override
     public void onBindViewHolder(final ZhiJiaBrowseRecyclerHolder holder, int position) {
 
-        mPicasso.load(mData.get(position)).placeholder(R.drawable.ic_kuaikan_default_image_vertical)
-                .error(R.drawable.ic_kuaikan_default_image_vertical)
+        Picasso.with(mContext).load(mData.get(position)).placeholder(R.drawable.ic_wangyi_default_image_vertical)
+                .error(R.drawable.ic_wangyi_default_image_vertical)
                 .into(holder.ivBrowse);
     }
 

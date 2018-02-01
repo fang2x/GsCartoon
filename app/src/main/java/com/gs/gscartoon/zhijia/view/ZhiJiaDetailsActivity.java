@@ -1,7 +1,6 @@
 package com.gs.gscartoon.zhijia.view;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -18,12 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.gscartoon.R;
 import com.gs.gscartoon.utils.AppConstants;
-import com.gs.gscartoon.utils.LogUtil;
-import com.gs.gscartoon.utils.OkHttpUtil;
-import com.gs.gscartoon.utils.PicassoRoundTransform;
 import com.gs.gscartoon.utils.StatusBarUtil;
 import com.gs.gscartoon.utils.TimeUtil;
 import com.gs.gscartoon.utils.ToolbarUtil;
@@ -35,13 +30,10 @@ import com.gs.gscartoon.zhijia.model.ZhiJiaDetailsModel;
 import com.gs.gscartoon.zhijia.presenter.ZhiJiaDescriptionPresenter;
 import com.gs.gscartoon.zhijia.presenter.ZhiJiaDetailsPresenter;
 import com.gs.gscartoon.zhijia.presenter.ZhiJiaSectionPresenter;
-import com.jakewharton.picasso.OkHttp3Downloader;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import okhttp3.OkHttpClient;
 
 public class ZhiJiaDetailsActivity extends AppCompatActivity
         implements ZhiJiaDetailsContract.View{
@@ -81,7 +73,6 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
     private Unbinder unbinder;
     private String mComicId;//漫画Id
     private Bitmap mZhiJiaCoverBitmap;
-    private Picasso mPicasso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,11 +102,6 @@ public class ZhiJiaDetailsActivity extends AppCompatActivity
         vpViewPager.setCurrentItem(mViewPagerAdapter.getCount()-1);
         tlTabLayout.setupWithViewPager(vpViewPager);
         tlTabLayout.setTabMode(TabLayout.MODE_FIXED);//Tablayout不可以滚动
-
-        OkHttpClient okHttpClient = OkHttpUtil.getHeaderOkHttpClientBuilder().build();
-        mPicasso = new Picasso.Builder(this)
-                .downloader(new OkHttp3Downloader(okHttpClient))
-                .build();
 
         ivCover.setImageBitmap(mZhiJiaCoverBitmap);
     }

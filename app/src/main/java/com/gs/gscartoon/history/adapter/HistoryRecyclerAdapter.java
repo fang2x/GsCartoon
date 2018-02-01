@@ -1,28 +1,23 @@
 package com.gs.gscartoon.history.adapter;
 
 import android.content.Context;
-import android.net.Uri;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.gscartoon.BaseRecyclerAdapter;
 import com.gs.gscartoon.BaseRecyclerVH;
 import com.gs.gscartoon.R;
 import com.gs.gscartoon.history.bean.HistoryBean;
 import com.gs.gscartoon.utils.AppConstants;
 import com.gs.gscartoon.utils.LogUtil;
-import com.gs.gscartoon.utils.OkHttpUtil;
 import com.gs.gscartoon.utils.PicassoRoundTransform;
 import com.gs.gscartoon.utils.TimeUtil;
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.loopeer.itemtouchhelperextension.Extension;
 import com.squareup.picasso.Picasso;
-
-import okhttp3.OkHttpClient;
 
 /**
  * Created by camdora on 16-12-13.
@@ -32,16 +27,10 @@ public class HistoryRecyclerAdapter extends BaseRecyclerAdapter<HistoryBean,
         HistoryRecyclerAdapter.HistoryRecyclerHolder> {
 
     private Context mContext;
-    private Picasso mPicasso;
 
     public HistoryRecyclerAdapter(Context context) {
         super(context);
         mContext = context;
-
-        OkHttpClient okHttpClient = OkHttpUtil.getHeaderOkHttpClientBuilder().build();
-        mPicasso = new Picasso.Builder(mContext)
-                .downloader(new OkHttp3Downloader(okHttpClient))
-                .build();
     }
 
     @Override
@@ -64,9 +53,11 @@ public class HistoryRecyclerAdapter extends BaseRecyclerAdapter<HistoryBean,
         }
 
         //holder.sdvCover.setImageURI(Uri.parse(bean.getCoverUrl()));
-        mPicasso.load(bean.getCoverUrl()).placeholder(R.drawable.ic_kuaikan_default_image_vertical)
-                .error(R.drawable.ic_kuaikan_default_image_vertical)
+        Picasso.with(mContext).load(bean.getCoverUrl()).placeholder(R.drawable.ic_wangyi_default_image_vertical)
+                .error(R.drawable.ic_wangyi_default_image_vertical)
                 .transform(new PicassoRoundTransform(7))
+                .config(Bitmap.Config.RGB_565)
+                .fit()
                 .into(holder.ivCover);
 
         holder.mtvTitle.setText(bean.getComicName());

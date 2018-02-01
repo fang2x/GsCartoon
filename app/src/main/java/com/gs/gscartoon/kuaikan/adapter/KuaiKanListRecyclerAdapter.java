@@ -1,19 +1,17 @@
 package com.gs.gscartoon.kuaikan.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.gscartoon.BaseRecyclerAdapter;
 import com.gs.gscartoon.BaseRecyclerVH;
 import com.gs.gscartoon.R;
@@ -89,6 +87,8 @@ public class KuaiKanListRecyclerAdapter extends BaseRecyclerAdapter<ComicsBean,
         //holder.sdvCover.setImageURI(Uri.parse(bean.getCover_image_url()));
         Picasso.with(mContext).load(bean.getCover_image_url()).placeholder(R.drawable.ic_kuaikan_default_image)
                 .error(R.drawable.ic_kuaikan_default_image)
+                .config(Bitmap.Config.RGB_565)
+                .fit()
                 .into(holder.ivCover);
 
         holder.tvTitle.setText(bean.getTitle());

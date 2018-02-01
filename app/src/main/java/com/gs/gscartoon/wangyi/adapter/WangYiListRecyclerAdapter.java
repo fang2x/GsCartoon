@@ -1,6 +1,7 @@
 package com.gs.gscartoon.wangyi.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,13 +13,9 @@ import com.gs.gscartoon.BaseRecyclerAdapter;
 import com.gs.gscartoon.BaseRecyclerVH;
 import com.gs.gscartoon.R;
 import com.gs.gscartoon.utils.LogUtil;
-import com.gs.gscartoon.utils.OkHttpUtil;
 import com.gs.gscartoon.utils.PicassoRoundTransform;
 import com.gs.gscartoon.wangyi.bean.WangYiListBean.DataBean.BooksBean;
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
-
-import okhttp3.OkHttpClient;
 
 
 /**
@@ -29,16 +26,10 @@ public class WangYiListRecyclerAdapter extends BaseRecyclerAdapter<BooksBean,
         WangYiListRecyclerAdapter.WangYiListRecyclerHolder> {
 
     private Context mContext;
-    private Picasso mPicasso;
 
     public WangYiListRecyclerAdapter(Context context) {
         super(context);
         mContext = context;
-
-        OkHttpClient okHttpClient = OkHttpUtil.getHeaderOkHttpClientBuilder().build();
-        mPicasso = new Picasso.Builder(mContext)
-                .downloader(new OkHttp3Downloader(okHttpClient))
-                .build();
     }
 
     @Override
@@ -62,9 +53,11 @@ public class WangYiListRecyclerAdapter extends BaseRecyclerAdapter<BooksBean,
 
         //holder.sdvCover.setImageURI(Uri.parse(bean.getCover()));
 
-        mPicasso.load(bean.getCover()).placeholder(R.drawable.ic_kuaikan_default_image_vertical)
-                .error(R.drawable.ic_kuaikan_default_image_vertical)
+        Picasso.with(mContext).load(bean.getCover()).placeholder(R.drawable.ic_wangyi_default_image_vertical)
+                .error(R.drawable.ic_wangyi_default_image_vertical)
                 .transform(new PicassoRoundTransform(7))
+                .config(Bitmap.Config.RGB_565)
+                .fit()
                 .into(holder.ivCover);
 
         holder.ivCover.setOnTouchListener(new View.OnTouchListener() {

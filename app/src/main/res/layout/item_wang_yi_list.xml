@@ -14,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        android:transitionName="@string/transition_name_zhi_jia_cover" />
+        android:adjustViewBounds="true" />
 
     <TextView
         android:id="@+id/tv_name"

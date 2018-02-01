@@ -34,7 +34,6 @@ import com.gs.gscartoon.widget.view.MarqueTextView;
 import com.gs.gscartoon.zhijia.view.ZhiJiaBrowseActivity;
 import com.gs.gscartoon.zhijia.view.ZhiJiaDetailsActivity;
 import com.loopeer.itemtouchhelperextension.ItemTouchHelperExtension;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 

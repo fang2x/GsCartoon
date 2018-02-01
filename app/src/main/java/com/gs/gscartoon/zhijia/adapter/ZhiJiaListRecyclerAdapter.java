@@ -1,34 +1,22 @@
 package com.gs.gscartoon.zhijia.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.gscartoon.BaseRecyclerAdapter;
 import com.gs.gscartoon.BaseRecyclerVH;
 import com.gs.gscartoon.R;
 
-import com.gs.gscartoon.utils.ColorUtil;
 import com.gs.gscartoon.utils.LogUtil;
-import com.gs.gscartoon.utils.OkHttpUtil;
 import com.gs.gscartoon.utils.PicassoRoundTransform;
 import com.gs.gscartoon.zhijia.bean.ZhiJiaListBean;
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
-
-import okhttp3.OkHttpClient;
-
 
 /**
  * Created by camdora on 16-12-13.
@@ -38,16 +26,10 @@ public class ZhiJiaListRecyclerAdapter extends BaseRecyclerAdapter<ZhiJiaListBea
         ZhiJiaListRecyclerAdapter.ZhiJiaListRecyclerHolder> {
 
     private Context mContext;
-    private Picasso mPicasso;
 
     public ZhiJiaListRecyclerAdapter(Context context) {
         super(context);
         mContext = context;
-
-        OkHttpClient okHttpClient = OkHttpUtil.getHeaderOkHttpClientBuilder().build();
-        mPicasso = new Picasso.Builder(mContext)
-                .downloader(new OkHttp3Downloader(okHttpClient))
-                .build();
     }
 
     @Override
@@ -71,9 +53,11 @@ public class ZhiJiaListRecyclerAdapter extends BaseRecyclerAdapter<ZhiJiaListBea
 
         //holder.sdvCover.setImageURI(Uri.parse(bean.getCover()));
 
-        mPicasso.load(bean.getCover()).placeholder(R.drawable.ic_kuaikan_default_image_vertical)
-                .error(R.drawable.ic_kuaikan_default_image_vertical)
+        Picasso.with(mContext).load(bean.getCover()).placeholder(R.drawable.ic_wangyi_default_image_vertical)
+                .error(R.drawable.ic_wangyi_default_image_vertical)
                 .transform(new PicassoRoundTransform(7))
+                .config(Bitmap.Config.RGB_565)
+                .fit()
                 .into(holder.ivCover);
 
         holder.ivCover.setOnTouchListener(new View.OnTouchListener() {
