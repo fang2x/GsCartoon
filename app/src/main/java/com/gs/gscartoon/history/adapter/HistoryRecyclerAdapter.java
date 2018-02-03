@@ -2,11 +2,15 @@ package com.gs.gscartoon.history.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gs.gscartoon.BaseRecyclerAdapter;
 import com.gs.gscartoon.BaseRecyclerVH;
@@ -86,6 +90,9 @@ public class HistoryRecyclerAdapter extends BaseRecyclerAdapter<HistoryBean,
         void onClick(View view, int position);
         void Continue(View view, int position);
         void onDeleteClick(int position);
+
+        //Header点击事件
+        void onHeaderClick(View view, int position);
     }
 
     public class HistoryRecyclerHolder extends BaseRecyclerVH<HistoryBean>
@@ -138,6 +145,72 @@ public class HistoryRecyclerAdapter extends BaseRecyclerAdapter<HistoryBean,
         @Override
         public float getActionWidth() {
             return mLinearLayout.getWidth();
+        }
+    }
+
+    //是否存在分组的头部
+    public boolean hasHeader(int pos) {
+        if (pos == 0) {
+            return true;
+        } else {
+            String prevGroupId = getGroupId(pos - 1);
+            String groupId = getGroupId(pos);
+            return !prevGroupId.equals(groupId);//不相等表示不是一个组的
+        }
+    }
+    public String getGroupId(int position) {
+        HistoryBean bean = mData.get(position);
+        if(bean == null){
+            return null;
+        }
+        return TimeUtil.timestampToDate(bean.getUpdateTime().getTime()/1000);
+    }
+
+    public String getHeaderId(int position) {
+        HistoryBean bean = mData.get(position);
+        if(bean == null){
+            return null;
+        }
+        return TimeUtil.timestampToDate(bean.getUpdateTime().getTime()/1000);
+    }
+
+    //采用xml方式来实现ItemDecoration，可以更方便的定制ItemDecoration的内容，生成head布局
+    public HeaderHolder onCreateHeaderViewHolder(ViewGroup parent) {
+        return new HeaderHolder(LayoutInflater.from(mContext)
+                .inflate(R.layout.decoration_pinned_history, parent, false));
+    }
+
+    //绑定head的数据
+    public void onBindHeaderViewHolder(HeaderHolder headerHolder, int position) {
+        HistoryBean bean = mData.get(position);
+        if(bean == null){
+            LogUtil.e(TAG,"bean==null");
+            return;
+        }
+        headerHolder.tvGroupId.setText(TimeUtil.timestampToDate(bean.getUpdateTime().getTime()/1000));
+    }
+
+    public class HeaderHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener{
+        TextView tvGroupId;
+
+        public HeaderHolder(View itemView) {
+            super(itemView);
+            tvGroupId = (TextView) itemView.findViewById(R.id.tv_group_id);
+            tvGroupId.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (clickListener != null) {
+                switch (v.getId()) {
+                    case R.id.tv_group_id:
+                        clickListener.onHeaderClick(itemView, getAdapterPosition());
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

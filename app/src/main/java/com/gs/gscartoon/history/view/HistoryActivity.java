@@ -28,9 +28,11 @@ import com.gs.gscartoon.utils.AppConstants;
 import com.gs.gscartoon.utils.ItemTouchHelperCallback;
 import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.utils.StatusBarUtil;
-import com.gs.gscartoon.utils.StringUtil;
+import com.gs.gscartoon.utils.TimeUtil;
 import com.gs.gscartoon.utils.ToolbarUtil;
-import com.gs.gscartoon.widget.view.MarqueTextView;
+import com.gs.gscartoon.utils.decoration.PinnedSectionDecoration;
+import com.gs.gscartoon.utils.decoration.SectionDecoration;
+import com.gs.gscartoon.utils.listener.PinnedRecyclerHeadersTouchListener;
 import com.gs.gscartoon.zhijia.view.ZhiJiaBrowseActivity;
 import com.gs.gscartoon.zhijia.view.ZhiJiaDetailsActivity;
 import com.loopeer.itemtouchhelperextension.ItemTouchHelperExtension;
@@ -159,9 +161,60 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
                 clickPosition = position;
                 showDeleteDialog();
             }
+
+            @Override
+            public void onHeaderClick(View view, int position) {
+                LogUtil.i(TAG,"点击粘性头部 position="+position+" view="+view);
+                //View view1 = view.findViewById(R.id.tv_group_id);
+                //LogUtil.i(TAG,"view1"+view1+" "+view1.getId()+ " "+((TextView)view1).getText());
+            }
         });
 
         tvEmptyTitle.setVisibility(View.GONE);
+        //setSectionDecoration();
+        setPinnedSectionDecoration();
+    }
+
+    /**
+     * 非粘性头部标签
+     */
+    private void setSectionDecoration(){
+        if(mRecyclerView == null || mRecyclerAdapter == null){
+            return;
+        }
+
+        mRecyclerView.addItemDecoration(new SectionDecoration(this, new SectionDecoration.DecorationCallback() {
+            @Override
+            public String getGroupId(int position) {
+                HistoryBean bean = mRecyclerAdapter.getItemData(position);
+                if(bean == null){
+                    return null;
+                }
+                return TimeUtil.timestampToDate(bean.getUpdateTime().getTime()/1000);
+            }
+
+            @Override
+            public String getGroupFirstLine(int position) {
+                HistoryBean bean = mRecyclerAdapter.getItemData(position);
+                if(bean == null){
+                    return null;
+                }
+                return TimeUtil.timestampToDate(bean.getUpdateTime().getTime()/1000);
+            }
+        }));
+    }
+
+    /**
+     * 粘性头部标签
+     */
+    private void setPinnedSectionDecoration(){
+        if(mRecyclerView == null || mRecyclerAdapter == null){
+            return;
+        }
+
+        PinnedSectionDecoration mDecoration = new PinnedSectionDecoration(mRecyclerAdapter);
+        mRecyclerView.addItemDecoration(mDecoration);
+        mRecyclerView.addOnItemTouchListener(new PinnedRecyclerHeadersTouchListener(mRecyclerView, mDecoration));
     }
 
     @Override
