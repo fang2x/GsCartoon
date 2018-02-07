@@ -1,25 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tl_wang_yi_tabs"
+    android:background="@color/pageBackground">
+    <LinearLayout
+        android:id="@+id/ll_content"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
-        app:tabBackground="@color/WHITE"
-        app:tabSelectedTextColor="@color/ToolbarDark"
-        app:tabIndicatorColor="@color/ToolbarLight"
-        app:tabTextColor="@color/tab_text_color"
-        app:tabGravity="fill" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tl_wang_yi_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
+            app:tabBackground="@color/WHITE"
+            app:tabSelectedTextColor="@color/ToolbarDark"
+            app:tabIndicatorColor="@color/ToolbarLight"
+            app:tabTextColor="@color/tab_text_color"
+            app:tabGravity="fill" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_wang_yi_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/pageBackground" />
-</LinearLayout>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_wang_yi_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:background="@color/pageBackground" />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_failure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_load_failure"/>
+    <TextView
+        android:id="@+id/tv_retry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="7dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/iv_failure"
+        android:visibility="gone"
+        android:background="@drawable/selector_ellipse_border_red_blue_42"
+        android:textColor="@drawable/selector_text_red_blue"
+        android:text="重新加载"
+        android:maxLines="1"
+        android:ellipsize="end"/>
+</RelativeLayout>

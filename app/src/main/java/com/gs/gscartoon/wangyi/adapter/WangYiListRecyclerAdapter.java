@@ -81,7 +81,18 @@ public class WangYiListRecyclerAdapter extends BaseRecyclerAdapter<BooksBean,
         });
 
         holder.tvTitle.setText(bean.getTitle());
-        //holder.tvName.setText(bean.getLast_update_chapter_name());
+        if(bean.getTotalSection() == 0){
+            if(bean.getLatest().contains("话") || bean.getLatest().contains("-") ||
+                    bean.getLatest().contains("上") || bean.getLatest().contains("下") ||
+                    bean.getLatest().contains("卷") || bean.getLatest().contains("章") ||
+                    bean.getLatest().contains("局")) {
+                holder.tvName.setText("更至" + bean.getLatest());
+            }else {
+                holder.tvName.setText("更至" + bean.getLatest() + "话");
+            }
+        }else {
+            holder.tvName.setText("全" + bean.getTotalSection() + "话");
+        }
     }
 
     private OnItemClickListener clickListener;

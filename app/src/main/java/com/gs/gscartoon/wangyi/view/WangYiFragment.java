@@ -10,6 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.gs.gscartoon.R;
 import com.gs.gscartoon.utils.LogUtil;
@@ -26,13 +29,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class WangYiFragment extends Fragment implements WangYiContract.View{
+public class WangYiFragment extends Fragment implements WangYiContract.View,
+        View.OnClickListener{
     private final static String TAG = "WangYiFragment";
 
     @BindView(R.id.vp_wang_yi_viewpager)
     ViewPager vpViewPager;
     @BindView(R.id.tl_wang_yi_tabs)
     TabLayout tlTabLayout;
+    @BindView(R.id.ll_content)
+    LinearLayout llContent;
+    @BindView(R.id.iv_failure)
+    ImageView ivFailure;
+    @BindView(R.id.tv_retry)
+    TextView tvRetry;
 
     private List<CategoryBean> mCategoryList = new ArrayList<>();
     private ViewPagerAdapter mViewPagerAdapter;
@@ -77,6 +87,8 @@ public class WangYiFragment extends Fragment implements WangYiContract.View{
     }
 
     public void initView(){
+        tvRetry.setOnClickListener(this);
+
         mViewPagerAdapter = new ViewPagerAdapter(this.getActivity().getSupportFragmentManager());
         vpViewPager.setAdapter(mViewPagerAdapter);
         tlTabLayout.setupWithViewPager(vpViewPager);//Viewpager和Tablayout进行关联
@@ -90,6 +102,12 @@ public class WangYiFragment extends Fragment implements WangYiContract.View{
             LogUtil.e(TAG, "数据为空");
             return;
         }
+        if(ivFailure != null && tvRetry != null && llContent != null){
+            llContent.setVisibility(View.VISIBLE);
+            ivFailure.setVisibility(View.GONE);
+            tvRetry.setVisibility(View.GONE);
+        }
+
         mCategoryList.clear();
         mCategoryList = bean.getData().getCategory();
         LogUtil.e(TAG,"mCategoryList "+bean.getData().getCategory().size());
@@ -98,7 +116,22 @@ public class WangYiFragment extends Fragment implements WangYiContract.View{
 
     @Override
     public void getCategoryFailure() {
+        if(ivFailure != null && tvRetry != null && llContent != null){
+            llContent.setVisibility(View.GONE);
+            ivFailure.setVisibility(View.VISIBLE);
+            tvRetry.setVisibility(View.VISIBLE);
+        }
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_retry:
+                mPresenter.getCategory();
+                break;
+            default:
+                break;
+        }
     }
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {

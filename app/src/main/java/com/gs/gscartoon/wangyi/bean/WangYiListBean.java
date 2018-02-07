@@ -111,6 +111,13 @@ public class WangYiListBean {
             private String recLatest;
             private List<LabelsBean> labels;
             private List<String> subjects;
+            /**
+             * hit : 3218429
+             * remarkCount : 0
+             * totalSection : 10
+             */
+
+            private int totalSection;
 
             public String getTitle() {
                 return title;
@@ -270,6 +277,14 @@ public class WangYiListBean {
 
             public void setSubjects(List<String> subjects) {
                 this.subjects = subjects;
+            }
+
+            public int getTotalSection() {
+                return totalSection;
+            }
+
+            public void setTotalSection(int totalSection) {
+                this.totalSection = totalSection;
             }
 
             public static class LabelsBean {
