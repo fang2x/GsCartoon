@@ -4,7 +4,9 @@ import com.gs.gscartoon.kuaikan.bean.KuaiKanAllChapterBean;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanBrowseBean;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanListBean;
 import com.gs.gscartoon.wangyi.bean.WangYiCategoryBean;
+import com.gs.gscartoon.wangyi.bean.WangYiDetailsBean;
 import com.gs.gscartoon.wangyi.bean.WangYiListBean;
+import com.gs.gscartoon.wangyi.bean.WangYiSectionBean;
 import com.gs.gscartoon.zhijia.bean.ZhiJiaBrowseBean;
 import com.gs.gscartoon.zhijia.bean.ZhiJiaDetailsBean;
 
@@ -60,5 +62,13 @@ public interface RetrofitService {
 
     @GET
     Observable<WangYiListBean> loadWangYiList(@Url String url);
+
+    @GET("source/detail.json")
+    Observable<WangYiDetailsBean> getWangYiDetails(
+            @Query("id") String id);
+
+    @GET("getCatalog.json")
+    Observable<WangYiSectionBean> getWangYiSection(
+            @Query("bookId") String bookId);
     //---------------------网易---------------
 }

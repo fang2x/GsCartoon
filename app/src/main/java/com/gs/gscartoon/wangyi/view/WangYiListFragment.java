@@ -109,15 +109,9 @@ public class WangYiListFragment extends Fragment implements WangYiListContract.V
                 if(bean == null){
                     return;
                 }
-                /*Intent intent = new Intent(WangYiListFragment.this.getActivity(), ZhiJiaDetailsActivity.class);
-                ImageView imageView = view.findViewById(R.id.iv_cover);
-                BitmapDrawable mDrawable =  (BitmapDrawable) imageView.getDrawable();
+                Intent intent = new Intent(WangYiListFragment.this.getActivity(), WangYiDetailsActivity.class);
                 intent.putExtra(AppConstants.COMIC_ID, bean.getId()+"");
-                intent.putExtra(AppConstants.ZHI_JIA_COVER_BITMAP, mDrawable.getBitmap());
-                ActivityOptionsCompat options =
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-                                imageView, getString(R.string.transition_name_zhi_jia_cover));
-                startActivity(intent, options.toBundle());*/
+                startActivity(intent);
             }
         });
 

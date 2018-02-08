@@ -51,6 +51,7 @@
             android:name=".zhijia.view.ZhiJiaBrowseActivity"
             android:launchMode="singleTask" />
         <activity android:name=".history.view.HistoryActivity" />
+        <activity android:name=".wangyi.view.WangYiDetailsActivity"></activity>
     </application>
 
 </manifest>

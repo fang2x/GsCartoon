@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gs.gscartoon.GsApplication;
 import com.gs.gscartoon.R;
 import com.gs.gscartoon.kuaikan.KuaiKanContract;
 import com.gs.gscartoon.kuaikan.model.KuaiKanListModel;
@@ -118,7 +119,7 @@ public class KuaiKanFragment extends Fragment implements KuaiKanContract.View{
             }
             KuaiKanListFragment mFragment = KuaiKanListFragment.newInstance(timestamp);
             KuaiKanListPresenter mPresenter = new KuaiKanListPresenter(
-                    new KuaiKanListModel(KuaiKanFragment.this.getActivity()), mFragment);
+                    new KuaiKanListModel(GsApplication.getAppContext()), mFragment);
             return mFragment;
         }
 

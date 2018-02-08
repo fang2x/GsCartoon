@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gs.gscartoon.GsApplication;
 import com.gs.gscartoon.R;
 import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.wangyi.WangYiContract;
@@ -144,7 +145,7 @@ public class WangYiFragment extends Fragment implements WangYiContract.View,
         public Fragment getItem(int position) {
             WangYiListFragment mFragment = WangYiListFragment.newInstance(mCategoryList.get(position).getUrl());
             WangYiListPresenter mPresenter = new WangYiListPresenter(
-                    new WangYiListModel(WangYiFragment.this.getActivity()), mFragment);
+                    new WangYiListModel(GsApplication.getAppContext()), mFragment);
             return mFragment;
         }
 
