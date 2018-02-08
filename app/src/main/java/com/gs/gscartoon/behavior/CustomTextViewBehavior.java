@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.gs.gscartoon.R;
 import com.gs.gscartoon.utils.DisplayUtil;
 import com.gs.gscartoon.utils.LogUtil;
+import com.gs.gscartoon.utils.ToolbarUtil;
 
 
 //泛型为child类型
@@ -28,6 +29,13 @@ public class CustomTextViewBehavior extends CoordinatorLayout.Behavior<TextView>
 
     private Toolbar mToolBar;
     private int mToolBarHeight = -1;
+
+    public CustomTextViewBehavior(Context context, Toolbar toolbar) {
+        mContext = context;
+        mLableHeight = mContext.getResources().getDimensionPixelSize(R.dimen.toolbar_label_height);
+        mToolBar = toolbar;
+        //LogUtil.e("a","CustomBehavior mLableHeight=" + mLableHeight);
+    }
 
     public CustomTextViewBehavior(Context context, AttributeSet attrs) {
         mContext = context;
@@ -49,9 +57,10 @@ public class CustomTextViewBehavior extends CoordinatorLayout.Behavior<TextView>
                 +" getTop="+dependency.getTop()+" getScrollY="+dependency.getScrollY()
                 +" getScrollX="+dependency.getScrollX()+" getScaleY="+dependency.getScaleY());*/
         if(mToolBar == null) {
-            mToolBar = (Toolbar) dependency.findViewById(R.id.tb_kuai_kan_all_chapter);
-            mToolBarHeight = mToolBar.getHeight();
+            mToolBarHeight = ToolbarUtil.getSystemActionBarSize();
             //LogUtil.e("a","初始ToolBar getHeight="+mToolBar.getHeight());
+        }else {
+            mToolBarHeight = mToolBar.getHeight();
         }
 
         if(mStartY == -1){

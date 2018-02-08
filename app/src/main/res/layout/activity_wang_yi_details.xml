@@ -57,7 +57,7 @@
                     android:textSize="12sp" />
             </FrameLayout>
             <android.support.v7.widget.Toolbar
-                android:id="@+id/tb_kuai_kan_all_chapter"
+                android:id="@+id/tb_wang_yi_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
@@ -76,7 +76,6 @@
         android:text="title"
         android:textSize="18sp"
         android:layout_marginStart="15dp"
-        app:layout_behavior="com.gs.gscartoon.behavior.CustomTextViewBehavior"
         android:textColor="@color/WHITE"
         android:layout_gravity="bottom"
         android:marqueeRepeatLimit="marquee_forever"

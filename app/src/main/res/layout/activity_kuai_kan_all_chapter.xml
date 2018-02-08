@@ -74,7 +74,6 @@
         android:text="title"
         android:textSize="18sp"
         android:layout_marginStart="15dp"
-        app:layout_behavior="com.gs.gscartoon.behavior.CustomTextViewBehavior"
         android:textColor="@color/WHITE"
         android:layout_gravity="bottom"
         android:marqueeRepeatLimit="marquee_forever"

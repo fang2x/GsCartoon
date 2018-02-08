@@ -3,6 +3,7 @@ package com.gs.gscartoon.kuaikan.view;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gs.gscartoon.R;
+import com.gs.gscartoon.behavior.CustomTextViewBehavior;
 import com.gs.gscartoon.kuaikan.KuaiKanAllChapterContract;
 import com.gs.gscartoon.kuaikan.adapter.KuaiKanAllChapterRecyclerAdapter;
 import com.gs.gscartoon.kuaikan.bean.KuaiKanAllChapterBean.DataBean;
@@ -93,7 +95,10 @@ public class KuaiKanAllChapterActivity extends AppCompatActivity implements Kuai
             }
         });
 
-        //ivCover.setColorFilter(Color.parseColor("#44000000"));
+        CoordinatorLayout.LayoutParams params =
+                (CoordinatorLayout.LayoutParams) mtvTitle.getLayoutParams();
+        params.setBehavior(new CustomTextViewBehavior(this, tbToolbar));
+        mtvTitle.requestLayout();
     }
 
     @Override

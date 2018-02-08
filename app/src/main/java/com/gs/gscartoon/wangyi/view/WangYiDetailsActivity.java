@@ -2,6 +2,7 @@ package com.gs.gscartoon.wangyi.view;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.gs.gscartoon.GsApplication;
 import com.gs.gscartoon.R;
+import com.gs.gscartoon.behavior.CustomTextViewBehavior;
 import com.gs.gscartoon.utils.AppConstants;
 import com.gs.gscartoon.utils.StatusBarUtil;
 import com.gs.gscartoon.utils.StringUtil;
@@ -43,7 +45,7 @@ public class WangYiDetailsActivity extends AppCompatActivity
         implements WangYiDetailsContract.View{
     private static final String TAG = "WangYiDetailsActivity";
 
-    @BindView(R.id.tb_kuai_kan_all_chapter)
+    @BindView(R.id.tb_wang_yi_details)
     Toolbar tbToolbar;
     @BindView(R.id.iv_cover)
     ImageView ivCover;
@@ -96,6 +98,11 @@ public class WangYiDetailsActivity extends AppCompatActivity
         vpViewPager.setCurrentItem(mViewPagerAdapter.getCount()-1);
         tlTabLayout.setupWithViewPager(vpViewPager);
         tlTabLayout.setTabMode(TabLayout.MODE_FIXED);//Tablayout不可以滚动
+
+        CoordinatorLayout.LayoutParams params =
+                (CoordinatorLayout.LayoutParams) mtvTitle.getLayoutParams();
+        params.setBehavior(new CustomTextViewBehavior(this, tbToolbar));
+        mtvTitle.requestLayout();
     }
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
