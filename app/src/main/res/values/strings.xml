@@ -22,6 +22,11 @@
     <string name="transition_name_history_title">history_title</string>
     <!-- ************共享元素transitionName-->
 
+    <!-- ++++++++++++OverScroll Behavior中的Child-->
+    <string name="over_scroll_image">overScrollImage</string>
+    <string name="over_scroll_label">overScrollLabel</string>
+    <!-- ************OverScroll Behavior中的Child-->
+
     <!-- ++++++++++++网络请求出错-->
     <string name="access_network_error">访问网络出错</string>
     <string name="data_returned_wrong">返回的数据错误，请检查网络</string>
