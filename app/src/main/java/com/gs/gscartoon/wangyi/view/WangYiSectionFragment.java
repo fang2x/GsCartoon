@@ -19,7 +19,7 @@ import com.gs.gscartoon.wangyi.WangYiSectionContract;
 import com.gs.gscartoon.wangyi.adapter.WangYiSectionRecyclerAdapter;
 import com.gs.gscartoon.wangyi.bean.WangYiDetailsBean;
 import com.gs.gscartoon.wangyi.bean.WangYiSectionBean;
-
+import com.gs.gscartoon.wangyi.bean.WangYiSectionBean.DataBean.SectionsBeanX.SectionsBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -92,18 +92,18 @@ public class WangYiSectionFragment extends Fragment
             @Override
             public void onClick(View view, int position) {
                 LogUtil.i(TAG,"点击item position="+position);
-                /*DataBean bean = mRecyclerAdapter.getItemData(position);
+                SectionsBean bean = mRecyclerAdapter.getItemData(position);
                 if(bean == null){
                     return;
                 }
                 Intent intent = new Intent(WangYiSectionFragment.this.getActivity(), WangYiBrowseActivity.class);
                 intent.putExtra(AppConstants.COMIC_ID, mComicId);
-                intent.putExtra(AppConstants.CHAPTER_ID, bean.getChapter_id());
+                intent.putExtra(AppConstants.CHAPTER_ID, bean.getId());
                 intent.putExtra(AppConstants.COMIC_TITLE, mComicTitle);//为了保存在历史记录中
                 intent.putExtra(AppConstants.COVER_URL, mCoverUrl);//为了保存在历史记录中
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         WangYiSectionFragment.this.getActivity()).toBundle();
-                startActivity(intent, bundle);*/
+                startActivity(intent, bundle);
             }
         });
     }
@@ -163,7 +163,9 @@ public class WangYiSectionFragment extends Fragment
     public void getSectionSuccess(WangYiSectionBean bean) {
         mRecyclerAdapter.clear();
         mRecyclerAdapter.addItems(bean.getData().getSections().get(0).getSections());
-        mRecyclerAdapter.order();//服务器默认是按顺序返回的，所以只要第一次状态匹配，之后倒置就可以了
+        if(mOrder == AppConstants.DESC){//服务器每次都是顺序返回数据，所以如果本地状态保存是倒序就倒置
+            mRecyclerAdapter.order();//服务器默认是按顺序返回的，所以只要第一次状态匹配，之后倒置就可以了
+        }
     }
 
     @Override

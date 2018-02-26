@@ -52,6 +52,9 @@
             android:launchMode="singleTask" />
         <activity android:name=".history.view.HistoryActivity" />
         <activity android:name=".wangyi.view.WangYiDetailsActivity"></activity>
+        <activity
+            android:name=".wangyi.view.WangYiBrowseActivity"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>
