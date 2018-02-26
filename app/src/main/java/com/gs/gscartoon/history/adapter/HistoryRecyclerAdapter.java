@@ -74,6 +74,9 @@ public class HistoryRecyclerAdapter extends BaseRecyclerAdapter<HistoryBean,
         }else if(bean.getOrigin() == AppConstants.ZHI_JIA_INT){
             holder.tvOrigin.setText("来源：" + mContext.getString(R.string.zhijia));
             holder.tvOrigin.setTextColor(mContext.getResources().getColor(R.color.ZhiJiaColor));
+        }else if(bean.getOrigin() == AppConstants.WANG_YI_INT){
+            holder.tvOrigin.setText("来源：" + mContext.getString(R.string.wangyi));
+            holder.tvOrigin.setTextColor(mContext.getResources().getColor(R.color.WangYiColor));
         }else {//未知
             holder.tvOrigin.setText("来源：" + mContext.getString(R.string.not_set));
             holder.tvOrigin.setTextColor(mContext.getResources().getColor(R.color.BLACK));

@@ -33,6 +33,8 @@ import com.gs.gscartoon.utils.ToolbarUtil;
 import com.gs.gscartoon.utils.decoration.PinnedSectionDecoration;
 import com.gs.gscartoon.utils.decoration.SectionDecoration;
 import com.gs.gscartoon.utils.listener.PinnedRecyclerHeadersTouchListener;
+import com.gs.gscartoon.wangyi.view.WangYiBrowseActivity;
+import com.gs.gscartoon.wangyi.view.WangYiDetailsActivity;
 import com.gs.gscartoon.zhijia.view.ZhiJiaBrowseActivity;
 import com.gs.gscartoon.zhijia.view.ZhiJiaDetailsActivity;
 import com.loopeer.itemtouchhelperextension.ItemTouchHelperExtension;
@@ -108,20 +110,22 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
                 Intent intent;
                 if(bean.getOrigin() == AppConstants.KUAI_KAN_INT){
                     intent = new Intent(HistoryActivity.this, KuaiKanAllChapterActivity.class);
-                    intent.putExtra(AppConstants.COMIC_ID, bean.getComicId()+"");
+                    intent.putExtra(AppConstants.COMIC_ID, bean.getComicId());
                     startActivity(intent);
                 }else if(bean.getOrigin() == AppConstants.ZHI_JIA_INT){
                     intent = new Intent(HistoryActivity.this, ZhiJiaDetailsActivity.class);
                     ImageView imageView = view.findViewById(R.id.iv_cover);
                     BitmapDrawable mDrawable =  (BitmapDrawable) imageView.getDrawable();
-                    intent.putExtra(AppConstants.COMIC_ID, bean.getComicId()+"");
+                    intent.putExtra(AppConstants.COMIC_ID, bean.getComicId());
                     intent.putExtra(AppConstants.ZHI_JIA_COVER_BITMAP, mDrawable.getBitmap());
                     ActivityOptionsCompat options =
                             ActivityOptionsCompat.makeSceneTransitionAnimation(HistoryActivity.this,
                                     imageView, getString(R.string.transition_name_zhi_jia_cover));
                     startActivity(intent, options.toBundle());
                 }else if(bean.getOrigin() == AppConstants.WANG_YI_INT){
-
+                    intent = new Intent(HistoryActivity.this, WangYiDetailsActivity.class);
+                    intent.putExtra(AppConstants.COMIC_ID, bean.getComicId());
+                    startActivity(intent);
                 }
 
             }
@@ -138,8 +142,8 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
                 Intent intent;
                 if(bean.getOrigin() == AppConstants.KUAI_KAN_INT){
                     intent = new Intent(HistoryActivity.this, KuaiKanBrowseActivity.class);
-                    intent.putExtra(AppConstants.CHAPTER_ID, bean.getChapterId()+"");
-                    intent.putExtra(AppConstants.COMIC_ID, bean.getComicId()+"");
+                    intent.putExtra(AppConstants.CHAPTER_ID, bean.getChapterId());
+                    intent.putExtra(AppConstants.COMIC_ID, bean.getComicId());
                     startActivity(intent);
                 }else if(bean.getOrigin() == AppConstants.ZHI_JIA_INT){
                     intent = new Intent(HistoryActivity.this, ZhiJiaBrowseActivity.class);
@@ -151,7 +155,14 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
                             HistoryActivity.this).toBundle();
                     startActivity(intent, bundle);
                 }else if(bean.getOrigin() == AppConstants.WANG_YI_INT){
-
+                    intent = new Intent(HistoryActivity.this, WangYiBrowseActivity.class);
+                    intent.putExtra(AppConstants.COMIC_ID, bean.getComicId());
+                    intent.putExtra(AppConstants.CHAPTER_ID, bean.getChapterId());
+                    intent.putExtra(AppConstants.COMIC_TITLE, bean.getComicName());//为了保存在历史记录中
+                    intent.putExtra(AppConstants.COVER_URL, bean.getCoverUrl());//为了保存在历史记录中
+                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            HistoryActivity.this).toBundle();
+                    startActivity(intent, bundle);
                 }
             }
 

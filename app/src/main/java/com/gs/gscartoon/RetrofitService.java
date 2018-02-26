@@ -51,7 +51,7 @@ public interface RetrofitService {
 
     @GET("chapter/{comic_id}/{chapter_id}.json")
     Observable<ZhiJiaBrowseBean> refreshZhiJiaBrowse(
-            @Path("comic_id") int comic_id, @Path("chapter_id") int chapter_id);
+            @Path("comic_id") String comic_id, @Path("chapter_id") String chapter_id);
     //---------------------动漫之家---------------
 
     //+++++++++++++++++++++网易+++++++++++++++

@@ -14,8 +14,8 @@ public class HistoryBean extends RealmObject {
     @PrimaryKey
     private String id;//id采用来源+"_"+漫画id组成
     private int origin;//来源
-    private int comicId;//漫画id
-    private int chapterId;//章节id
+    private String comicId;//漫画id
+    private String chapterId;//章节id
     private String coverUrl;
     private String comicName;//漫画的名字
     private String chapterTitle;//章节的标题
@@ -38,19 +38,19 @@ public class HistoryBean extends RealmObject {
         this.origin = origin;
     }
 
-    public int getComicId() {
+    public String getComicId() {
         return comicId;
     }
 
-    public void setComicId(int comicId) {
+    public void setComicId(String comicId) {
         this.comicId = comicId;
     }
 
-    public int getChapterId() {
+    public String getChapterId() {
         return chapterId;
     }
 
-    public void setChapterId(int chapterId) {
+    public void setChapterId(String chapterId) {
         this.chapterId = chapterId;
     }
 

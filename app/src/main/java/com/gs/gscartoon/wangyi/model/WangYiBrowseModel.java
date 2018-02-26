@@ -43,7 +43,7 @@ public class WangYiBrowseModel {
         if(mDataBean == null){
             return;
         }
-/*
+
         WangYiBrowseBean.DataBean bean = mDataBean.getData();
         if(bean == null){
             return;
@@ -60,6 +60,6 @@ public class WangYiBrowseModel {
         mHistoryBean.setComicName(comicTitle);
         mHistoryBean.setChapterTitle(bean.getTitle());
         mHistoryBean.setUpdateTime(new Date());
-        realm.commitTransaction();*/
+        realm.commitTransaction();
     }
 }

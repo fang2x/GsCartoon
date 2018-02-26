@@ -43,8 +43,8 @@ public class ZhiJiaBrowseActivity extends AppCompatActivity implements ZhiJiaBro
     private ZhiJiaBrowseContract.Presenter mPresenter;
     private ZhiJiaBrowseRecyclerAdapter mRecyclerAdapter;
     private Unbinder unbinder;
-    private int mChapterId;//某一话漫画Id
-    private int mComicId;//漫画Id
+    private String mChapterId;//某一话漫画Id
+    private String mComicId;//漫画Id
     private String mComicTitle;//漫画Title
     private String mCoverUrl;//封面url
 
@@ -62,8 +62,8 @@ public class ZhiJiaBrowseActivity extends AppCompatActivity implements ZhiJiaBro
     private void initView(){
         ToolbarUtil.initToolbar(this, tbToolbar);
 
-        mChapterId = getIntent().getIntExtra(AppConstants.CHAPTER_ID, 0);
-        mComicId = getIntent().getIntExtra(AppConstants.COMIC_ID, 0);
+        mChapterId = getIntent().getStringExtra(AppConstants.CHAPTER_ID);
+        mComicId = getIntent().getStringExtra(AppConstants.COMIC_ID);
         mComicTitle = getIntent().getStringExtra(AppConstants.COMIC_TITLE);
         mCoverUrl = getIntent().getStringExtra(AppConstants.COVER_URL);
 
@@ -80,8 +80,8 @@ public class ZhiJiaBrowseActivity extends AppCompatActivity implements ZhiJiaBro
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);//must store the new intent unless getIntent() will return the old one
-        mChapterId = getIntent().getIntExtra(AppConstants.CHAPTER_ID, 0);
-        mComicId = getIntent().getIntExtra(AppConstants.COMIC_ID, 0);
+        mChapterId = getIntent().getStringExtra(AppConstants.CHAPTER_ID);
+        mComicId = getIntent().getStringExtra(AppConstants.COMIC_ID);
         mComicTitle = getIntent().getStringExtra(AppConstants.COMIC_TITLE);
         mCoverUrl = getIntent().getStringExtra(AppConstants.COVER_URL);
     }

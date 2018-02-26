@@ -47,7 +47,7 @@ public class ZhiJiaBrowsePresenter implements ZhiJiaBrowseContract.Presenter {
     }
 
     @Override
-    public void refreshData(int comicId, int chapterId, final String comicTitle, final String coverUrl) {
+    public void refreshData(String comicId, String chapterId, final String comicTitle, final String coverUrl) {
         mZhiJiaBrowseModel.refreshZhiJiaBrowse(comicId, chapterId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

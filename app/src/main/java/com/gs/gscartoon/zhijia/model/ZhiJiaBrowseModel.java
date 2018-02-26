@@ -35,7 +35,7 @@ public class ZhiJiaBrowseModel {
         realm.close();
     }
 
-    public Observable<ZhiJiaBrowseBean> refreshZhiJiaBrowse(int comicId, int chapterId){
+    public Observable<ZhiJiaBrowseBean> refreshZhiJiaBrowse(String comicId, String chapterId){
         return mRetrofitService.refreshZhiJiaBrowse(comicId, chapterId);
     }
 
@@ -46,8 +46,8 @@ public class ZhiJiaBrowseModel {
 
         realm.beginTransaction();
         mHistoryBean.setOrigin(AppConstants.ZHI_JIA_INT);
-        mHistoryBean.setComicId(mDataBean.getComic_id());
-        mHistoryBean.setChapterId(mDataBean.getChapter_id());
+        mHistoryBean.setComicId(mDataBean.getComic_id()+"");
+        mHistoryBean.setChapterId(mDataBean.getChapter_id()+"");
         mHistoryBean.setCoverUrl(coverUrl);
         mHistoryBean.setComicName(comicTitle);
         mHistoryBean.setChapterTitle(mDataBean.getTitle());
