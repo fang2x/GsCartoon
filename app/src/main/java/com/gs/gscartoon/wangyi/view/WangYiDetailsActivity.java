@@ -78,7 +78,7 @@ public class WangYiDetailsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wang_yi_details);
 
-        //setupWindowAnimations();
+        setupWindowAnimations();
         StatusBarUtil.enableTranslucentStatusBar(this);
         unbinder = ButterKnife.bind(this);
         initView();
@@ -172,11 +172,69 @@ public class WangYiDetailsActivity extends AppCompatActivity
     private void setupWindowAnimations() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Transition transition = TransitionInflater.from(this)
-                    .inflateTransition(R.transition.activity_explode);
+                    .inflateTransition(R.transition.activity_fade);
+            //TabIndicator不会执行Transition动画，所以页面进入时隐藏，动画执行后显示。
+            //页面退出时一开始动画就隐藏。要分成页面进入和退出两部分
+            transition.addListener(new Transition.TransitionListener() {
+                @Override
+                public void onTransitionStart(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    tlTabLayout.setSelectedTabIndicatorHeight(8);
+                }
+
+                @Override
+                public void onTransitionCancel(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionPause(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionResume(Transition transition) {
+
+                }
+            });
             getWindow().setEnterTransition(transition);
 
             transition = TransitionInflater.from(this)
-                    .inflateTransition(R.transition.activity_slide_left);
+                    .inflateTransition(R.transition.activity_fade);
+            transition.addListener(new Transition.TransitionListener() {
+                @Override
+                public void onTransitionStart(Transition transition) {
+                    tlTabLayout.setSelectedTabIndicatorHeight(0);
+                }
+
+                @Override
+                public void onTransitionEnd(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionCancel(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionPause(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionResume(Transition transition) {
+
+                }
+            });
+            getWindow().setReturnTransition(transition);
+
+            transition = TransitionInflater.from(this)
+                    .inflateTransition(R.transition.activity_fade);
             getWindow().setExitTransition(transition);
         }
     }

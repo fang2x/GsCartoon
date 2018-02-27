@@ -111,7 +111,9 @@ public class WangYiListFragment extends Fragment implements WangYiListContract.V
                 }
                 Intent intent = new Intent(WangYiListFragment.this.getActivity(), WangYiDetailsActivity.class);
                 intent.putExtra(AppConstants.COMIC_ID, bean.getId()+"");
-                startActivity(intent);
+                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        WangYiListFragment.this.getActivity()).toBundle();
+                startActivity(intent, bundle);
             }
         });
 

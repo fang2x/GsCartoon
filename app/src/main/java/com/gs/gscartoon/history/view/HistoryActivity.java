@@ -125,7 +125,9 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
                 }else if(bean.getOrigin() == AppConstants.WANG_YI_INT){
                     intent = new Intent(HistoryActivity.this, WangYiDetailsActivity.class);
                     intent.putExtra(AppConstants.COMIC_ID, bean.getComicId());
-                    startActivity(intent);
+                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            HistoryActivity.this).toBundle();
+                    startActivity(intent, bundle);
                 }
 
             }
