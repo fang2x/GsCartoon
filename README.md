@@ -12,6 +12,7 @@
 QQ：1129652584 <br/>
 邮箱：Gs_Android@163.com
 ## 截图
+<img src="https://github.com/GsBu/GsCartoon/blob/master/Screenshots/4.jpg" width=256 height=256 />
 ![Alt text](https://github.com/GsBu/GsCartoon/blob/master/Screenshots/4.jpg =200 "快看漫画")
 ![Alt text](https://github.com/GsBu/GsCartoon/blob/master/Screenshots/5.jpg =200x "网易漫画")
 ![Alt text](https://github.com/GsBu/GsCartoon/blob/master/Screenshots/6.jpg "动漫之家")
