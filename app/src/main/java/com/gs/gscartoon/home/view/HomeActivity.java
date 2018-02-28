@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.gscartoon.R;
+import com.gs.gscartoon.aboutme.view.AboutMeActivity;
 import com.gs.gscartoon.history.view.HistoryActivity;
 import com.gs.gscartoon.kuaikan.model.KuaiKanModel;
 import com.gs.gscartoon.kuaikan.presenter.KuaiKanPresenter;
@@ -274,8 +275,12 @@ public class HomeActivity extends AppCompatActivity implements
             case R.id.tv_favorite:
                 break;
             case R.id.tv_about:
+                intent = new Intent(HomeActivity.this, AboutMeActivity.class);
+                startActivity(intent);
                 break;
             case R.id.sdv_launcher:
+                intent = new Intent(HomeActivity.this, AboutMeActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

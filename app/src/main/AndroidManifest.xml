@@ -46,15 +46,16 @@
             android:name=".kuaikan.view.KuaiKanBrowseActivity"
             android:launchMode="singleTask" />
         <activity android:name=".kuaikan.view.KuaiKanAllChapterActivity" />
-        <activity android:name=".zhijia.view.ZhiJiaDetailsActivity"></activity>
+        <activity android:name=".zhijia.view.ZhiJiaDetailsActivity" />
         <activity
             android:name=".zhijia.view.ZhiJiaBrowseActivity"
             android:launchMode="singleTask" />
         <activity android:name=".history.view.HistoryActivity" />
-        <activity android:name=".wangyi.view.WangYiDetailsActivity"></activity>
+        <activity android:name=".wangyi.view.WangYiDetailsActivity" />
         <activity
             android:name=".wangyi.view.WangYiBrowseActivity"
             android:launchMode="singleTask" />
+        <activity android:name=".aboutme.view.AboutMeActivity"></activity>
     </application>
 
 </manifest>
