@@ -19,7 +19,6 @@
 
     <!-- ++++++++++++共享元素transitionName-->
     <string name="transition_name_zhi_jia_cover">zhi_jia_cover</string>
-    <string name="transition_name_history_title">history_title</string>
     <!-- ************共享元素transitionName-->
 
     <!-- ++++++++++++OverScroll Behavior中的Child-->

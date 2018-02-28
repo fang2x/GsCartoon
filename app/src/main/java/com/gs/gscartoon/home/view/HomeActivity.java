@@ -269,9 +269,7 @@ public class HomeActivity extends AppCompatActivity implements
                 break;
             case R.id.tv_history:
                 intent = new Intent(HomeActivity.this, HistoryActivity.class);
-                options = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeActivity.this,
-                                tvHistory, getString(R.string.transition_name_history_title));
-                startActivity(intent, options.toBundle());
+                startActivity(intent);
                 break;
             case R.id.tv_favorite:
                 break;

@@ -33,8 +33,7 @@
                 android:ellipsize="marquee"
                 android:scrollHorizontally="true"
                 android:focusableInTouchMode="true"
-                android:focusable="true"
-                android:transitionName="@string/transition_name_history_title"/>
+                android:focusable="true"/>
             <TextView
                 android:id="@+id/tv_toolbar_history_edit"
                 android:layout_width="wrap_content"
