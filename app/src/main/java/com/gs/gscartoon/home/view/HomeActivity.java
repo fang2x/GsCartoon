@@ -77,6 +77,8 @@ public class HomeActivity extends AppCompatActivity implements
     TextView tvFavorite;
     @BindView(R.id.tv_about)
     TextView tvAbout;
+    @BindView(R.id.tv_toolbar_main_title)
+    TextView tvToolbarTitle;
 
     private static final int FRAGMENT_COUNT = 4;
     private static final int KUAI_KAN_FRAGMENT_INDEX = 0;//快看Fragment索引
@@ -132,6 +134,29 @@ public class HomeActivity extends AppCompatActivity implements
                 (Fragment) mFragmentStatePagerAdapter.instantiateItem(flContent, index);
         mFragmentStatePagerAdapter.setPrimaryItem(flContent, 0, fragment);
         mFragmentStatePagerAdapter.finishUpdate(flContent);
+        setToolbarTitle(index);
+    }
+
+    private void setToolbarTitle(int index){
+        String title;
+        switch (index){
+            case KUAI_KAN_FRAGMENT_INDEX:
+                title = getString(R.string.kuaikan);
+                break;
+            case WANG_YI_FRAGMENT_INDEX:
+                title = getString(R.string.wangyi);
+                break;
+            case ZHI_JIA_FRAGMENT_INDEX:
+                title = getString(R.string.zhijia);
+                break;
+            case MAN_MAN_FRAGMENT_INDEX:
+                title = getString(R.string.manman);
+                break;
+            default:
+                title = getString(R.string.app_name);
+                break;
+        }
+        tvToolbarTitle.setText(title);
     }
 
     @Override
