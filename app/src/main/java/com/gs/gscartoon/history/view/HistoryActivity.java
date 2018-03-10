@@ -1,5 +1,7 @@
 package com.gs.gscartoon.history.view;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,6 +14,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,6 +31,7 @@ import com.gs.gscartoon.history.presenter.HistoryPresenter;
 import com.gs.gscartoon.kuaikan.view.KuaiKanAllChapterActivity;
 import com.gs.gscartoon.kuaikan.view.KuaiKanBrowseActivity;
 import com.gs.gscartoon.utils.AppConstants;
+import com.gs.gscartoon.utils.DisplayUtil;
 import com.gs.gscartoon.utils.ItemTouchHelperCallback;
 import com.gs.gscartoon.utils.LogUtil;
 import com.gs.gscartoon.utils.StatusBarUtil;
@@ -64,6 +71,8 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
     TextView tvEmptyTitle;
     @BindView(R.id.iv_empty_image)
     ImageView ivEmptyImage;
+    @BindView(R.id.fl_content)
+    FrameLayout flContent;
 
     private HistoryContract.Presenter mPresenter;
     private HistoryRecyclerAdapter mRecyclerAdapter;
@@ -73,6 +82,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
     public ItemTouchHelperExtension mItemTouchHelper;
     public ItemTouchHelperExtension.Callback mCallback;
     //------左滑显示菜单
+    private static final int TOOLBAR_ANIMATION_DELAY = 100;//Toolbar动画延迟时间
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +92,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
         StatusBarUtil.enableTranslucentStatusBar(this);
         unbinder = ButterKnife.bind(this);
         initView();
+        startToolbarAnimation();
     }
 
     private void initView(){
@@ -353,5 +364,49 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
                     }
                 });
         normalDialog.show();
+    }
+
+    private void startToolbarAnimation() {
+        for (int i = 0; i < tbToolbar.getChildCount(); i++) {
+            View child = tbToolbar.getChildAt(i);
+            //LogUtil.e(TAG, "child "+child+" id="+child.getId());
+            child.setTranslationY(-ToolbarUtil.getSystemActionBarSize());
+            if(child.getId() == -1){//状态栏左侧添加的返回按钮，他要第一个执行动画
+                child.animate()
+                        .setStartDelay(TOOLBAR_ANIMATION_DELAY)
+                        .translationY(0);
+            }else {
+                //+ 2 是因为左侧添加的返回按钮要先执行
+                child.animate()
+                        .setStartDelay((i + 2) * TOOLBAR_ANIMATION_DELAY)
+                        .translationY(0);
+            }
+        }
+
+        flContent.setVisibility(View.INVISIBLE);
+        flContent.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                animateRevealColorFromCoordinates(flContent,
+                        DisplayUtil.getScreenWidth() / 2, 0);
+            }
+        }, TOOLBAR_ANIMATION_DELAY * (tbToolbar.getChildCount() + 2));
+
+    }
+
+    private Animator animateRevealColorFromCoordinates(ViewGroup viewRoot, int x, int y) {
+        float finalRadius = (float) Math.hypot(viewRoot.getWidth(), viewRoot.getHeight());
+        Animator anim = ViewAnimationUtils.createCircularReveal(viewRoot, x, y, 0, finalRadius);
+        anim.setDuration(600);
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        anim.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                flContent.setVisibility(View.VISIBLE);
+            }
+        });
+        anim.start();
+        return anim;
     }
 }
