@@ -390,7 +390,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
                 animateRevealColorFromCoordinates(flContent,
                         DisplayUtil.getScreenWidth() / 2, 0);
             }
-        }, TOOLBAR_ANIMATION_DELAY * (tbToolbar.getChildCount() + 2));
+        }, TOOLBAR_ANIMATION_DELAY * (tbToolbar.getChildCount() + 3));
 
     }
 
